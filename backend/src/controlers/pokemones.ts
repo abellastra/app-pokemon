@@ -1,7 +1,6 @@
 import { Request,Response } from "express";
 export const getPokemones = async (req:Request,res:Response  ) => {
   try {
-    // Simulate fetching data from a database or external API
     const pokemones = [
       { id: 1, name: "Pikachu" },
       { id: 2, name: "Charmander" },
