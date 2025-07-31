@@ -22,6 +22,7 @@ function Pokemones(){
 
 
     return(
+        <section id="tajetas" className="py-4 px-4 pb-16 max-w-xl mx-auto min-h-dvh mt-14">
          <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
                 <a className="relative rounded-3xl overflow-hidden
                 bg-gradient-to-br from-cyan-950 via-cyan-700
@@ -82,6 +83,7 @@ function Pokemones(){
                    
                 </a>
             </div>
+            </section>
     )
 }
 export default Pokemones
