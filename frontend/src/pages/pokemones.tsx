@@ -1,4 +1,26 @@
+import { useEffect } from "react";
+
 function Pokemones(){
+    useEffect(() => {
+        pedirDatosPokemones();
+    },[])
+ const pedirDatosPokemones = async () => {
+   const response = await fetch("http://localhost:3000/pokemones", {
+     method: "GET",
+     headers: {
+       "Content-Type": "application/json",
+     },
+   });
+   if (response.ok) {
+     const data = await response.json();
+     console.log(data);
+     // aca tendria que navegar a las tarjetas y pasarle los datos para
+     // llenarlas
+   }
+ };
+
+
+
     return(
          <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
                 <a className="relative rounded-3xl overflow-hidden
