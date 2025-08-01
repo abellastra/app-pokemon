@@ -5,7 +5,7 @@ function Pokemones(){
         pedirDatosPokemones();
     },[])
  const pedirDatosPokemones = async () => {
-   const response = await fetch("http://localhost:3000/pokemones", {
+   const response = await fetch("http://localhost:3000/pokemones/", {
      method: "GET",
      headers: {
        "Content-Type": "application/json",
