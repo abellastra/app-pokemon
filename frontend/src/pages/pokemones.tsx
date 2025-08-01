@@ -3,7 +3,9 @@ import Tarjeta from "../components/tarjetaPokemon";
 
 type Pokemon = {
   name: string;
-  url:string
+  habilidades: string;
+  ataques: string;
+  foto: string;
 };
 
 
@@ -21,12 +23,8 @@ const [listaPokemones, setListaPokemones] = useState<Pokemon[]>([])
         });
         if (response.ok) {
             const data = await response.json();
-            setListaPokemones(data.results)
+            setListaPokemones(data)
             console.log(data);
-    //         const abilities = data.abilities.map(ability => ability.ability.name);
-    // console.log(abilities)
-            // aca tendria que navegar a las tarjetas y pasarle los datos para
-            // llenarlas
         }
     };
 
@@ -38,7 +36,9 @@ const [listaPokemones, setListaPokemones] = useState<Pokemon[]>([])
                     <Tarjeta
                     key={pokemon.name}
                     name={pokemon.name}
-                    // url={pokemon.url}
+                    habilidades={pokemon.habilidades}
+                    ataques={pokemon.ataques}
+                    foto={pokemon.foto}
                     />
             )}
             

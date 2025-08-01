@@ -1,8 +1,11 @@
 type Pokemon = {
-    name: string,
+   name: string;
+  habilidades: string;
+  ataques: string;
+  foto: string;
 
 }
-function Tarjeta({ name }: Pokemon) {
+function Tarjeta({ name,habilidades,foto,ataques }: Pokemon) {
 
 
     return (
@@ -19,7 +22,7 @@ function Tarjeta({ name }: Pokemon) {
                 <h2 className="text-xl font-bold">{name}</h2>
                 <div className="flex flex-col items-start">
                     <img
-                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+                        src={foto}
                         alt="pikachu"
                         className=" 
                          object-contain
@@ -29,7 +32,8 @@ function Tarjeta({ name }: Pokemon) {
                          backdrop-blur-sm"
                     />
                 </div>
-                <span id="descripcion">{ }</span>
+                <span id="descripcion">{habilidades}</span>
+                <h3>{}</h3>
 
             </div>
 
