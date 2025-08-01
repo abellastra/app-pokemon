@@ -1,11 +1,7 @@
-import { useNavigate } from "react-router-dom"
+import Pokemones from "./pokemones";
 
 function Home() {
-    const navegar = useNavigate()
-    const irAPokemones = () => {
-        navegar("/pokemones");
-    };
-
+    
     return (
         <>
             <header className="">
@@ -14,9 +10,8 @@ function Home() {
 
                 <main className="py-4 px-4 pb-16 max-w-xl mx-auto min-h-dvh mt-14">
 
-
-                    <button className="w-36 bg-amber-400 border border-black rounded-3xl 
-  flex justify-center mx-auto" onClick={() => irAPokemones()}>Generar</button>
+                <Pokemones/>
+                    
 
 
                 </main>
