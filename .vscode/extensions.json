@@ -1,0 +1,38 @@
+{
+  "recommendations": [
+    // Essential for JavaScript/TypeScript development
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+
+    // React development
+    "dsznajder.es7-react-js-snippets",
+    "formulahendry.auto-rename-tag",
+    "bradlc.vscode-tailwindcss",
+
+    // General productivity
+    "ms-vscode.vscode-json",
+    "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense",
+    "aaron-bond.better-comments",
+    "wayou.vscode-todo-highlight",
+
+    // Git integration
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+
+    // Theme and UI
+    "pkief.material-icon-theme",
+    "equinusocio.vsc-material-theme",
+
+    // Development tools
+    "humao.rest-client",
+    "ms-vscode.live-server",
+    "ritwickdey.liveserver",
+
+    // Node.js specific
+    "ms-vscode.vscode-node-azure-pack",
+    "christian-kohler.npm-intellisense"
+  ],
+  "unwantedRecommendations": ["ms-vscode.vscode-typescript", "hookyqr.beautify"]
+}
