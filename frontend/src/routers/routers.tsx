@@ -1,15 +1,13 @@
-
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "../pages/home";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from '../pages/home';
 
 const Rutas = () => {
-    return (
+  return (
     <BrowserRouter>
-    <Routes>
-        <Route path="/" element={<Home></Home>}/>
-    </Routes>
+      <Routes>
+        <Route path='/' element={<Home />} />
+      </Routes>
     </BrowserRouter>
-    )
-}
-export default Rutas
+  );
+};
+export default Rutas;

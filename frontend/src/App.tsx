@@ -1,13 +1,8 @@
-import './App.css'
-import Rutas from './routers/routers'
+import './App.css';
+import Rutas from './routers/routers';
 
 function App() {
-
-  return (
-    <>
-    <Rutas/>
-    </>
-  )
+  return <Rutas />;
 }
 
-export default App
+export default App;
