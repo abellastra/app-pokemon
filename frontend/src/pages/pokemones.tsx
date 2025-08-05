@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import Tarjeta from "../components/tarjetaPokemon";
 
 type Pokemon = {
-  name: string;
-  habilidades: string;
-  ataques: string;
-  foto: string;
+    name: string;
+    habilidades: string;
+    ataques: string;
+    foto: string;
 };
 
 
 function Pokemones() {
-const [listaPokemones, setListaPokemones] = useState<Pokemon[]>([])
+    const [listaPokemones, setListaPokemones] = useState<Pokemon[]>([])
     useEffect(() => {
         pedirDatosPokemones();
     }, [])
@@ -32,16 +32,16 @@ const [listaPokemones, setListaPokemones] = useState<Pokemon[]>([])
 
     return (
         <section id="tajetas" className="py-4 px-4 pb-16 max-w-xl mx-auto min-h-dvh mt-14 flex flex-col items-center ">
-            { listaPokemones.map((pokemon) =>
-                    <Tarjeta
+            {listaPokemones.map((pokemon) =>
+                <Tarjeta
                     key={pokemon.name}
                     name={pokemon.name}
                     habilidades={pokemon.habilidades}
                     ataques={pokemon.ataques}
                     foto={pokemon.foto}
-                    />
+                />
             )}
-            
+
         </section>
     )
 }

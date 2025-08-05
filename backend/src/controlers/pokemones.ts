@@ -1,9 +1,8 @@
-import { Console } from "console";
+
 import { Request, Response } from "express";
-import { url } from "inspector";
 import fetch from "node-fetch";
-import { arch } from "os";
 console.log("Controlador de pokemones cargado /// pokemones.ts");
+
 export const getPokemones = async (req: Request, res: Response) => {
   type PokemonListResponse = {
     count: number;
@@ -13,7 +12,7 @@ export const getPokemones = async (req: Request, res: Response) => {
   };
 
   try {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=20");
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=5");
     const data = (await response.json()) as PokemonListResponse;
     const urls = data.results.map((pokemon) => pokemon.url);
 

@@ -5,7 +5,7 @@ type Pokemon = {
   foto: string;
 
 }
-function Tarjeta({ name,habilidades,foto,ataques }: Pokemon) {
+function Tarjeta({ name,habilidades,foto }: Pokemon) {
 
 
     return (
