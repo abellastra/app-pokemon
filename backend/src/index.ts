@@ -1,7 +1,6 @@
 import cors from 'cors';
 import express from 'express';
-
-import { getPokemones } from './controllers/pokemones';
+import useRouters from './routers/useRouters';
 
 const app = express();
 const port = 3000;
@@ -9,7 +8,7 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
-app.get('/pokemones', getPokemones);
+app.use("/",useRouters)
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
