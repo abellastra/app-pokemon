@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import Tarjeta from '../components/tarjetaPokemon';
 
 type Pokemon = {
-    name: string;
-    habilidades: string;
-    ataques: string;
-    foto: string;
+  name: string;
+  habilidades: string;
+  ataques: string;
+  foto: string;
 };
 
 function Pokemones() {
@@ -30,17 +29,29 @@ function Pokemones() {
   return (
     <section
       id='tajetas'
-      className='py-4 px-4 pb-16 max-w-xl mx-auto min-h-dvh mt-14 flex flex-col items-center '
+      className='py-4 px-4 pb-16 max-w-xl mx-auto min-h-dvh  flex flex-col items-center '
     >
-      {listaPokemones.map(pokemon => (
-        <Tarjeta
-          key={pokemon.name}
-          name={pokemon.name}
-          habilidades={pokemon.habilidades}
-          ataques={pokemon.ataques}
-          foto={pokemon.foto}
-        />
-      ))}
+       <table className="table table-striped-columns">
+        <thead>
+          <tr>
+            <th scope="col">Images</th>
+            <th scope="col">Name</th>
+            <th scope="col">Skills</th>
+            <th scope="col">Attacks</th>
+          </tr>
+        </thead>
+        <tbody>
+          {listaPokemones.map(pokemon => (
+            <tr>
+              <td><img src={pokemon.foto} alt="Foto" /></td>
+              <td>{pokemon.name}</td>
+              <td>{pokemon.habilidades}</td>
+            </tr>
+          ))}
+
+
+        </tbody>
+      </table>
     </section>
   );
 }
