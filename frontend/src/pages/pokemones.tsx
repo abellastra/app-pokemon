@@ -22,7 +22,7 @@ function Pokemones() {
     });
     if (response.ok) {
       const data = await response.json();
-      setListaPokemones(data);
+      setListaPokemones(data.resultado);
     }
   };
 
