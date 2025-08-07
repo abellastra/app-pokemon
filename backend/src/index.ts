@@ -8,7 +8,7 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
-app.use("/",useRouters)
+app.use("/",useRouters) 
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
