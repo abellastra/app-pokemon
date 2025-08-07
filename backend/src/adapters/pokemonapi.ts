@@ -1,8 +1,6 @@
 import fetch from 'node-fetch';
 import { API_POKEMON } from '../constants';
 import { PokemonApiResponse } from './types';
-import { count } from 'console';
-
 type Props = {
   size: number;
 };
@@ -46,7 +44,8 @@ export const getPokemons = async (props: Props): Promise<{ dataPokemon: PokemonA
       return (await res.json()) as PokemonApiResponse;
     })
   );
-  const resultado = {dataPokemon, count};
+  
+  const resultado = {dataPokemon, count };
 
   return resultado;
 };
