@@ -9,6 +9,7 @@ type Pokemon = {
 
 function Pokemones() {
   const [listaPokemones, setListaPokemones] = useState<Pokemon[]>([]);
+
   useEffect(() => {
     pedirDatosPokemones();
   }, []);
@@ -22,7 +23,6 @@ function Pokemones() {
     if (response.ok) {
       const data = await response.json();
       setListaPokemones(data);
-      console.log(data);
     }
   };
 
