@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getPokemons } from '../adapters/pokemonapi';
+import { info } from 'console';
 console.log('Controlador de pokemones cargado /// pokemones.ts');
 export const getPokemones = async (req: Request, res: Response) => {
   try {
@@ -19,17 +20,22 @@ export const getPokemones = async (req: Request, res: Response) => {
 
       const foto = pokemon.sprites.front_default;
       
-        const infopPges = response_url  .count;
+
+
+    const descripcion = pokemon.species.name;
+    console.log('Descripcion:', descripcion);
         return {
           name: name,
           habilidades: habilidades.join(', '),
           ataques: ataques.join(', '),
           foto: foto,
-          infopPges: infopPges
+          // infopPges: infopPges
         };
       });
 
-      res.status(200).json(resultado);
+      res
+        .status(200)
+        .json({ resultado: resultado, infoPages: response_url.count });
     } catch {
       res.status(500).json({ message: 'Error fetching pokemones' });
     }
