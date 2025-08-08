@@ -36,29 +36,9 @@ function Pokemones() {
     if (response.ok) {
       const data = await response.json();
       setListaPokemones(data.resultado);
-      setRegistros(data.infoPages)
+      setRegistros(data.infoPages);
     }
-  };
-
- 
-   
-
-   useEffect(() =>{
-    const totalPag = Math.ceil(registros / limite);
-    const nuevosItems = []
-    for(let i = 1; i <= totalPag; i++){
-      nuevosItems.push(
-          <li className="page-item" key={i}>
-          <a className="page-link" href="#"  onClick={(e) => {;
-            e.preventDefault();
-            setPaginaActual(i);
-          }}>{i}</a>
-        </li>)
-    }
-    setItems(nuevosItems);
-   },[registros])
-  
-
+  }
  
    
 
