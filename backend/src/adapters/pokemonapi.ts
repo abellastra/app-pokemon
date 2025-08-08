@@ -2,7 +2,8 @@ import fetch from 'node-fetch';
 import { API_POKEMON } from '../constants';
 import { PokemonApiResponse } from './types';
 type Props = {
-  size: number;
+  offset?: number;
+  limit?: number;
 };
 
 type PokemonListResponse = {
@@ -13,17 +14,14 @@ type PokemonListResponse = {
 };
 
 const getPokemonsList = async (props: Props): Promise<PokemonListResponse> => {
-  const { size } = props;
-
-  if (size <= 0) {
+  const { offset,limit } = props;
+console.log( offset,  limit);
+  if (offset ==undefined|| limit==undefined) {
     throw new Error('Size must be greater than 0');
   }
 
-  if (size > 100) {
-    throw new Error('Size must be less than 100');
-  }
 
-  const response = await fetch(`${API_POKEMON}?limit=${size}`);
+  const response = await fetch(`${API_POKEMON}?limit=${limit}&offset=${offset}`);
 
   const data = await response.json();
 
@@ -31,9 +29,9 @@ const getPokemonsList = async (props: Props): Promise<PokemonListResponse> => {
 };
 
 export const getPokemons = async (props: Props): Promise<{ dataPokemon: PokemonApiResponse[]; count: number }> => {
-  const { size } = props;
+  const { offset,limit} = props;
 
-  const pokemonsList = await getPokemonsList({ size });
+  const pokemonsList = await getPokemonsList({ offset, limit });
 
   const urls = pokemonsList.results.map(pokemon => pokemon.url);
   const count = pokemonsList.count;

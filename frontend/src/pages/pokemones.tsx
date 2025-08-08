@@ -36,10 +36,9 @@ function Pokemones() {
     if (response.ok) {
       const data = await response.json();
       setListaPokemones(data.resultado);
-      setRegistros(data.infoPages)
+      setRegistros(data.infoPages);
     }
-  };
-
+  }
  
    
 
