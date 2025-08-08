@@ -12,8 +12,10 @@ type Pokemon = {
 function Pokemones() {
   const [listaPokemones, setListaPokemones] = useState<Pokemon[]>([]);
   const [registros, setRegistros] = useState(0)
-  const [items, setItems] =useState<JSX.Element[]>([]);
+  const [items, setItems] = useState<JSX.Element[]>([]);
   const [paginaActual, setPaginaActual] = useState(1);
+  const [rangoPagina, setRangoPagina] = useState(0);
+  const paginasPorRango = 10;
   const limite = 20
 
 
@@ -22,9 +24,9 @@ function Pokemones() {
   //   pedirDatosPokemones();
   // }, []);
   useEffect(() => {
-  const offset = (paginaActual - 1) * limite;
-  pedirDatosPokemones(offset, limite);
-}, [paginaActual]);
+    const offset = (paginaActual - 1) * limite;
+    pedirDatosPokemones(offset, limite);
+  }, [paginaActual]);
 
   const pedirDatosPokemones = async (offset: number, limite: number) => {
     const response = await fetch(`http://localhost:3000/pokemones?offset=${offset}&limit=${limite}`, {
@@ -39,47 +41,74 @@ function Pokemones() {
       setRegistros(data.infoPages);
     }
   }
- 
-   
 
-   useEffect(() =>{
+
+
+  useEffect(() => {
     const totalPag = Math.ceil(registros / limite);
     const nuevosItems = []
-    for(let i = 1; i <= totalPag; i++){
+    for (let i = 1; i <= totalPag; i++) {
       nuevosItems.push(
-          <li className="page-item" key={i}>
-          <a className="page-link" href="#"  onClick={(e) => {;
+        <li className="page-item" key={i}>
+          <a className="page-link" href="#" onClick={(e) => {
+            ;
             e.preventDefault();
             setPaginaActual(i);
           }}>{i}</a>
         </li>)
     }
     setItems(nuevosItems);
-   },[registros])
-  
+  }, [registros])
 
+  const inicio = rangoPagina * paginasPorRango
+  const fin = inicio + paginasPorRango;
+  const itemsVisibles = items.slice(inicio, fin);
   return (
     <section
       id='tajetas'
       className='py-4 px-4 pb-16 max-w-xl mx-auto min-h-dvh  flex flex-col items-center '
     >
-       <div>
+
+      <div>
+
+
         <nav aria-label="Page navigation example">
+
           <ul className="pagination">
+           
             <li className="page-item">
               <a className="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
+              <button
+              onClick={() => setRangoPagina(prev => Math.max(0, prev - 1))}
+              disabled={rangoPagina === 0}
+            >
+              &laquo;
+            </button>
               </a>
             </li>
-            {items}
+            {itemsVisibles}
             <li className="page-item">
               <a className="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
+                <button
+              onClick={() =>
+                setRangoPagina(prev =>
+                  (prev + 1) * paginasPorRango < items.length ? prev + 1 : prev
+                )
+              }
+              disabled={(rangoPagina + 1) * paginasPorRango >= items.length}
+            >&raquo;</button>
+               
               </a>
             </li>
+            
           </ul>
+
+
         </nav>
+
+
       </div>
+
       <table className="table table-striped-columns">
         <thead>
           <tr>
@@ -101,7 +130,7 @@ function Pokemones() {
 
         </tbody>
       </table>
-     
+
     </section>
   );
 }
