@@ -5,6 +5,7 @@ import Navar from '../pages/navar';
 
 const Rutas = () => {
   return (
+    
     <BrowserRouter>
     <Navar />
       <Routes>
