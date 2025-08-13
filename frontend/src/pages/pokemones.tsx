@@ -69,52 +69,53 @@ function Pokemones() {
   const fin = inicio + paginasPorRango;
   const itemsVisibles = items.slice(inicio, fin);
   return (
-    <>
-      <section
-        id='tajetas'
-        className='py-4 px-4 pb-16 max-w-xl mx-auto   flex- items-center '
-      >
-        <div>
-          <nav aria-label='Page navigation example'>
-            <ul className='pagination'>
-              <li className='page-item'>
-                <a className='page-link' href='#' aria-label='Previous'>
-                  <button
-                    onClick={() =>
-                      setRangoPagina(prev => Math.max(0, prev - 1))
-                    }
-                    disabled={rangoPagina === 0}
-                  >
-                    &laquo;
-                  </button>
-                </a>
-              </li>
-              {itemsVisibles}
-              <li className='page-item'>
-                <a className='page-link' href='#' aria-label='Next'>
-                  <button
-                    onClick={() =>
-                      setRangoPagina(prev =>
-                        (prev + 1) * paginasPorRango < items.length
-                          ? prev + 1
-                          : prev
-                      )
-                    }
-                    disabled={
-                      (rangoPagina + 1) * paginasPorRango >= items.length
-                    }
-                  >
-                    &raquo;
-                  </button>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </section>
-      <div className='grid grid-cols-4 gap-4 w-[80%]'>
-        {listaPokemones.map((pokemon, index) => (
+    <div className='flex flex-col items-center  '>
+        {/* <section
+          id='tajetas'
+          className='py-4 px-4 pb-16 max-w-xl mx-auto   flex- items-center '
+        >
+          <div>
+            <nav aria-label='Page navigation example'>
+              <ul className='pagination'>
+                <li className='page-item'>
+                  <a className='page-link' href='#' aria-label='Previous'>
+                    <button
+                      onClick={() =>
+                        setRangoPagina(prev => Math.max(0, prev - 1))
+                      }
+                      disabled={rangoPagina === 0}
+                    >
+                      &laquo;
+                    </button>
+                  </a>
+                </li>
+                {itemsVisibles}
+                <li className='page-item'>
+                  <a className='page-link' href='#' aria-label='Next'>
+                    <button
+                      onClick={() =>
+                        setRangoPagina(prev =>
+                          (prev + 1) * paginasPorRango < items.length
+                            ? prev + 1
+                            : prev
+                        )
+                      }
+                      disabled={
+                        (rangoPagina + 1) * paginasPorRango >= items.length
+                      }
+                    >
+                      &raquo;
+                    </button>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </section> */}
+      <div className='grid grid-cols-5 gap-4 w-[90%] h-[485px] overflow-y-auto overflow-x-hidden  bg-write  '>
+        {listaPokemones.map(pokemon => (
           <Tarjeta
+          key={pokemon.name}
             name={pokemon.name}
             habilidades={pokemon.habilidades}
             foto={pokemon.foto}
@@ -122,7 +123,7 @@ function Pokemones() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 export default Pokemones;

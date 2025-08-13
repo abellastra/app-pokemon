@@ -4,7 +4,7 @@ function Home() {
   return (
     <>
       <header>
-        <main className='py-4 px-4 pb-16 max-w-xl mx-auto '>
+        <main className='mx-auto '>
             <label className='block text-center  w-full '>
             Type:
             <select name="selectedType" >
