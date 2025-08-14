@@ -19,12 +19,14 @@ export const getPokemones = async (req: Request, res: Response) => {
         const description = descData.flavor_text_entries.find(
           (entry: any) => entry.language.name === 'es'
         ).flavor_text;
+        const generation = descData.generation.name.replace('generation-', '');
         return {
           name: name,
           habilidades: habilidades.join(', '),
           ataques: ataques.join(', '),
           foto: foto,
           description: description,
+          generation: generation,
         };
       })
     );
@@ -32,7 +34,7 @@ export const getPokemones = async (req: Request, res: Response) => {
     res
       .status(200)
       .json({ resultado: resultado, infoPages: response_url.count });
-  } catch(error){
+  } catch (error) {
     res.status(500).json({ message: 'Error fetching pokemones' + error });
   }
 };

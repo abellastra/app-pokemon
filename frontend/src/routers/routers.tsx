@@ -6,6 +6,7 @@ import Login from '../components/login';
 
 const Rutas = () => {
   return (
+    
     <BrowserRouter>
     <Navar />
       <Routes>
