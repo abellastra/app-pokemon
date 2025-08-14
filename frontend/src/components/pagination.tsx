@@ -9,6 +9,7 @@ interface PaginationProps {
 function Pagination(props: PaginationProps) {
 
     const arrayItemsPag = ReturnPaginationRange(props.totalPaginas, props.paginaActual, props.siblings)
+    console.log(arrayItemsPag)
     return (
         <div>
             <div className="flex items-center justify-between border-t border-white/10 px-4 py-3 sm:px-6">
@@ -33,12 +34,13 @@ function Pagination(props: PaginationProps) {
                                 Previous
                             </a>
 
-                            {arrayItemsPag.map(value => {
+                            {arrayItemsPag.map((value,index )=> {
                                 if (value === props.paginaActual) {
+                                  
                                     return (
                                         <a
                                             href="#"
-                                            key={value}
+                                            key={`${value}-${index}`}
                                             className="relative hidden items-center px-4 py-2 text-sm font-semibold inset-ring inset-ring-gray-700 text-white hover:bg-white/5 focus:z-20 focus:outline-offset-0 md:inline-flex bg-gray-700"
                                             onClick={() => props.cambiar((value))}
                                         >
@@ -49,7 +51,7 @@ function Pagination(props: PaginationProps) {
                                     return (
                                         <a
                                             href="#"
-                                            key={value}
+                                            key={`${value}-${index}`}
                                             className="relative hidden items-center px-4 py-2 text-sm font-semibold inset-ring inset-ring-gray-700  text-white hover:bg-white/5 focus:z-20 focus:outline-offset-0 md:inline-flex" onClick={() => props.cambiar(Number(value))}>
                                             {value}
                                         </a>
