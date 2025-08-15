@@ -34,6 +34,7 @@ export const getPokemons = async (props: Props): Promise<{ dataPokemon: PokemonA
   const pokemonsList = await getPokemonsList({ offset, limit });
 
   const urls = pokemonsList.results.map(pokemon => pokemon.url);
+  
   const count = pokemonsList.count;
 
   const dataPokemon = await Promise.all(
