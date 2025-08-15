@@ -2,17 +2,18 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../pages/home';
 import Pokemones from '../pages/pokemones';
 import Navar from '../pages/navar';
+import Filters from '../components/filters';
 import Login from '../components/login';
 
 const Rutas = () => {
   return (
-    
     <BrowserRouter>
-    <Navar />
+      <Navar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login/>} />
-         <Route path='/pokemones' element={<Pokemones/>} /> 
+        
+        <Route path='/pokemones' element={<Pokemones />} />
+        <Route path='/pokemones/generation/:generation' element={<Filters />} />
       </Routes>
     </BrowserRouter>
   );

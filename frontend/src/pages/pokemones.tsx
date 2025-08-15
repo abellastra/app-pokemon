@@ -19,7 +19,7 @@ function Pokemones() {
   const [paginaActual, setPaginaActual] = useState(1);
   const limite = 20;
   const totalPag = Math.ceil(registros / limite);
-
+console.log(listaPokemones)
   useEffect(() => {
     const offset = (paginaActual - 1) * limite;
     pedirDatosPokemones(offset, limite);
