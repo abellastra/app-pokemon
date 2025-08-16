@@ -12,7 +12,7 @@ const Rutas = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login/>} />
-         <Route path='/pokemones' element={<Pokemones/>} /> 
+        <Route path='/pokemones' element={<Pokemones/>} /> 
       </Routes>
     </BrowserRouter>
   );
