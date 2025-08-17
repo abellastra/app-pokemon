@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import { getPokemons } from '../adapters/pokemonapi';
-console.log('Controlador de pokemones cargado /// pokemones.ts');
 export const getPokemones = async (req: Request, res: Response) => {
   const offset = parseInt(req.query.offset as string);
   const limit = parseInt(req.query.limit as string);
   try {
     const response_url = await getPokemons({ offset, limit });
-
+    
     const resultado = await Promise.all(
       response_url.dataPokemon.map(async pokemon => {
         const name = pokemon.name;

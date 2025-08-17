@@ -6,6 +6,7 @@ import { Login } from "../controllers/login";
 import { body} from "express-validator";
 import { validarCampos } from "../middleware/validacionDeCampos";
 
+import { filtersDb } from "../controllers/filters";
 
 
 const router = express.Router();
@@ -24,5 +25,6 @@ router.post('/login-user', [
         validarCampos
 ],
  Login)
+router.get(`/pokemones/generation/:selectedGeneration`, filtersDb);
 
 export default router;
