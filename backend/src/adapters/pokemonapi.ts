@@ -15,7 +15,6 @@ type PokemonListResponse = {
 
 const getPokemonsList = async (props: Props): Promise<PokemonListResponse> => {
   const { offset,limit } = props;
-console.log( offset,  limit);
   if (offset ==undefined|| limit==undefined) {
     throw new Error('Size must be greater than 0');
   }
