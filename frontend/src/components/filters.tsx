@@ -1,62 +1,82 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-function Filters() {
-  const [selectedGeneration, setSelectedGeneration] = useState(Number);
-  const navigate=useNavigate()
+type FiltersProps = {
+  selectedGeneration: number;
+  setSelectedGeneration: (generation: number) => void;
 
-  useEffect(() => {
-    if(selectedGeneration >=1 &&selectedGeneration <=6  ){
-      
-    pokemonesForGeneration();
-    }
-  }, [selectedGeneration]);
+  selectedType: string;
+  setSelectedType: (type: string) => void;
+};
 
-  const pokemonesForGeneration = async () => {
-    const response = await fetch(
-      `http://localhost:3000/pokemones/generation/${selectedGeneration}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    if (response.ok) {
-      const data = await response.json()
-      console.log(data)
+const filterType = [
+  { value: 'Bug', label: '🐛 Bug' },
+  { value: 'Dark', label: '🌑 Dark' },
+  { value: 'Dragon', label: '🐉 Dragon' },
+  { value: 'Electric', label: '⚡ Electric' },
+  { value: 'Fairy', label: '🧚‍♀️ Fairy' },
+  { value: 'Fighting', label: '🥊 Fighting' },
+  { value: 'Fire', label: '🔥 Fire' },
+  { value: 'Flying', label: '🦅 Flying' },
+  { value: 'Ghost', label: '👻 Ghost' },
+  { value: 'Grass', label: '🌿 Grass' },
+  { value: 'Ground', label: '🌍 Ground' },
+  { value: 'Ice', label: '❄️ Ice' },
+  { value: 'Normal', label: '🌀 Normal' },
+  { value: 'Poison', label: '💀 Poison' },
+  { value: 'Psychic', label: '🔮 Psychic' },
+  { value: 'Rock', label: '🪨 Rock' },
+  { value: 'Steel', label: '🛠️ Steel' },
+  { value: 'Water', label: '💧 Water' },
+  { value: 'Shadow', label: 'Shadow' },
+];
 
-    }
-  };
+const filterGeneration = [
+  { value: '1', label: 'I' },
+  { value: '2', label: 'II' },
+  { value: '3', label: 'III' },
+  { value: '4', label: 'IV' },
+  { value: '5', label: 'V' },
+];
 
+function Filters({
+  selectedGeneration,
+  setSelectedGeneration,
+  selectedType,
+  setSelectedType,
+}: FiltersProps) {
   return (
     <div className=' flex flex-wrap gap-4 justify-center items-center mb-4'>
       <label className='block text-center bg-sky-200 m-1 p-2  rounded-xl'>
         Type:
-        <select name='selectedType'>
-          <option value='Normal'>Normal</option>
-          <option onChange={() => {}} value='Pighting'>
-            Pighting
-          </option>
-          <option value='Poison'>Poison</option>
+        <select
+          name='selectedType'
+          value={selectedType}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            setSelectedType(e.target.value);
+          }}
+        >
+          <option value=''>All</option>
+          {filterType.map(type => (
+            <option key={type.value} value={type.value}>
+              {type.label}
+            </option>
+          ))}
         </select>
       </label>
+
       <label className='block text-center  bg-sky-200 p-2   rounded-xl'>
         Generation:
         <select
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            navigate('/pokemones/generation/' + e.target.value);
             setSelectedGeneration(Number(e.target.value));
           }}
           name='selectedGeneracion'
+          value={String(selectedGeneration)}
         >
-          <option></option>
-
-          <option value={1}>I</option>
-          <option value={2}>II</option>
-          <option value={3}>III</option>
-          <option value={4}>IV</option>
-          <option value={5}>V</option>
-          <option value={6}>VI</option>
+          <option value=''>All</option>
+          {filterGeneration.map(generation => (
+            <option key={generation.value} value={generation.value}>
+              {generation.label}
+            </option>
+          ))}
         </select>
       </label>
     </div>

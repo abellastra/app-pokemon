@@ -3,9 +3,12 @@ import { getPokemons } from '../adapters/pokemonapi';
 export const getPokemones = async (req: Request, res: Response) => {
   const offset = parseInt(req.query.offset as string);
   const limit = parseInt(req.query.limit as string);
+  const type = req.query.type as string;
+  const generation = req.query.generation as string;
+
   try {
-    const response_url = await getPokemons({ offset, limit });
-    
+    const response_url = await getPokemons({ offset, limit, type, generation });
+
     const resultado = await Promise.all(
       response_url.dataPokemon.map(async pokemon => {
         const name = pokemon.name;

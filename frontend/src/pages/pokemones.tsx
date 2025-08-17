@@ -1,51 +1,48 @@
 import { useEffect, useState } from 'react';
-import Tarjeta from '../components/tarjetaPokemon';
-import Pagination from '../components/pagination';
+import { useSearchParams } from 'react-router-dom';
 import Filters from '../components/filters';
+import Pagination from '../components/pagination';
+import Tarjeta from '../components/tarjetaPokemon';
+import { fetchPokemonsApi, type PokemonApi } from '../services/fetchPokemons';
 
-type Pokemon = {
-  name: string;
-  habilidades: string;
-  ataques: string;
-  foto: string;
-  infoPages: number;
-  generation: string;
-  description: string;
-};
+const filterTypeName = 'type';
+const filterGenerationName = 'generation';
+const filterPaginaName = 'pagina';
 
 function Pokemones() {
-  const [listaPokemones, setListaPokemones] = useState<Pokemon[]>([]);
-  const [registros, setRegistros] = useState(0);
-  const [paginaActual, setPaginaActual] = useState(1);
-  const limite = 20;
-  const totalPag = Math.ceil(registros / limite);
-console.log(listaPokemones)
-  useEffect(() => {
-    const offset = (paginaActual - 1) * limite;
-    pedirDatosPokemones(offset, limite);
-  }, [paginaActual, totalPag]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const pedirDatosPokemones = async (offset: number, limite: number) => {
-    const response = await fetch(
-      `http://localhost:3000/pokemones?offset=${offset}&limit=${limite}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    if (response.ok) {
-      const data = await response.json();
+  const [listaPokemones, setListaPokemones] = useState<PokemonApi[]>([]);
+  const [registros, setRegistros] = useState(0);
+
+  const limite = 20;
+  const type = searchParams.get(filterTypeName) || '';
+  const generation = searchParams.get(filterGenerationName)
+    ? parseInt(searchParams.get(filterGenerationName) || '0')
+    : 0;
+  const paginaActual = searchParams.get(filterPaginaName)
+    ? parseInt(searchParams.get(filterPaginaName) || '1')
+    : 1;
+
+  const totalPag = Math.ceil(registros / limite);
+
+  useEffect(() => {
+    const offset = paginaActual * limite;
+
+    fetchPokemonsApi({ offset, limite, type, generation }).then(data => {
       setListaPokemones(data.resultado);
       setRegistros(data.infoPages);
-    }
-  };
+    });
+  }, [paginaActual, type, generation]);
 
-  console.log(registros);
-  function cambiarPagina(value: number) {
-    setPaginaActual(value);
-  }
+  const handleChangeFilter = (filter: string) => {
+    return (value: string | number) => {
+      setSearchParams({
+        ...Object.fromEntries(searchParams.entries()),
+        [filter]: value.toString(),
+      });
+    };
+  };
 
   return (
     <div className=' flex flex-col items-center  '>
@@ -53,9 +50,15 @@ console.log(listaPokemones)
         totalPaginas={totalPag}
         paginaActual={paginaActual}
         siblings={1}
-        cambiar={cambiarPagina}
+        cambiar={handleChangeFilter(filterPaginaName)}
       />
-      <Filters />
+
+      <Filters
+        selectedGeneration={generation}
+        selectedType={type}
+        setSelectedGeneration={handleChangeFilter(filterGenerationName)}
+        setSelectedType={handleChangeFilter(filterTypeName)}
+      />
 
       <div className='grid grid-cols-5 gap-4 w-[90%] h-[485px] overflow-y-auto overflow-x-hidden  bg-write  '>
         {listaPokemones.map(pokemon => (
