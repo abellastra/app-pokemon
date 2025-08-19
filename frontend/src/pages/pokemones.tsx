@@ -4,11 +4,11 @@ import Pagination from '../components/pagination';
 import Filters from '../components/filters';
 
 type Pokemon = {
+  
   name: string;
-  habilidades: string;
-  ataques: string;
-  foto: string;
-  infoPages: number;
+  ability: string;
+  attacks: string;
+  img: string;
   generation: string;
   description: string;
 };
@@ -19,7 +19,6 @@ function Pokemones() {
   const [paginaActual, setPaginaActual] = useState(1);
   const limite = 20;
   const totalPag = Math.ceil(registros / limite);
-console.log(listaPokemones)
   useEffect(() => {
     const offset = (paginaActual - 1) * limite;
     pedirDatosPokemones(offset, limite);
@@ -42,7 +41,6 @@ console.log(listaPokemones)
     }
   };
 
-  console.log(registros);
   function cambiarPagina(value: number) {
     setPaginaActual(value);
   }
@@ -62,10 +60,11 @@ console.log(listaPokemones)
           <Tarjeta
             key={pokemon.name}
             name={pokemon.name}
-            habilidades={pokemon.habilidades}
-            foto={pokemon.foto}
+            ability={pokemon.ability}
+            img={pokemon.img}
             description={pokemon.description}
             generation={pokemon.generation}
+            attacks={pokemon.attacks}
           />
         ))}
       </div>

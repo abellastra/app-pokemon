@@ -11,9 +11,9 @@ const Rutas = () => {
       <Navar />
       <Routes>
         <Route path='/' element={<Home />} />
-        
         <Route path='/pokemones' element={<Pokemones />} />
         <Route path='/pokemones/generation/:generation' element={<Filters />} />
+        <Route path='/login' element={<Login />} /> {/*borra mas tarde */}
       </Routes>
     </BrowserRouter>
   );

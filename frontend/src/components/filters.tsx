@@ -1,13 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Tarjeta from './tarjetaPokemon';
+import Pagination from './pagination';
+type pokemon = {
+    name: string;
+    ability: string;
+    img: string;
+    description: string;
+    attacks:string,
+    generation:string
+
+};
 function Filters() {
   const [selectedGeneration, setSelectedGeneration] = useState(Number);
-  const navigate=useNavigate()
+  const [listPokemones, setListPokemones] = useState<pokemon[]>([]);
+  const [paginaActual,setPaginaActual] = useState(1)
+  const pagesTotal = Math.ceil(listPokemones.length / 20); //paginas a mostrar
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if(selectedGeneration >=1 &&selectedGeneration <=6  ){
-      
-    pokemonesForGeneration();
+    if (selectedGeneration >= 1 && selectedGeneration <= 6) {
+      pokemonesForGeneration();
     }
   }, [selectedGeneration]);
 
@@ -21,12 +34,17 @@ function Filters() {
         },
       }
     );
-    if (response.ok) {
-      const data = await response.json()
-      console.log(data)
 
+    if (response.ok) {
+      const data = await response.json();
+      setListPokemones(data.resultado);
+      console.log(data.resultado);
     }
+    console.log(response);
   };
+  function cambiarPagina(value: number) {
+    setPaginaActual(value);
+  }
 
   return (
     <div className=' flex flex-wrap gap-4 justify-center items-center mb-4'>
@@ -59,6 +77,30 @@ function Filters() {
           <option value={6}>VI</option>
         </select>
       </label>
+      <Pagination totalPaginas={pagesTotal} paginaActual={paginaActual} siblings={1} cambiar={cambiarPagina}/>
+
+      {listPokemones.map(pokemon => (
+        <Tarjeta
+          key={pokemon.name}
+          name={pokemon.name}
+          ability={pokemon.ability}
+          img={pokemon.img}
+          description={pokemon.description}
+          attacks={pokemon.attacks}
+          generation={pokemon.generation}
+        />
+      ))}
+
+      {/* {listPokemones.map(pokemon => (
+        // <Tarjeta
+        //   key={pokemon.name}
+        //   name={pokemon.name}
+        //   habilidades={pokemon.habilidades}
+        //   foto={pokemon.foto}
+        //   description={pokemon.description}
+        //   generation={pokemon.generation}
+        // />
+      ))} */}
     </div>
   );
 }

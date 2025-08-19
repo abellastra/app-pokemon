@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 type Pokemon = {
   name: string;
-  habilidades: string;
-  foto: string;
+  ability: string;
+  img: string;
+  description: string;
+  attacks: string;
   generation: string;
- description: string;
 };
-function Tarjeta({ name, habilidades, foto ,description ,generation}: Pokemon) {
+function Tarjeta({ name, ability, img ,description ,attacks,generation}: Pokemon) {
+  
+
  const [showDescription, setShowDescription] = useState<Boolean>(false);
   return (
     // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
     <div className='  flex justify-center items-center bg-white rounded-lg shadow-md  w-[200px]'>
       <div className=' relative flex flex-col  items-center  h-[230px] w-full  '>
         <h4 className=''>{name}</h4>
-        <img className='w-[96px] h-[96px]' src={foto} alt='' />
-        <h5>{habilidades}</h5>
+        <img className='w-[96px] h-[96px]' src={img} alt='' />
+        <h5>{ability}</h5>
         <h5>Generation {generation.toUpperCase()}</h5>
         <button
           className='bg-sky-200 p-1 rounded-md hover:bg-sky-300 '
