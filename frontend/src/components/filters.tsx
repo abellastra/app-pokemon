@@ -2,105 +2,90 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Tarjeta from './tarjetaPokemon';
 import Pagination from './pagination';
-type pokemon = {
-    name: string;
-    ability: string;
-    img: string;
-    description: string;
-    attacks:string,
-    generation:string
+// type pokemon = {
+//     name: string;
+//     ability: string;
+//     img: string;
+//     description: string;
+//     attacks:string,
+//     generation:string
 
+// };
+type filtersProps = {
+  setSelectedGeneration: (value: string | number) => void;
+  setSelectedType: (value: string | number) => void;
 };
-function Filters() {
-  const [selectedGeneration, setSelectedGeneration] = useState(Number);
-  const [listPokemones, setListPokemones] = useState<pokemon[]>([]);
-  const [paginaActual,setPaginaActual] = useState(1)
-  const pagesTotal = Math.ceil(listPokemones.length / 20); //paginas a mostrar
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (selectedGeneration >= 1 && selectedGeneration <= 6) {
-      pokemonesForGeneration();
-    }
-  }, [selectedGeneration]);
+function Filters({ setSelectedGeneration, setSelectedType }: filtersProps) {
+  const FiltersType = [
+    { value: 'Bug', label: '🐛 Bug' },
+    { value: 'Dark', label: '🌑 Dark' },
+    { value: 'Dragon', label: '🐉 Dragon' },
+    { value: 'Electric', label: '⚡ Electric' },
+    { value: 'Fairy', label: '🧚‍♀️ Fairy' },
+    { value: 'Fighting', label: '🥊 Fighting' },
+    { value: 'Fire', label: '🔥 Fire' },
+    { value: 'Flying', label: '🦅 Flying' },
+    { value: 'Ghost', label: '👻 Ghost' },
+    { value: 'Grass', label: '🌿 Grass' },
+    { value: 'Ground', label: '🌍 Ground' },
+    { value: 'Ice', label: '❄️ Ice' },
+    { value: 'Normal', label: '🌀 Normal' },
+    { value: 'Poison', label: '💀 Poison' },
+    { value: 'Psychic', label: '🔮 Psychic' },
+    { value: 'Rock', label: '🪨 Rock' },
+    { value: 'Steel', label: '🛠️ Steel' },
+    { value: 'Water', label: '💧 Water' },
+    { value: 'Shadow', label: 'Shadow' },
+  ];
 
-  const pokemonesForGeneration = async () => {
-    const response = await fetch(
-      `http://localhost:3000/pokemones/generation/${selectedGeneration}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      setListPokemones(data.resultado);
-      console.log(data.resultado);
-    }
-    console.log(response);
-  };
-  function cambiarPagina(value: number) {
-    setPaginaActual(value);
-  }
+  const FiltersGeneration = [
+    { value: 1, label: 'I' },
+    { value: 2, label: 'II' },
+    { value: 3, label: 'III' },
+    { value: 4, label: 'IV' },
+    { value: 5, label: 'V' },
+    { value: 6, label: 'VI' },
+  ];
 
   return (
     <div className=' flex flex-wrap gap-4 justify-center items-center mb-4'>
       <label className='block text-center bg-sky-200 m-1 p-2  rounded-xl'>
         Type:
-        <select name='selectedType'>
-          <option value='Normal'>Normal</option>
-          <option onChange={() => {}} value='Pighting'>
-            Pighting
-          </option>
-          <option value='Poison'>Poison</option>
+        <select
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            setSelectedType(e.target.value);
+          }}
+          name='selectedType'
+        >
+          <option>all</option>
+          {FiltersType.map(option => (
+            <option
+              className='bg-[rgb(128,128,128)]'
+              value={option.value}
+              key={option.value}
+            >
+              {option.label}
+            </option>
+          ))}
         </select>
       </label>
       <label className='block text-center  bg-sky-200 p-2   rounded-xl'>
         Generation:
         <select
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-            navigate('/pokemones/generation/' + e.target.value);
             setSelectedGeneration(Number(e.target.value));
           }}
           name='selectedGeneracion'
         >
-          <option></option>
-
-          <option value={1}>I</option>
-          <option value={2}>II</option>
-          <option value={3}>III</option>
-          <option value={4}>IV</option>
-          <option value={5}>V</option>
-          <option value={6}>VI</option>
+          <option>all</option>
+          {FiltersGeneration.map(option => (
+            <option value={option.value} key={option.value}>
+              {option.label}
+            </option>
+          ))}
         </select>
       </label>
-      <Pagination totalPaginas={pagesTotal} paginaActual={paginaActual} siblings={1} cambiar={cambiarPagina}/>
-
-      {listPokemones.map(pokemon => (
-        <Tarjeta
-          key={pokemon.name}
-          name={pokemon.name}
-          ability={pokemon.ability}
-          img={pokemon.img}
-          description={pokemon.description}
-          attacks={pokemon.attacks}
-          generation={pokemon.generation}
-        />
-      ))}
-
-      {/* {listPokemones.map(pokemon => (
-        // <Tarjeta
-        //   key={pokemon.name}
-        //   name={pokemon.name}
-        //   habilidades={pokemon.habilidades}
-        //   foto={pokemon.foto}
-        //   description={pokemon.description}
-        //   generation={pokemon.generation}
-        // />
-      ))} */}
     </div>
   );
 }
