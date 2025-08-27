@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-
+import Modal from "./modal";
+import { useState } from "react";
+import FormularioDeRegistro from "./registro";
 type formData = {
     email: string;
     password: string;
@@ -8,11 +10,9 @@ type formData = {
 
 const Login: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<formData>()
+    const [registroActivo, setRegistroActivo] = useState<boolean>(false)
+
     const navegar = useNavigate();
-
-
-
-
 
     async function preguntarSiEsUsuario(data: formData) {
         try {
@@ -22,8 +22,8 @@ const Login: React.FC = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    correo: data.email,
-                    contraseña: data.password,
+                    email: data.email,
+                    password: data.password,
                 })
             });
 
@@ -80,6 +80,16 @@ const Login: React.FC = () => {
                     </button>
 
                 </form>
+               </div>
+               <div>
+                <p>Todavia no estas registrado?</p>
+                    <button onClick={() => setRegistroActivo(true)}  className="w-full py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2">
+                        Registrarme
+                    </button>
+                {registroActivo && 
+                <Modal estado={registroActivo} cambiarEstado={setRegistroActivo}>
+                    <FormularioDeRegistro/>
+                </Modal>}
                </div>
         </div>
     )
