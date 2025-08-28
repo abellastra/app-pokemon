@@ -39,26 +39,35 @@ function Pokemones() {
     type: string,
     generation: string
   ) => {
-    const queryParams = new URLSearchParams({
-      offset: offset.toString(),
-      limit: limite.toString(),
-      ...(type && { type: type }),
-      ...(generation && { generation: generation }),
-    });
+    const queryParams = new URLSearchParams();
+
+    if (type) {
+      queryParams.append('type', type);
+
+    }
+    if(generation){
+
+      queryParams.append('generation', generation);
+    }
+    if(!type && !generation){
+      queryParams.append('offset', offset.toString());  
+      queryParams.append('limit', limite.toString());
+    }
     const response = await fetch(
-      `http://localhost:3000/pokemones?${queryParams}`,
+      `http://localhost:3000/pokemones`,
 
       {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body:JSON.stringify({ offset, limite, type, generation }),
       }
     );
     if (response.ok) {
-      console.log(queryParams, 'queryparams');
 
       const data = await response.json();
+      console.log(data,'data');
       setListaPokemones(data.resultado);
       setRegistros(data.infoPages);
     }
