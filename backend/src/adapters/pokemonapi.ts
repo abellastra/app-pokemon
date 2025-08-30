@@ -50,7 +50,12 @@ const getPokemonsList = async (props: Props): Promise<PokemonListResponse> => {
 export const getPokemons = async (
   props: Props
 ): Promise<{ dataPokemon: PokemonApiResponse[]; count: number }> => {
-  const { offset, limit } = props;
+  const { offset, limit} = props;
+
+
+  if (limit >20 ){
+return{dataPokemon:[],count:0}
+  }
 
   const pokemonsList = await getPokemonsList({ offset, limit });
 
@@ -118,11 +123,8 @@ export const pokemonesGeneration = async (props: Props) => {
   );
 
   const dataPokemon = await Promise.all(
-    urls.map(async url => {
-      console.log(url, 'url');
-      
+    urls.map(async url => {      
       const res = await fetch(url);
-      console.log(res, 'res');
           if (!res.ok) {
             return null;
           }

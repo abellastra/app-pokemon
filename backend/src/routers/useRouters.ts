@@ -10,7 +10,7 @@ import { filtersDb } from "../controllers/filters";
 
 const router = express.Router();
 
-router.post('/pokemones', getPokemones);
+router.get('/pokemones', getPokemones);
 
 
 

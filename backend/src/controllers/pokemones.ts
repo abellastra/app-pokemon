@@ -2,13 +2,16 @@ import { Request, Response } from 'express';
 import { getPokemons } from '../adapters/pokemonapi';
 import { pokemonesType } from '../adapters/pokemonapi';
 import { pokemonesGeneration } from '../adapters/pokemonapi';
+import { PokemonApiResponse } from '../adapters/types';
+
 export const getPokemones = async (req: Request, res: Response) => {
-  const offset = parseInt(req.body.offset as string);
-  const limit = parseInt(req.body.limit as string);
-  const type = parseInt(req.body.type as string);
-  const generation = req.body.generation;
+  const offset = parseInt(req.query.offset as string);
+  const limit = parseInt(req.query.limit as string);
+  const type = parseInt(req.query.type as string);
+  const generation = parseInt(req.query.generation as string);
+  console.log(offset, limit, type, generation, 'offset, limit, type, generation');
+  
   try {
-    console.log(type, 'type');
 
     if (type > 0) {
       const response_url = await pokemonesType({ type });
@@ -22,6 +25,7 @@ export const getPokemones = async (req: Request, res: Response) => {
 
           const descRes = await fetch(pokemon.species.url);
           const descData = await descRes.json();
+
           const description = descData.flavor_text_entries.find(
             (entry: any) => entry.language.name === 'es'
           )?.flavor_text;
@@ -29,7 +33,6 @@ export const getPokemones = async (req: Request, res: Response) => {
             'generation-',
             ''
           );
-          console.log(name, abilities, attacks, img, description, generation);
           return {
             name: name,
             ability: abilities.join(', '),
@@ -41,19 +44,24 @@ export const getPokemones = async (req: Request, res: Response) => {
           };
         })
       );
+           const filterPokemones = resultado.slice(offset, offset + 20);
+           console.log(filterPokemones,'filterPokemones');
 
-      return res.status(200).json({ resultado: resultado });
+           return res
+             .status(200)
+             .json({ resultado: filterPokemones, infoPages: resultado.length });
     }
 
     if (generation > 0) {
       const response_url = await pokemonesGeneration({ generation });
       const resultado = await Promise.all(
-        response_url.map(async (pokemon: any) => {
-          const name = pokemon.name||[];
-          const abilities = pokemon.abilities.map((a: any) => a.ability.name)||[];
+        response_url.map(async (pokemon: PokemonApiResponse) => {
+          const name = pokemon.name || [];
+          const abilities =
+            pokemon.abilities.map((a: any) => a.ability.name) || [];
           const attacks = pokemon.moves?.map((m: any) => m.move.name) || [];
           const img = pokemon.sprites?.front_default || '';
-    
+
           const descRes = await fetch(pokemon.species.url);
           const descData = await descRes.json();
           const description = descData.flavor_text_entries.find(
@@ -73,8 +81,11 @@ export const getPokemones = async (req: Request, res: Response) => {
           };
         })
       );
-      console.log(resultado, 'resultado');
-      return res.status(200).json({ resultado: resultado });
+ 
+
+     const filterPokemones = resultado.slice(offset, offset + 20);
+
+      return res.status(200).json({ resultado: filterPokemones, infoPages: resultado.length  });
     }
 
     const response_url = await getPokemons({ offset, limit });
