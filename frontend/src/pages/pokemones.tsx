@@ -22,8 +22,8 @@ function Pokemones() {
   const filtertype = 'type';
 
   const paginaActual = Number(serchParams.get('pagina')) || 1;
-  const type = serchParams.get('type') || '';
-  const generation = serchParams.get('generation') || '';
+  let type = serchParams.get('type') || '';
+  let generation = serchParams.get('generation') || '';
 
   const limite = 20;
   const totalPag = Math.ceil(registros / limite);
@@ -39,26 +39,44 @@ function Pokemones() {
     type: string,
     generation: string
   ) => {
-    const queryParams = new URLSearchParams({
-      offset: offset.toString(),
-      limit: limite.toString(),
-      ...(type && { type: type }),
-      ...(generation && { generation: generation }),
-    });
+
+    const queryParams = new URLSearchParams(serchParams);
+
+
+    if (type && type !== 'all') {
+            queryParams.delete('generation');
+
+      queryParams.set('type', type);
+    }
+
+
+    
+    if (generation && generation !== 'all') {
+            queryParams.delete('type');
+
+      queryParams.set('generation', generation);
+      
+    }
+    queryParams.set('offset', offset.toString());
+    queryParams.set('limit', limite.toString());
+
+setSerchParams(queryParams);
     const response = await fetch(
-      `http://localhost:3000/pokemones?${queryParams}`,
+      `http://localhost:3000/pokemones?${queryParams.toString()}`,
 
       {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
+        // body: JSON.stringify({ offset, limite, type, generation }),
       }
     );
-    if (response.ok) {
-      console.log(queryParams, 'queryparams');
 
+    if (response.ok) {
       const data = await response.json();
+      console.log(data, 'data');
+
       setListaPokemones(data.resultado);
       setRegistros(data.infoPages);
     }

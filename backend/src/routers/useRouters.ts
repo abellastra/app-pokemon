@@ -1,7 +1,6 @@
 
 import express from "express";
 import { getPokemones } from '../controllers/pokemones';
-import { pokemonName } from "../controllers/pokemonName";
 import { Login } from "../controllers/login";
 import { body} from "express-validator";
 import { validarCampos } from "../middleware/validacionDeCampos";
@@ -14,7 +13,7 @@ const router = express.Router();
 
 router.get('/pokemones', getPokemones);
 
-router.get('/pokemon/:name', pokemonName)
+
 
 router.post('/login-user', [
     body("email")

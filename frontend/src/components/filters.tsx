@@ -1,16 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Tarjeta from './tarjetaPokemon';
-import Pagination from './pagination';
-// type pokemon = {
-//     name: string;
-//     ability: string;
-//     img: string;
-//     description: string;
-//     attacks:string,
-//     generation:string
 
-// };
 type filtersProps = {
   setSelectedGeneration: (value: string | number) => void;
   setSelectedType: (value: string | number) => void;
@@ -18,25 +6,24 @@ type filtersProps = {
 
 function Filters({ setSelectedGeneration, setSelectedType }: filtersProps) {
   const FiltersType = [
-    { value: 'Bug', label: '🐛 Bug' },
-    { value: 'Dark', label: '🌑 Dark' },
-    { value: 'Dragon', label: '🐉 Dragon' },
-    { value: 'Electric', label: '⚡ Electric' },
-    { value: 'Fairy', label: '🧚‍♀️ Fairy' },
-    { value: 'Fighting', label: '🥊 Fighting' },
-    { value: 'Fire', label: '🔥 Fire' },
-    { value: 'Flying', label: '🦅 Flying' },
-    { value: 'Ghost', label: '👻 Ghost' },
-    { value: 'Grass', label: '🌿 Grass' },
-    { value: 'Ground', label: '🌍 Ground' },
-    { value: 'Ice', label: '❄️ Ice' },
-    { value: 'Normal', label: '🌀 Normal' },
-    { value: 'Poison', label: '💀 Poison' },
-    { value: 'Psychic', label: '🔮 Psychic' },
-    { value: 'Rock', label: '🪨 Rock' },
-    { value: 'Steel', label: '🛠️ Steel' },
-    { value: 'Water', label: '💧 Water' },
-    { value: 'Shadow', label: 'Shadow' },
+    { value: 1, label: '🌀 Normal' },
+    { value: 2, label: '🥊 Fighting' },
+    { value: 3, label: '🦅 Flying' },
+    { value: 4, label: '💀 Poison' },
+    { value: 5, label: '🌍 Ground' },
+    { value: 6, label: '🪨 Rock' },
+    { value: 7, label: '🐛 Bug' },
+    { value: 8, label: '👻 Ghost' },
+    { value: 9, label: '🛠️ Steel' },
+    { value: 10, label: '🔥 Fire' },
+    { value: 11, label: '💧 Water' },
+    { value: 12, label: '🌿 Grass' },
+    { value: 13, label: '⚡ Electric' },
+    { value: 14, label: '🔮 Psychic' },
+    { value: 15, label: '❄️ Ice' },
+    { value: 16, label: '🐉 Dragon' },
+    { value: 17, label: '🌑 Dark' },
+    { value: 18, label: '🧚‍♀️ Fairy' },
   ];
 
   const FiltersGeneration = [
