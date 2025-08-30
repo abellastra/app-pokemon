@@ -16,12 +16,12 @@ const Pool = new pg.Pool({
   port: Number(process.env.DB_PORT) 
 })
 
-Pool.query("SELECT NOW()", (error,res) =>{
-  if(error){
-    console.error("error", error)
-  }else{
-    console.log("Conectado OK, hora:", res.rows[0].now)
-    Pool.end()
-  }
-})
+// Pool.query("SELECT NOW()", (error,res) =>{
+//   if(error){
+//     console.error("error", error)
+//   }else{
+//     console.log("Conectado OK, hora:", res.rows[0].now)
+//     Pool.end()
+//   }
+// })
 export default Pool;
