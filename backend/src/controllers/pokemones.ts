@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
-import { getPokemons } from '../adapters/pokemonapi';
-import { pokemonesType } from '../adapters/pokemonapi';
-import { pokemonesGeneration } from '../adapters/pokemonapi';
+import {
+  getPokemons,
+  pokemonesGeneration,
+  pokemonesType,
+} from '../adapters/pokemonapi';
 import { PokemonApiResponse } from '../adapters/types';
 
 export const getPokemones = async (req: Request, res: Response) => {
@@ -9,14 +11,19 @@ export const getPokemones = async (req: Request, res: Response) => {
   const limit = parseInt(req.query.limit as string);
   const type = parseInt(req.query.type as string);
   const generation = parseInt(req.query.generation as string);
-  console.log(offset, limit, type, generation, 'offset, limit, type, generation');
-  
-  try {
+  console.log(
+    offset,
+    limit,
+    type,
+    generation,
+    'offset, limit, type, generation'
+  );
 
+  try {
     if (type > 0) {
-      const response_url = await pokemonesType({ type });
+      const response_url = await pokemonesType({ type, offset, limit });
       const resultado = await Promise.all(
-        response_url.map(async pokemon => {
+        response_url.dataPokemon.map(async pokemon => {
           const name = pokemon.name;
           const abilities = pokemon.abilities.map(a => a.ability.name);
           const attacks = pokemon.moves.map(m => m.move.name);
@@ -44,16 +51,15 @@ export const getPokemones = async (req: Request, res: Response) => {
           };
         })
       );
-           const filterPokemones = resultado.slice(offset, offset + 20);
-           console.log(filterPokemones,'filterPokemones');
+      // const filterPokemones = resultado.slice(offset, offset + 20);
 
-           return res
-             .status(200)
-             .json({ resultado: filterPokemones, infoPages: resultado.length });
+      return res
+        .status(200)
+        .json({ resultado: resultado, infoPages: response_url.total });
     }
 
     if (generation > 0) {
-      const response_url = await pokemonesGeneration({ generation });
+      const response_url = await pokemonesGeneration({ generation, limit });
       const resultado = await Promise.all(
         response_url.map(async (pokemon: PokemonApiResponse) => {
           const name = pokemon.name || [];
@@ -81,11 +87,12 @@ export const getPokemones = async (req: Request, res: Response) => {
           };
         })
       );
- 
 
-     const filterPokemones = resultado.slice(offset, offset + 20);
+      const filterPokemones = resultado.slice(offset, offset + 20);
 
-      return res.status(200).json({ resultado: filterPokemones, infoPages: resultado.length  });
+      return res
+        .status(200)
+        .json({ resultado: filterPokemones, infoPages: resultado.length });
     }
 
     const response_url = await getPokemons({ offset, limit });
