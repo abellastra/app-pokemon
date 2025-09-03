@@ -1,8 +1,6 @@
 import fetch from 'node-fetch';
 import { API_POKEMON } from '../constants';
 import { PokemonApiResponse } from './types';
-import { Console } from 'console';
-import { listenerCount } from 'process';
 type Props = {
   offset?: number;
   limit?: number;
@@ -50,11 +48,10 @@ const getPokemonsList = async (props: Props): Promise<PokemonListResponse> => {
 export const getPokemons = async (
   props: Props
 ): Promise<{ dataPokemon: PokemonApiResponse[]; count: number }> => {
-  const { offset, limit} = props;
+  const { offset, limit } = props;
 
-
-  if (limit >20 ){
-return{dataPokemon:[],count:0}
+  if (limit && limit > 20) {
+    return { dataPokemon: [], count: 0 };
   }
 
   const pokemonsList = await getPokemonsList({ offset, limit });
@@ -89,15 +86,21 @@ const getPokemonestype = async (
 export const pokemonesType = async (props: Props) => {
   const ListPokemonestype = await getPokemonestype(props);
 
-  const urls = ListPokemonestype.pokemon.map((p: any) => p.pokemon.url);
+  const urls = ListPokemonestype.pokemon
+    .slice(props.offset ?? 0, (props.offset ?? 0) + (props.limit ?? 0))
+    .map((p: any) => p.pokemon.url);
+
   const dataPokemon = await Promise.all(
     urls.map(async url => {
       const res = await fetch(url);
       return (await res.json()) as PokemonApiResponse;
     })
   );
-  const resultado = dataPokemon;
-  return resultado;
+
+  return {
+    dataPokemon,
+    total: ListPokemonestype.pokemon.length,
+  };
 };
 
 const getPokemonesGeneration = async (
@@ -117,17 +120,16 @@ const getPokemonesGeneration = async (
 export const pokemonesGeneration = async (props: Props) => {
   const ListPokemonesGeneration = await getPokemonesGeneration(props);
 
-  const urls = ListPokemonesGeneration.pokemon_species.map(
-    (p: any) => `https://pokeapi.co/api/v2/pokemon/${p.name}`
-
-  );
+  const urls = ListPokemonesGeneration.pokemon_species
+    .slice(0, props.limit)
+    .map((p: any) => `https://pokeapi.co/api/v2/pokemon/${p.name}`);
 
   const dataPokemon = await Promise.all(
-    urls.map(async url => {      
+    urls.map(async url => {
       const res = await fetch(url);
-          if (!res.ok) {
-            return null;
-          }
+      if (!res.ok) {
+        return null;
+      }
       return (await res.json()) as PokemonApiResponse;
     })
   );

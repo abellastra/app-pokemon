@@ -1,10 +1,16 @@
-
 type filtersProps = {
+  type: string;
+  generation: string;
   setSelectedGeneration: (value: string | number) => void;
   setSelectedType: (value: string | number) => void;
 };
 
-function Filters({ setSelectedGeneration, setSelectedType }: filtersProps) {
+function Filters({
+  type,
+  generation,
+  setSelectedGeneration,
+  setSelectedType,
+}: filtersProps) {
   const FiltersType = [
     { value: 1, label: '🌀 Normal' },
     { value: 2, label: '🥊 Fighting' },
@@ -40,6 +46,7 @@ function Filters({ setSelectedGeneration, setSelectedType }: filtersProps) {
       <label className='block text-center bg-sky-200 m-1 p-2  rounded-xl'>
         Type:
         <select
+          value={type}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             setSelectedType(e.target.value);
           }}
@@ -60,6 +67,7 @@ function Filters({ setSelectedGeneration, setSelectedType }: filtersProps) {
       <label className='block text-center  bg-sky-200 p-2   rounded-xl'>
         Generation:
         <select
+          value={generation}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             setSelectedGeneration(Number(e.target.value));
           }}
