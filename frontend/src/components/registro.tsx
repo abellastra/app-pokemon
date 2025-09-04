@@ -1,25 +1,47 @@
 import { useForm } from "react-hook-form";
 import { crearSolicitudUsuario } from "../services/usert";
+import { useState } from "react";
+import Modal from "./modal";
+import { useNavigate } from "react-router-dom";
 
 type formData = {
     email: string;
     password: string;
-    confirmPassword:string;
+    confirmPassword: string;
 }
 type user = {
-    password:string;
-    email:string;
+    password: string;
+    email: string;
 }
-
-const FormularioDeRegistro = () => {
+type ModalProps = {
+    cerrar: () => void
+}
+const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
     const { register, handleSubmit, getValues, formState: { errors } } = useForm<formData>()
-    const crearUsuario = (datos:user) => {
-        const mandarsolicitud = crearSolicitudUsuario
-        console.log("adentro del registro de usuario")
-        mandarsolicitud(datos)
+    const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null)
+    const [mostrarMensaje, setMostrarMensaje] = useState<boolean>(false)
+    const navegar = useNavigate();
+    const crearUsuario = async (datos: user) => {
+        try {
+             await crearSolicitudUsuario(datos)
+             setMostrarMensaje(false)
+            cerrar()
+             navegar("/");
+        }catch(error: unknown){
+            if(error instanceof Error){
+                  setMensajeGeneral(error.message)
+                  setMostrarMensaje(true)
+
+            }else{
+                setMensajeGeneral('Ocurrio un error desconocido.')
+            }
+          
+        }
+       
        
     }
     return (
+        <>
         <form onSubmit={handleSubmit(crearUsuario)}>
             <span className="text-white mb-1">Email</span>
             <input
@@ -35,7 +57,7 @@ const FormularioDeRegistro = () => {
                 className="w-full px-4 py-2 rounded border-gray-600 outline-none text-blue-950 border placeholder-gray-500"
             />
             {errors.email && <p>{errors.email.message}</p>}
-             <span className="text-white mb-1">Password</span>
+            <span className="text-white mb-1">Password</span>
             <input
                 type="password"
 
@@ -50,25 +72,25 @@ const FormularioDeRegistro = () => {
                 className="w-full px-4 py-2 rounded border-gray-600 mt-2 outline-none   text-blue-950 border placeholder-gray-500"
             />
             {errors.password && <p>{errors.password.message}</p>}
-             <span className="text-white mb-1">Confirm password</span>
+            <span className="text-white mb-1">Confirm password</span>
             <input {...register("confirmPassword", {
                 validate: (match) => {
                     const password = getValues("password")
                     return match === password || "Passwords should match!"
                 }
-            })} type="password" id="confirmPassword" 
-             className="w-full px-4 py-2 rounded border-gray-600 mt-2 outline-none   text-blue-950 border placeholder-gray-500"/>
+            })} type="password" id="confirmPassword"
+                className="w-full px-4 py-2 rounded border-gray-600 mt-2 outline-none   text-blue-950 border placeholder-gray-500" />
             {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
 
-             <button
-                        type="submit"
-                        className="w-full py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2"
-                       
-                       >
-                        Iniciar sesión
+            <button type="submit" className="w-full py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2" >
+                Crear usuario
             </button>
 
         </form>
+         {mostrarMensaje && <Modal estado={mostrarMensaje} cambiarEstado={setMostrarMensaje}>
+            <p className="text-red-950">{mensajeGeneral}</p> 
+         </Modal>}
+         </>
     )
 }
 export default FormularioDeRegistro
