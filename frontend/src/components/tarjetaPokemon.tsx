@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Like from './botonLike';
 type Pokemon = {
   name: string;
   ability: string;
@@ -10,7 +11,7 @@ type Pokemon = {
 function Tarjeta({ name, ability, img ,description ,attacks,generation}: Pokemon) {
   
 
- const [showDescription, setShowDescription] = useState<Boolean>(false);
+ const [showDescription, setShowDescription] = useState<boolean>(false);
   return (
     // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
     <div className='  flex justify-center items-center bg-white rounded-lg shadow-md  w-[200px]'>
@@ -39,6 +40,7 @@ function Tarjeta({ name, ability, img ,description ,attacks,generation}: Pokemon
           </div>
         )}
       </div>
+      <Like />
     </div>
   );
 }
