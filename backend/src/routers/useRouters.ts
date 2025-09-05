@@ -11,9 +11,7 @@ import { filtersDb } from "../controllers/filters";
 
 const router = express.Router();
 
-router.get('/pokemones', getPokemones);
-
-
+router.get('/pokemones' ,getPokemones);
 
 router.post('/login-user', [
     body("email")

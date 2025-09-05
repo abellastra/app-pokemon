@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { crearSolicitudUsuario } from "../services/usert";
 import { useState } from "react";
-import Modal from "./modal";
 import { useNavigate } from "react-router-dom";
 
 type formData = {
@@ -19,19 +18,16 @@ type ModalProps = {
 const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
     const { register, handleSubmit, getValues, formState: { errors } } = useForm<formData>()
     const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null)
-    const [mostrarMensaje, setMostrarMensaje] = useState<boolean>(false)
+    // const [mostrarMensaje, setMostrarMensaje] = useState<boolean>(false)
     const navegar = useNavigate();
     const crearUsuario = async (datos: user) => {
         try {
              await crearSolicitudUsuario(datos)
-             setMostrarMensaje(false)
-            cerrar()
+             cerrar()
              navegar("/");
         }catch(error: unknown){
             if(error instanceof Error){
                   setMensajeGeneral(error.message)
-                  setMostrarMensaje(true)
-
             }else{
                 setMensajeGeneral('Ocurrio un error desconocido.')
             }
@@ -41,7 +37,7 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
        
     }
     return (
-        <>
+    
         <form onSubmit={handleSubmit(crearUsuario)}>
             <span className="text-white mb-1">Email</span>
             <input
@@ -82,15 +78,18 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
                 className="w-full px-4 py-2 rounded border-gray-600 mt-2 outline-none   text-blue-950 border placeholder-gray-500" />
             {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
 
+            {mensajeGeneral && <p className="text-red-700">{mensajeGeneral}</p> }
+
+
             <button type="submit" className="w-full py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2" >
                 Crear usuario
             </button>
 
         </form>
-         {mostrarMensaje && <Modal estado={mostrarMensaje} cambiarEstado={setMostrarMensaje}>
-            <p className="text-red-950">{mensajeGeneral}</p> 
-         </Modal>}
-         </>
+        //  {/* {mostrarMensaje && <Modal estado={mostrarMensaje} cambiarEstado={setMostrarMensaje}>
+        //     <p className="text-red-950">{mensajeGeneral}</p> 
+        //  </Modal>} */}
+        
     )
 }
 export default FormularioDeRegistro
