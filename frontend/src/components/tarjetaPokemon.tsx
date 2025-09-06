@@ -6,16 +6,17 @@ type Pokemon = {
   description: string;
   attacks: string;
   generation: string;
+  types: string;
 };
-function Tarjeta({ name, ability, img ,description ,attacks,generation}: Pokemon) {
+function Tarjeta({ name, ability, img ,description ,attacks,generation ,types}: Pokemon) {
   
-
  const [showDescription, setShowDescription] = useState<Boolean>(false);
   return (
     // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
     <div className='  flex justify-center items-center bg-white rounded-lg shadow-md  w-[200px]'>
       <div className=' relative flex flex-col  items-center  h-[230px] w-full  '>
         <h4 className=''>{name}</h4>
+        <h5 className=''>{types}</h5>
         <img className='w-[96px] h-[96px]' src={img} alt='' />
         <h5>{ability}</h5>
         <h5>Generation {generation.toUpperCase()}</h5>

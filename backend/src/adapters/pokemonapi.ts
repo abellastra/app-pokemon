@@ -1,10 +1,11 @@
 import fetch from 'node-fetch';
 import { API_POKEMON } from '../constants';
 import { PokemonApiResponse } from './types';
+import { data } from 'react-router-dom';
 type Props = {
   offset?: number;
   limit?: number;
-  type?: number;
+  typeNum?: number;
   generation?: number;
 };
 
@@ -74,11 +75,12 @@ export const getPokemons = async (
 const getPokemonestype = async (
   props: Props
 ): Promise<PokemonListResponseType> => {
-  const type = props.type;
-  if (type == undefined) {
+  const typeNum
+   = props.typeNum;
+  if (typeNum == undefined) {
     throw new Error('Size must be greater than 0');
   }
-  const response = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+  const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
   const data = await response.json();
   return data as PokemonListResponseType;
 };
@@ -93,12 +95,17 @@ export const pokemonesType = async (props: Props) => {
   const dataPokemon = await Promise.all(
     urls.map(async url => {
       const res = await fetch(url);
+      console.log(res, 'res de url'); 
+      if (!res.ok) {
+        return null;
+      }
       return (await res.json()) as PokemonApiResponse;
     })
   );
 
+  const result=dataPokemon.filter(p=>p!==null)
   return {
-    dataPokemon,
+    dataPokemon: result,
     total: ListPokemonestype.pokemon.length,
   };
 };
@@ -119,10 +126,9 @@ const getPokemonesGeneration = async (
 
 export const pokemonesGeneration = async (props: Props) => {
   const ListPokemonesGeneration = await getPokemonesGeneration(props);
+    const urls = ListPokemonesGeneration.pokemon_species
 
-  const urls = ListPokemonesGeneration.pokemon_species
-    .slice(0, props.limit)
-    .map((p: any) => `https://pokeapi.co/api/v2/pokemon/${p.name}`);
+      .map((p: any) => `https://pokeapi.co/api/v2/pokemon/${p.name}`);
 
   const dataPokemon = await Promise.all(
     urls.map(async url => {
@@ -133,6 +139,15 @@ export const pokemonesGeneration = async (props: Props) => {
       return (await res.json()) as PokemonApiResponse;
     })
   );
-  const resultado = dataPokemon.filter(p => p !== null);
-  return resultado;
+
+  const resultado =
+    ListPokemonesGeneration.pokemon_species.length > 25
+      ? dataPokemon
+          .filter(p => p !== null)
+      : dataPokemon.filter(p => p !== null);  
+
+
+
+;
+  return { resultado, total: ListPokemonesGeneration.pokemon_species.length };
 };
