@@ -40,7 +40,6 @@ const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
   padding: 40px;
   display: flex;
   align-items: center;
@@ -49,8 +48,8 @@ const Overlay = styled.div`
 const ContenedorModal = styled.div`
     width: 300px;
     min-heigth: 100px;
-    background: rgba(255, 255, 255, 0.1); /* blanco pero súper transparente */
     backdrop-filter: blur(10px); /* efecto esmerilado */
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
     position:relative;
     border-radius: 5px;
     box-shadow: rgba(100,100,111, 0.2) 0px 7px 29px 0px;

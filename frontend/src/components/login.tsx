@@ -24,14 +24,15 @@ const Login: React.FC = () => {
                 body: JSON.stringify({
                     email: data.email,
                     password: data.password,
-                })
+                }),
+                credentials:'include'
             });
 
             const resultado = await respuesta.json();
             if (!resultado.ok) {
                 throw new Error("No se encontro un usuario");
             } else {
-                navegar("/home");
+                navegar("/");
             }
         } catch (error) {
             console.log("OOops algo ocurrio", error)
@@ -74,7 +75,6 @@ const Login: React.FC = () => {
                     <button
                         type="submit"
                         className="w-full py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2"
-                       
                        >
                         Iniciar sesión
                     </button>
@@ -86,9 +86,10 @@ const Login: React.FC = () => {
                     <button onClick={() => setRegistroActivo(true)}  className="w-full py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2">
                         Registrarme
                     </button>
+                    
                 {registroActivo && 
                 <Modal estado={registroActivo} cambiarEstado={setRegistroActivo}>
-                    <FormularioDeRegistro/>
+                    <FormularioDeRegistro cerrar={() => setRegistroActivo(false)}/>
                 </Modal>}
                </div>
         </div>

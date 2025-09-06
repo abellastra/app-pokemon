@@ -17,6 +17,7 @@ export const crear = async (req: Request, res: Response) => {
         if (result.rowCount === 0) {
              // si no esta registrado hashear el password
             const passwordHas = await bcrypt.hash(password, 10)
+            //inserto el usuario
             await Pool.query(
                 "INSERT INTO usuarios (user_email, user_password) VALUES ($1, $2)",
                 [email, passwordHas]
@@ -24,14 +25,13 @@ export const crear = async (req: Request, res: Response) => {
 
 
             console.log('se registro el user')
-            return res.status(201).json({ msg: "Usuario registrado correctamente" });
+            return res.status(201).json({ ok: true, message: "Usuario registrado correctamente" });
         } else {
-            return res.status(400).json({ msg: "El email ya está registrado" });
+            return res.status(400).json({  message: "El email ya está registrado" });
         }
 
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({ msg: "Error del servidor" });
+        return res.status(500).json({ message: "Error del servidor" , error});
     }
 
 
