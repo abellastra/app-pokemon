@@ -10,6 +10,7 @@ type Pokemon = {
   img: string;
   generation: string;
   description: string;
+  types: string;
 };
 
 const filterLimiteName = 'limit';
@@ -86,7 +87,7 @@ function Pokemones() {
         const data = await response.json();
         console.log(data, 'data');
 
-        setListaPokemones(data.resultado);
+        setListaPokemones(data.resultado)
         setRegistros(data.infoPages);
       }
     },
@@ -158,6 +159,7 @@ function Pokemones() {
             description={pokemon.description}
             generation={pokemon.generation}
             attacks={pokemon.attacks}
+          types={pokemon.types}
           />
         ))}
       </div>

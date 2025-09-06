@@ -8,6 +8,7 @@ interface PaginationProps {
 }
 
 function Pagination(props: PaginationProps) {
+  console.log(props.totalPaginas)
   const arrayItemsPag = ReturnPaginationRange(
     props.totalPaginas,
     props.paginaActual,
