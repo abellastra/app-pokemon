@@ -47,7 +47,7 @@ export const getPokemones = async (req: Request, res: Response) => {
           const abilities = pokemon.abilities.map(a => a.ability.name);
           const attacks = pokemon.moves.map(m => m.move.name);
           const img = pokemon.sprites.front_default;
-          const type = pokemon.types.map(t => t.type.name);
+          const types = pokemon.types.map(t => t.type.name);
 
           const descRes = await fetch(pokemon.species.url);
           const descData = await descRes.json();
@@ -67,7 +67,7 @@ export const getPokemones = async (req: Request, res: Response) => {
             img: img,
             generation: generation,
             description: description,
-            type: type.join(', '),
+            types:types.join(',')
           };
         })
       );
@@ -117,16 +117,18 @@ export const getPokemones = async (req: Request, res: Response) => {
         })
       );
       const filteredByType = type
-        ? resultado.filter(p => p.types.includes(type))
+        ? resultado
+            .filter(p => p.types.includes(type))
+            .slice(offset , offset  + limit  )
         : resultado;
-              if (filteredByType.length === 0) {
-                return res
-                  .status(200)
-                  .json({
-                    resultado: 'No hay pokemones con esos filtros',
-                    infoPages: 0,
-                  });
-              }
+    const countPokemonFilters=resultado.filter(p => p.types.includes(type)).length
+      if (filteredByType.length === 0) {
+        return res.status(200).json({
+          resultado: [],
+          infoPages: 0,
+          ereorPokemons: 'No se encontraron pokemones con ese filtro',
+        });
+      }
 
       if (type == 'all' || !type) {
         const filterPokemones = resultado.slice(
@@ -138,9 +140,12 @@ export const getPokemones = async (req: Request, res: Response) => {
           infoPages: response_url.total,
         });
       }
-      return res
-        .status(200)
-        .json({ resultado: filteredByType, infoPages: filteredByType.length });
+     
+
+      return res.status(200).json({
+        resultado: filteredByType,
+        infoPages: countPokemonFilters,
+      });
     }
 
     const response_url = await getPokemons({ offset, limit });

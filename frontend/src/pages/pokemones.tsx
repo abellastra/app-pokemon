@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import Filters from '../components/filters';
 import Pagination from '../components/pagination';
 import Tarjeta from '../components/tarjetaPokemon';
+import PokemonBall from '../components/pokemonBall';
 type Pokemon = {
   name: string;
   ability: string;
@@ -22,6 +23,8 @@ function Pokemones() {
   const [listaPokemones, setListaPokemones] = useState<Pokemon[]>([]);
   const [registros, setRegistros] = useState(0);
   const [serchParams, setSerchParams] = useSearchParams();
+  const [errorfilters, setErrorfilters] = useState('');
+  const [isLoanding, setIsLoading] = useState(false);
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
   const limite = Number(serchParams.get(filterLimiteName)) || 10;
@@ -71,6 +74,8 @@ function Pokemones() {
       queryParams.set('limit', limite.toString());
 
       setSerchParams(queryParams);
+      setIsLoading(true);
+
       const response = await fetch(
         `http://localhost:3000/pokemones?${queryParams.toString()}`,
 
@@ -85,10 +90,11 @@ function Pokemones() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data, 'data');
 
-        setListaPokemones(data.resultado)
+        setListaPokemones(data.resultado);
         setRegistros(data.infoPages);
+        setErrorfilters(data.ereorPokemons || '');
+        setIsLoading(false);
       }
     },
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
@@ -96,8 +102,6 @@ function Pokemones() {
 
   useEffect(() => {
     const offset = (pagina - 1) * limite;
-
-    console.log('offset', { pagina, limite, offset });
 
     pedirDatosPokemones(offset, limite, type, generation);
   }, [pagina, limite, type, generation, pedirDatosPokemones]);
@@ -121,7 +125,7 @@ function Pokemones() {
   };
 
   return (
-    <div className=' flex flex-col items-center  '>
+    <div className=' flex flex-col items-center relative w-full h-full '>
       <Pagination
         totalPaginas={totalPag}
         paginaActual={pagina}
@@ -129,27 +133,43 @@ function Pokemones() {
         cambiar={handleChangeFilters(filterPaginaName)}
       />
 
-      <Filters
-        type={type}
-        generation={generation}
-        setSelectedGeneration={handleChangeFilters(filterGenerationName)}
-        setSelectedType={handleChangeFilters(filtertype)}
-      />
+      <div className='flex items-center '>
+        <Filters
+          type={type}
+          generation={generation}
+          setSelectedGeneration={handleChangeFilters(filterGenerationName)}
+          setSelectedType={handleChangeFilters(filtertype)}
+        />
+        <select
+          onChange={e =>
+            handleChangeFilters(filterLimiteName)(Number(e.target.value))
+          }
+          value={String(limite)}
+          className='bg-sky-200 p-2 rounded-xl'
+        >
+          <option value='5'>5</option>
+          <option value='10'>10</option>
+          <option value='15'>15</option>
+          <option value='20'>20</option>
+        </select>
+        {limite > listaPokemones.length && (
+          <h1 className='m-4 bg-sky-200 p-2 rounded-xl  '>
+            Solo existen {listaPokemones.length} de {limite} con esos filtros
+          </h1>
+        )}
+      </div>
 
-      <select
-        onChange={e =>
-          handleChangeFilters(filterLimiteName)(Number(e.target.value))
-        }
-        value={String(limite)}
-        className='bg-sky-200 p-2 rounded-xl'
+      {isLoanding && (
+        <div className='absolute inset-0 z-50 flex items-center justify-center bg-white/30 '>
+          <PokemonBall />
+        </div>
+      )}
+      {errorfilters && <h1 className='text-red-500'>{errorfilters}</h1>}
+
+      <div
+        className='
+      grid grid-cols-5 gap-4 w-[90%] h-150 overflow-y-auto overflow-x-hidden bg-write place-items-center h-screen '
       >
-        <option value='5'>5</option>
-        <option value='10'>10</option>
-        <option value='15'>15</option>
-        <option value='20'>20</option>
-      </select>
-
-      <div className='grid grid-cols-5 gap-4 w-[90%] h-[485px] overflow-y-auto overflow-x-hidden  bg-write  '>
         {listaPokemones.map(pokemon => (
           <Tarjeta
             key={pokemon.name}
@@ -159,7 +179,7 @@ function Pokemones() {
             description={pokemon.description}
             generation={pokemon.generation}
             attacks={pokemon.attacks}
-          types={pokemon.types}
+            types={pokemon.types}
           />
         ))}
       </div>
