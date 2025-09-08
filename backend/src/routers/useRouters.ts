@@ -5,12 +5,16 @@ import { Login } from "../controllers/login";
 import { body} from "express-validator";
 import { validarCampos } from "../middleware/validacionDeCampos";
 import { crear } from "../controllers/crearUsers";
+import { guardarLike } from "../controllers/guardarLike";
 
 import { filtersDb } from "../controllers/filters";
+import { validarJwt } from "../middleware/validacionJWT";
+import cookieParser from 'cookie-parser';
+
 
 
 const router = express.Router();
-
+router.use(cookieParser());
 router.get('/pokemones' ,getPokemones);
 
 router.post('/login-user', [
@@ -34,6 +38,8 @@ router.post('/crear-user', [
         validarCampos
 ],
 crear)
+
+router.put('/like-pokemon', validarJwt, guardarLike)
 router.get(`/pokemones/generation/:selectedGeneration`, filtersDb);
 
 export default router;

@@ -1,3 +1,10 @@
+import 'express-serve-static-core';
+
+declare module 'express-serve-static-core' {
+  interface Request {
+    usuario?: { id: string; email: string; iat: number; exp: number };
+  }
+}
 export interface PokemonApiResponse {
   abilities: Ability[];
   base_experience: number;

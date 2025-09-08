@@ -15,8 +15,9 @@ export const validarJwt = (req: Request, res: Response, next:NextFunction) => {
         if(!secreto){
             throw new Error('JWT_SECRET no definido en el .env')
         }
-        const validPayload = jwt.verify(token,secreto)
-        console.log(validPayload)
+        const validPayload = jwt.verify(token,secreto) as { id: string; email: string; iat: number; exp: number };
+        req.usuario = validPayload;
+       console.log('Email del usuario:', req.usuario.email);
         next()
     } catch (error) {
         res.status(400).json({ok: false, message: 'token invalido', error})
