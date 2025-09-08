@@ -1,16 +1,19 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 const Like = () => {
     const [likePhoto, setLike] = useState<boolean>(false)
 
-    const updateLike = useCallback(async () => {
+    const updateLike = useCallback(async (nuevoValor: boolean) => {
         try {
             const respuesta = await fetch('http://localhost:3000/like-pokemon', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ statusPhoto: likePhoto }),
+                body: JSON.stringify({ 
+                    statusPhoto: nuevoValor,
+                    id_pokemon:2
+                 }),
                 credentials:'include',
             })
             const resultado = await  respuesta.json();
@@ -20,16 +23,18 @@ const Like = () => {
         } catch (error) {
             console.error("Error al actualizar like:", error);
         }
-    }, [likePhoto])
+    }, [])
+     const handleLike = () => {
+        const nuevoValor = !likePhoto;
+        setLike(nuevoValor)
+        updateLike(nuevoValor)
+     }
 
-
-    useEffect(() => {
-        updateLike()
-    }, [updateLike])
+   
 
     return (
         <>
-            <button className="focus:outline-none" onClick={() => setLike(!likePhoto)}>
+            <button className="focus:outline-none" onClick={handleLike}>
                 {likePhoto ? (
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

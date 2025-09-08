@@ -12,6 +12,7 @@ type Pokemon = {
 function Tarjeta({ name, ability, img ,description ,attacks,generation ,types}: Pokemon) {
  
  const [showDescription, setShowDescription] = useState<boolean>(false);
+ 
   return (
     // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
     <div className='  flex justify-center items-center bg-white rounded-lg shadow-md  w-[200px]'>
