@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Like from './botonLike';
 type Pokemon = {
   name: string;
+  idPokemon:number;
   ability: string;
   img: string;
   description: string;
@@ -9,29 +10,41 @@ type Pokemon = {
   generation: string;
   types: string;
 };
-function Tarjeta({ name, ability, img ,description ,attacks,generation ,types}: Pokemon) {
- 
- const [showDescription, setShowDescription] = useState<boolean>(false);
- 
+function Tarjeta({
+  name,
+  idPokemon,
+  ability,
+  img,
+  description,
+  attacks,
+  generation,
+  types,
+}: Pokemon) {
+  const [showDescription, setShowDescription] = useState<boolean>(false);
+  console.log(name,"id:",idPokemon)
   return (
     // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
-    <div className='  flex justify-center items-center bg-white rounded-lg shadow-md  w-[200px]'>
-      <div className=' relative flex flex-col  items-center  h-[230px] w-full  '>
+    <div className='  flex justify-center items-center bg-white rounded-lg shadow-md h-80  w-50  '>
+      <div className=' relative flex flex-col  items-center  h-full w-full  '>
         <h4 className=''>{name}</h4>
         <h5 className=''>{types}</h5>
-        <img className='w-[96px] h-[96px]' src={img} alt='' />
+        <img className='w-25 h-25' src={img} alt='' />
         <h5>{ability}</h5>
         <h5>Generation {generation.toUpperCase()}</h5>
-        <button
-          className='bg-sky-200 p-1 rounded-md hover:bg-sky-300 '
-          onClick={() => {
-            setShowDescription(true);
-          }}
-        >
-          Show description{' '}
-        </button>
+
+        <div>
+          <button
+            className='bg-sky-200 p-1 rounded-md hover:bg-sky-300 '
+            onClick={() => {
+              setShowDescription(true);
+            }}
+          >
+            Show description{' '}
+          </button>
+          <Like />
+        </div>
         {showDescription && (
-          <div className='absolute bg-gray-100 p-2 rounded-md mt-2 inset-0  items-center ' >
+          <div className='absolute bg-gray-100 p-2 rounded-md mt-2 inset-0  items-center '>
             <p>{description}</p>
             <button
               className='bg-red-200 p-1 rounded-md hover:bg-red-300 mt-2 '
@@ -42,7 +55,6 @@ function Tarjeta({ name, ability, img ,description ,attacks,generation ,types}: 
           </div>
         )}
       </div>
-      <Like />
     </div>
   );
 }
