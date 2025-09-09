@@ -44,6 +44,8 @@ export const getPokemones = async (req: Request, res: Response) => {
       const resultado = await Promise.all(
         response_url.dataPokemon.map(async pokemon => {
           const name = pokemon.name;
+          const idPokemon=pokemon.id
+          console.log(idPokemon)
           const abilities = pokemon.abilities.map(a => a.ability.name);
           const attacks = pokemon.moves.map(m => m.move.name);
           const img = pokemon.sprites.front_default;
@@ -62,6 +64,7 @@ export const getPokemones = async (req: Request, res: Response) => {
 
           return {
             name: name,
+            idPokemon:idPokemon,
             ability: abilities.join(', '),
             attacks: attacks.join(', '),
             img: img,
@@ -87,6 +90,7 @@ export const getPokemones = async (req: Request, res: Response) => {
       const resultado = await Promise.all(
         response_url.resultado.map(async (pokemon: PokemonApiResponse) => {
           const name = pokemon.name || [];
+          const idPokemon=pokemon.id
           const abilities =
             pokemon.abilities.map((a: any) => a.ability.name) || [];
           const attacks = pokemon.moves?.map((m: any) => m.move.name) || [];
@@ -107,6 +111,7 @@ export const getPokemones = async (req: Request, res: Response) => {
 
           return {
             name: name,
+            idPokemon:idPokemon,
             ability: abilities.join(', '),
             attacks: attacks.join(', '),
             img: img,

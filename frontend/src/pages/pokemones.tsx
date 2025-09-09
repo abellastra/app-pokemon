@@ -6,6 +6,7 @@ import Tarjeta from '../components/tarjetaPokemon';
 import PokemonBall from '../components/pokemonBall';
 type Pokemon = {
   name: string;
+  idPokemon:number
   ability: string;
   attacks: string;
   img: string;
@@ -180,6 +181,7 @@ function Pokemones() {
             generation={pokemon.generation}
             attacks={pokemon.attacks}
             types={pokemon.types}
+            idPokemon={pokemon.idPokemon}
           />
         ))}
       </div>

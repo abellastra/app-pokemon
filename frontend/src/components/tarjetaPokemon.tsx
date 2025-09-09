@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Like from './botonLike';
 type Pokemon = {
   name: string;
+  idPokemon:number;
   ability: string;
   img: string;
   description: string;
@@ -11,6 +12,7 @@ type Pokemon = {
 };
 function Tarjeta({
   name,
+  idPokemon,
   ability,
   img,
   description,
@@ -19,6 +21,7 @@ function Tarjeta({
   types,
 }: Pokemon) {
   const [showDescription, setShowDescription] = useState<boolean>(false);
+  console.log(name,"id:",idPokemon)
   return (
     // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
     <div className='  flex justify-center items-center bg-white rounded-lg shadow-md h-80  w-50  '>
