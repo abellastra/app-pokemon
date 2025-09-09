@@ -12,7 +12,7 @@ const Like = () => {
                 },
                 body: JSON.stringify({ 
                     statusPhoto: nuevoValor,
-                    id_pokemon:2
+                    id_pokemon:3
                  }),
                 credentials:'include',
             })

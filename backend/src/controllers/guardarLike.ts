@@ -15,14 +15,26 @@ export const guardarLike = async (req: Request, res: Response) => {
             return res.status(401).json({ msg: "No se encontro el id del usuario" });
         }
         const id_user = result.rows[0].id_user
-        console.log(id_user)
-         await Pool.query('INSERT INTO acciones (pokemon_id, user_id, like_foto) VALUES ($1, $2, $3)', [id_pokemon,id_user,statusPhoto])
+
+        const insertLike = await Pool.query('SELECT like_foto FROM acciones WHERE pokemon_id = $1 AND user_id = $2', [id_pokemon, id_user])
+        if (insertLike.rowCount === 0) {
+            await Pool.query('INSERT INTO acciones (pokemon_id, user_id, like_foto) VALUES ($1, $2, $3)', [id_pokemon, id_user, statusPhoto])
+        } else {
+            const valorActual = insertLike.rows[0].like_foto
+            console.log(valorActual)
+            const nuevoValor = !valorActual
+            await Pool.query('UPDATE acciones SET like_foto = $1 WHERE pokemon_id = $2 AND user_id = $3',[nuevoValor, id_pokemon, id_user] )
+        }
+
         res.status(200).json({ ok: true })
 
     } catch (error) {
         console.error("Error al guardar like:", error);
         res.status(500).json({ ok: false, msg: "Error interno del servidor" });
     }
+
+
+
 
 
 }
