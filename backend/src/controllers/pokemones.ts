@@ -45,7 +45,6 @@ export const getPokemones = async (req: Request, res: Response) => {
         response_url.dataPokemon.map(async pokemon => {
           const name = pokemon.name;
           const idPokemon=pokemon.id
-          console.log(idPokemon)
           const abilities = pokemon.abilities.map(a => a.ability.name);
           const attacks = pokemon.moves.map(m => m.move.name);
           const img = pokemon.sprites.front_default;
@@ -108,6 +107,7 @@ export const getPokemones = async (req: Request, res: Response) => {
             'generation-',
             ''
           );
+          console.log(idPokemon)
 
           return {
             name: name,
@@ -158,6 +158,7 @@ export const getPokemones = async (req: Request, res: Response) => {
     const resultado = await Promise.all(
       response_url.dataPokemon.map(async pokemon => {
         const name = pokemon.name;
+       const idPokemon=pokemon.id
         const abilities = pokemon.abilities.map(a => a.ability.name);
         const attacks = pokemon.moves.map(m => m.move.name);
         const img = pokemon.sprites.front_default;
@@ -168,9 +169,10 @@ export const getPokemones = async (req: Request, res: Response) => {
           (entry: any) => entry.language.name === 'es'
         ).flavor_text;
         const generation = descData.generation.name.replace('generation-', '');
-
+console.log(idPokemon)
         return {
           name: name,
+          idPokemon:idPokemon,
           ability: abilities.join(', '),
           attacks: attacks.join(', '),
           img: img,
