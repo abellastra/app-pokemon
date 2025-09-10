@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { crearSolicitudUsuario } from "../services/usert";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 type formData = {
     email: string;
@@ -18,13 +17,11 @@ type ModalProps = {
 const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
     const { register, handleSubmit, getValues, formState: { errors } } = useForm<formData>()
     const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null)
-    // const [mostrarMensaje, setMostrarMensaje] = useState<boolean>(false)
-    const navegar = useNavigate();
+
     const crearUsuario = async (datos: user) => {
         try {
              await crearSolicitudUsuario(datos)
              cerrar()
-             navegar("/");
         }catch(error: unknown){
             if(error instanceof Error){
                   setMensajeGeneral(error.message)
@@ -86,10 +83,7 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
             </button>
 
         </form>
-        //  {/* {mostrarMensaje && <Modal estado={mostrarMensaje} cambiarEstado={setMostrarMensaje}>
-        //     <p className="text-red-950">{mensajeGeneral}</p> 
-        //  </Modal>} */}
-        
+  
     )
 }
 export default FormularioDeRegistro

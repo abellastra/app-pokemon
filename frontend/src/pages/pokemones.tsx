@@ -4,6 +4,9 @@ import Filters from '../components/filters';
 import Pagination from '../components/pagination';
 import Tarjeta from '../components/tarjetaPokemon';
 import PokemonBall from '../components/pokemonBall';
+import { hayPerfil } from '../services/perfil';
+import { obtenerLike } from '../services/obtenerLike';
+
 type Pokemon = {
   name: string;
   idPokemon: number;
@@ -13,6 +16,7 @@ type Pokemon = {
   generation: string;
   description: string;
   types: string;
+  isLiked: boolean
 };
 
 const filterLimiteName = 'limit';
@@ -26,6 +30,11 @@ function Pokemones() {
   const [serchParams, setSerchParams] = useSearchParams();
   const [errorfilters, setErrorfilters] = useState('');
   const [isLoanding, setIsLoading] = useState(false);
+
+  const [likes, setLike] = useState<number[]>(() => {
+  const likesGuardados = localStorage.getItem('likes');
+  return likesGuardados ? JSON.parse(likesGuardados) : [];
+})
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
   const limite = Number(serchParams.get(filterLimiteName)) || 10;
@@ -106,10 +115,27 @@ function Pokemones() {
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
   );
 
+
   useEffect(() => {
+    const cargarLikes = async () => {
+    const perfil = await hayPerfil()
+
+    if(!perfil){
+      setLike([])
+      return [];
+    }
+    const listaIds = await obtenerLike()
+    setLike(listaIds)
+    return listaIds;
+
+  }
+
+
     const offset = (pagina - 1) * limite;
 
     pedirDatosPokemones(offset, limite, type, generation);
+    cargarLikes();
+
   }, [pagina, limite, type, generation, pedirDatosPokemones]);
 
   const handleChangeFilters = (filters: string) => {
@@ -194,6 +220,7 @@ function Pokemones() {
             attacks={pokemon.attacks}
             types={pokemon.types}
             idPokemon={pokemon.idPokemon}
+            isLiked={likes.includes(pokemon.idPokemon)}  // le pasás si ya tiene like 
           />
         ))}
       </div>

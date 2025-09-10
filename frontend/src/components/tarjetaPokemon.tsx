@@ -9,6 +9,7 @@ type Pokemon = {
   attacks: string;
   generation: string;
   types: string;
+  isLiked:boolean
 };
 function Tarjeta({
   name,
@@ -19,9 +20,10 @@ function Tarjeta({
   attacks,
   generation,
   types,
+  isLiked
 }: Pokemon) {
   const [showDescription, setShowDescription] = useState<boolean>(false);
-  console.log(name,"id:",idPokemon)
+
   return (
     // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
     <div className='  flex justify-center items-center bg-white rounded-lg shadow-md h-70  w-40  lg:h-65  w-50  '>
@@ -41,7 +43,7 @@ function Tarjeta({
           >
             Show description{' '}
           </button>
-          <Like />
+          <Like idPokemon={idPokemon} likeInicial={isLiked}/>
         </div>
         {showDescription && (
           <div className='absolute bg-gray-100 p-2 rounded-md mt-2 inset-0  items-center '>
