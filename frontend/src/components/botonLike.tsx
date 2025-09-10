@@ -1,9 +1,10 @@
 import { useState, useCallback } from "react";
-type id_pokemon = {
-    idPokemon:number
+type props = {
+    idPokemon:number,
+    likeInicial: boolean
 }
-const Like = (idPokemon:id_pokemon) => {
-    const [likePhoto, setLike] = useState<boolean>(false)
+const Like = ({idPokemon, likeInicial}:props) => {
+    const [likePhoto, setLike] = useState<boolean>(likeInicial)
 
     const updateLike = useCallback(async (nuevoValor: boolean) => {
         try {
@@ -14,19 +15,20 @@ const Like = (idPokemon:id_pokemon) => {
                 },
                 body: JSON.stringify({ 
                     statusPhoto: nuevoValor,
-                    idPokemon:idPokemon.idPokemon
+                    idPokemon:idPokemon
                  }),
                 credentials:'include',
             })
-            console.log(idPokemon.idPokemon)
+            
             const resultado = await  respuesta.json();
             if(!resultado.ok){
                 throw new  Error ('algo ocurrio')
             }
+
         } catch (error) {
             console.error("Error al actualizar like:", error);
         }
-    }, [])
+    }, [idPokemon])
      const handleLike = () => {
         const nuevoValor = !likePhoto;
         setLike(nuevoValor)
