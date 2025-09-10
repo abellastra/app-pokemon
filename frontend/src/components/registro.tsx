@@ -36,7 +36,7 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
     return (
     
         <form onSubmit={handleSubmit(crearUsuario)}>
-            <span className="text-white mb-1">Email</span>
+            <span className="mb-1">Email</span>
             <input
                 {...register("email", {
                     required: "El email es obligatorio",
@@ -50,7 +50,7 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
                 className="w-full px-4 py-2 rounded border-gray-600 outline-none text-blue-950 border placeholder-gray-500"
             />
             {errors.email && <p>{errors.email.message}</p>}
-            <span className="text-white mb-1">Password</span>
+            <span className=" mb-1">Password</span>
             <input
                 type="password"
 
@@ -65,7 +65,7 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
                 className="w-full px-4 py-2 rounded border-gray-600 mt-2 outline-none   text-blue-950 border placeholder-gray-500"
             />
             {errors.password && <p>{errors.password.message}</p>}
-            <span className="text-white mb-1">Confirm password</span>
+            <span className="mb-1">Confirm password</span>
             <input {...register("confirmPassword", {
                 validate: (match) => {
                     const password = getValues("password")
@@ -78,7 +78,7 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
             {mensajeGeneral && <p className="text-red-700">{mensajeGeneral}</p> }
 
 
-            <button type="submit" className="w-full py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2" >
+            <button type="submit" className="w-full py-2 bg-blue-200/30 hover:bg-blue-300/50 rounded mt-2" >
                 Crear usuario
             </button>
 

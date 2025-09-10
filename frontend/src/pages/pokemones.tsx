@@ -9,7 +9,7 @@ import { obtenerLike } from '../services/obtenerLike';
 
 type Pokemon = {
   name: string;
-  idPokemon:number
+  idPokemon: number;
   ability: string;
   attacks: string;
   img: string;
@@ -105,6 +105,11 @@ function Pokemones() {
         setRegistros(data.infoPages);
         setErrorfilters(data.ereorPokemons || '');
         setIsLoading(false);
+      } else {
+        setIsLoading(false);
+        setErrorfilters('Error de conexion');
+      // setSerchParams('1');
+
       }
     },
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
@@ -152,34 +157,36 @@ function Pokemones() {
   };
 
   return (
-    <div className=' flex flex-col items-center relative w-full h-full '>
-      <Pagination
-        totalPaginas={totalPag}
-        paginaActual={pagina}
-        siblings={1}
-        cambiar={handleChangeFilters(filterPaginaName)}
-      />
-
-      <div className='flex items-center '>
-        <Filters
-          type={type}
-          generation={generation}
-          setSelectedGeneration={handleChangeFilters(filterGenerationName)}
-          setSelectedType={handleChangeFilters(filtertype)}
+    <div className=' flex flex-col items-center justify-center relative w-full h-full '>
+      <div>
+        <div className='flex items-center justify-center '>
+          <Filters
+            type={type}
+            generation={generation}
+            setSelectedGeneration={handleChangeFilters(filterGenerationName)}
+            setSelectedType={handleChangeFilters(filtertype)}
+          />
+          <select
+            onChange={e =>
+              handleChangeFilters(filterLimiteName)(Number(e.target.value))
+            }
+            value={String(limite)}
+            className='bg-sky-200 p-2 rounded-xl'
+          >
+            <option value='5'>5</option>
+            <option value='10'>10</option>
+            <option value='15'>15</option>
+            <option value='20'>20</option>
+          </select>
+        </div>
+        <Pagination
+          totalPaginas={totalPag}
+          paginaActual={pagina}
+          siblings={1}
+          cambiar={handleChangeFilters(filterPaginaName)}
         />
-        <select
-          onChange={e =>
-            handleChangeFilters(filterLimiteName)(Number(e.target.value))
-          }
-          value={String(limite)}
-          className='bg-sky-200 p-2 rounded-xl'
-        >
-          <option value='5'>5</option>
-          <option value='10'>10</option>
-          <option value='15'>15</option>
-          <option value='20'>20</option>
-        </select>
-        {limite > listaPokemones.length && (
+
+        {isLoanding == false && limite > listaPokemones.length && (
           <h1 className='m-4 bg-sky-200 p-2 rounded-xl  '>
             Solo existen {listaPokemones.length} de {limite} con esos filtros
           </h1>
@@ -195,7 +202,12 @@ function Pokemones() {
 
       <div
         className='
-      grid grid-cols-5 gap-4 w-[90%] h-150 overflow-y-auto overflow-x-hidden bg-write place-items-center h-screen '
+      grid grid-cols-1 sm:grid-cols-2
+       md:grid-cols-3 lg:grid-cols-4
+        xl:grid-cols-5 gap-4 w-[10  0%]
+        max-h[600px]
+          overflow-y-auto overflow-x-hidden
+           place-items-center h-[550px] '
       >
         {listaPokemones.map(pokemon => (
           <Tarjeta

@@ -26,8 +26,8 @@ function Tarjeta({
 
   return (
     // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
-    <div className='  flex justify-center items-center bg-white rounded-lg shadow-md h-80  w-50  '>
-      <div className=' relative flex flex-col  items-center  h-full w-full  '>
+    <div className='  flex justify-center items-center bg-white rounded-lg shadow-md h-70  w-40  lg:h-65  w-50  '>
+      <div className=' relative flex flex-col justify-center items-center h-full w-50 lg:h-full w-full  '>
         <h4 className=''>{name}</h4>
         <h5 className=''>{types}</h5>
         <img className='w-25 h-25' src={img} alt='' />

@@ -12,6 +12,7 @@ export const crear = async (req: Request, res: Response) => {
     try {
         // validar que el email ingresado no este registrado
         console.log('crear user del lado del backend ', email)
+        console.log('passwor',password)
 
         const result = await Pool.query('SELECT * FROM usuarios WHERE user_email = $1', [email])
         if (result.rowCount === 0) {

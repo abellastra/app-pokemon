@@ -52,10 +52,12 @@ export const getPokemones = async (req: Request, res: Response) => {
 
           const descRes = await fetch(pokemon.species.url);
           const descData = await descRes.json();
-
-          const description = descData.flavor_text_entries.find(
+          const entry = descData.flavor_text_entries.find(
             (entry: any) => entry.language.name === 'es'
-          )?.flavor_text;
+          );
+
+          const description =
+            entry?.flavor_text || 'No se encontró descripción';
           const generation = descData.generation.name.replace(
             'generation-',
             ''
@@ -63,13 +65,13 @@ export const getPokemones = async (req: Request, res: Response) => {
 
           return {
             name: name,
-            idPokemon:idPokemon,
+            idPokemon: idPokemon,
             ability: abilities.join(', '),
             attacks: attacks.join(', '),
             img: img,
             generation: generation,
             description: description,
-            types:types.join(',')
+            types: types.join(','),
           };
         })
       );
@@ -89,7 +91,7 @@ export const getPokemones = async (req: Request, res: Response) => {
       const resultado = await Promise.all(
         response_url.resultado.map(async (pokemon: PokemonApiResponse) => {
           const name = pokemon.name || [];
-          const idPokemon=pokemon.id
+          const idPokemon = pokemon.id;
           const abilities =
             pokemon.abilities.map((a: any) => a.ability.name) || [];
           const attacks = pokemon.moves?.map((m: any) => m.move.name) || [];
@@ -99,10 +101,12 @@ export const getPokemones = async (req: Request, res: Response) => {
           const descData = await descRes.json();
 
           const types = pokemon.types.map(t => t.type.name);
-
-          const description = descData.flavor_text_entries.find(
+          const entry = descData.flavor_text_entries.find(
             (entry: any) => entry.language.name === 'es'
-          )?.flavor_text;
+          );
+
+          const description =
+            entry?.flavor_text || 'No se encontró descripción';
           const generation = descData.generation.name.replace(
             'generation-',
             ''
@@ -111,7 +115,7 @@ export const getPokemones = async (req: Request, res: Response) => {
 
           return {
             name: name,
-            idPokemon:idPokemon,
+            idPokemon: idPokemon,
             ability: abilities.join(', '),
             attacks: attacks.join(', '),
             img: img,
@@ -124,9 +128,11 @@ export const getPokemones = async (req: Request, res: Response) => {
       const filteredByType = type
         ? resultado
             .filter(p => p.types.includes(type))
-            .slice(offset , offset  + limit  )
+            .slice(offset, offset + limit)
         : resultado;
-    const countPokemonFilters=resultado.filter(p => p.types.includes(type)).length
+      const countPokemonFilters = resultado.filter(p =>
+        p.types.includes(type)
+      ).length;
       if (filteredByType.length === 0) {
         return res.status(200).json({
           resultado: [],
@@ -145,7 +151,6 @@ export const getPokemones = async (req: Request, res: Response) => {
           infoPages: response_url.total,
         });
       }
-     
 
       return res.status(200).json({
         resultado: filteredByType,
@@ -165,9 +170,11 @@ export const getPokemones = async (req: Request, res: Response) => {
 
         const descRes = await fetch(pokemon.species.url);
         const descData = await descRes.json();
-        const description = descData.flavor_text_entries.find(
+        const entry = descData.flavor_text_entries.find(
           (entry: any) => entry.language.name === 'es'
-        ).flavor_text;
+        );
+
+        const description = entry?.flavor_text || 'No se encontró descripción';
         const generation = descData.generation.name.replace('generation-', '');
 console.log(idPokemon)
         return {

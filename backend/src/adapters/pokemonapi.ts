@@ -63,11 +63,13 @@ export const getPokemons = async (
   const dataPokemon = await Promise.all(
     urls.map(async url => {
       const res = await fetch(url);
+      console.log(res.status)
       return (await res.json()) as PokemonApiResponse;
     })
   );
 
   const resultado = { dataPokemon, count };
+
 
   return resultado;
 };

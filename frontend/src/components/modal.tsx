@@ -44,17 +44,17 @@ const Overlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(10px) ; /* efecto esmerilado */
 `;
 const ContenedorModal = styled.div`
-    width: 300px;
-    min-heigth: 100px;
-    backdrop-filter: blur(10px); /* efecto esmerilado */
-    background: linear-gradient(135deg, #89f7fe, #66a6ff);
-    position:relative;
-    border-radius: 5px;
-    box-shadow: rgba(100,100,111, 0.2) 0px 7px 29px 0px;
-    padding: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 300px;
+  background: rgb(175 205 247 / 20%);
+
+  position: relative;
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 15px;
+  border: 2px solid rgba(13, 2, 33, 0.2);
 `;
 const EncabezadoModal = styled.div`
     display: flex;
