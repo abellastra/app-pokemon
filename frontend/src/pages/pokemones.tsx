@@ -196,7 +196,7 @@ function Pokemones() {
       )}
       {errorfilters && <h1 className='text-red-500'>{errorfilters}</h1>}
       <div className='h-full  overflow-x-auto scrollbar-thumb-sky-300'>
-        <div className='h-[435px]  sm:h-[500px] gl:h-[550px] xl:h-[570px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+        <div className='min-h-[60vh] max-h-[80vh] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
           {listaPokemones.map(pokemon => (
             <Tarjeta
               key={pokemon.name}
