@@ -1,3 +1,11 @@
+import { Request } from "express";
+
+export interface RequestConCookies extends Request {
+    cookies: { [key: string]: string };
+}
+
+
+
 import 'express-serve-static-core';
 
 declare module 'express-serve-static-core' {

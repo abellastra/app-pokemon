@@ -12,8 +12,9 @@ import { validarJwt } from "../middleware/validacionJWT";
 import cookieParser from 'cookie-parser';
 import { obtenerLike } from "../controllers/obtenerLike";
 import { pf } from "../controllers/perfil";
+import { logout}  from "../controllers/logout";
 
-
+export const blackList:string[] = []
 
 const router = express.Router();
 router.use(cookieParser());
@@ -43,6 +44,7 @@ crear)
 router.get('/me', validarJwt, pf)
 router.put('/like-pokemon', validarJwt, guardarLike)
 router.get('/obtener-like', validarJwt, obtenerLike)
+router.get('/logout', validarJwt, logout)
 router.get(`/pokemones/generation/:selectedGeneration`, filtersDb);
 
 export default router;

@@ -43,7 +43,8 @@ export const Login = async (req: Request, res: Response) => {
                 httpOnly: true,
                 secure: false, // ponelo en false si estás en localhost sin HTTPS
                 sameSite: "strict",
-                maxAge: 3600000 // 1 hora
+                maxAge: 3600000, // 1 hora,
+                path: '/' // para q sea accesible de todos lados 
             });
             return res.status(200).json({ ok: true,data: payload ,msg: 'Usuario encontrado' })
         }else{

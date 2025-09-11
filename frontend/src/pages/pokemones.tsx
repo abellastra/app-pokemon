@@ -6,6 +6,7 @@ import Tarjeta from '../components/tarjetaPokemon';
 import PokemonBall from '../components/pokemonBall';
 import { hayPerfil } from '../services/perfil';
 import { obtenerLike } from '../services/obtenerLike';
+import { CerrarSesion } from '../components/botonCerrarSesion';
 
 type Pokemon = {
   name: string;
@@ -194,6 +195,33 @@ function Pokemones() {
         </div>
       )}
       {errorfilters && <h1 className='text-red-500'>{errorfilters}</h1>}
+<<<<<<< HEAD
+
+      <div
+        className='
+      grid grid-cols-1 sm:grid-cols-2
+       md:grid-cols-3 lg:grid-cols-4
+        xl:grid-cols-5 gap-4 w-[100%]
+        max-h[600px]
+          overflow-y-auto overflow-x-hidden
+           place-items-center h-[470px] sm:h-[550px] '
+      >
+        {listaPokemones.map(pokemon => (
+          <Tarjeta
+            key={pokemon.name}
+            name={pokemon.name}
+            ability={pokemon.ability}
+            img={pokemon.img}
+            description={pokemon.description}
+            generation={pokemon.generation}
+            attacks={pokemon.attacks}
+            types={pokemon.types}
+            idPokemon={pokemon.idPokemon}
+            isLiked={likes.includes(pokemon.idPokemon)} 
+          />
+        ))}
+        <CerrarSesion/>
+=======
       <div className='h-full  overflow-x-auto scrollbar-thumb-sky-300'>
         <div className='h-[435px]  sm:h-[500px] gl:h-[550px] xl:h-[570px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
           {listaPokemones.map(pokemon => (
@@ -211,6 +239,7 @@ function Pokemones() {
             />
           ))}
         </div>
+>>>>>>> main
       </div>
     </div>
   );
