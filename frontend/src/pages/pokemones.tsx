@@ -7,12 +7,12 @@ import PokemonBall from '../components/pokemonBall';
 type Pokemon = {
   name: string;
   idPokemon: number;
-  ability: string;
+  ability: string[];
   attacks: string;
   img: string;
   generation: string;
   description: string;
-  types: string;
+  types: string[];
 };
 
 const filterLimiteName = 'limit';
@@ -99,8 +99,7 @@ function Pokemones() {
       } else {
         setIsLoading(false);
         setErrorfilters('Error de conexion');
-      // setSerchParams('1');
-
+        // setSerchParams('1');
       }
     },
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
@@ -181,7 +180,7 @@ function Pokemones() {
         xl:grid-cols-5 gap-4 w-[10  0%]
         max-h[600px]
           overflow-y-auto overflow-x-hidden
-           place-items-center h-[550px] '
+           place-items-center h-[470px] sm:h-[550px] '
       >
         {listaPokemones.map(pokemon => (
           <Tarjeta
