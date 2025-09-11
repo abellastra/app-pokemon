@@ -6,6 +6,7 @@ import Tarjeta from '../components/tarjetaPokemon';
 import PokemonBall from '../components/pokemonBall';
 import { hayPerfil } from '../services/perfil';
 import { obtenerLike } from '../services/obtenerLike';
+import { CerrarSesion } from '../components/botonCerrarSesion';
 
 type Pokemon = {
   name: string;
@@ -203,7 +204,7 @@ function Pokemones() {
         className='
       grid grid-cols-1 sm:grid-cols-2
        md:grid-cols-3 lg:grid-cols-4
-        xl:grid-cols-5 gap-4 w-[10  0%]
+        xl:grid-cols-5 gap-4 w-[100%]
         max-h[600px]
           overflow-y-auto overflow-x-hidden
            place-items-center h-[470px] sm:h-[550px] '
@@ -222,6 +223,7 @@ function Pokemones() {
             isLiked={likes.includes(pokemon.idPokemon)} 
           />
         ))}
+        <CerrarSesion/>
       </div>
     </div>
   );
