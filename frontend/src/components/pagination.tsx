@@ -16,7 +16,7 @@ function Pagination({ totalPaginas, paginaActual, siblings, cambiar }: Paginatio
   }, []);
 
   return (
-    <div className='w-full flex justify-center px-2  sm:px-6'>
+    <div className='w-full flex justify-center  sm:px-6'>
       <nav
         aria-label='Pagination'
         className='flex flex-wrap gap-1 sm:gap-2 items-center justify-center bg-sky-200 p-2 rounded-md ring-1 ring-white/10'

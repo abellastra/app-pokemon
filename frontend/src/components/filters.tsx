@@ -43,8 +43,8 @@ function Filters({
   ];
 
   return (
-    <div className=' flex flex-wrap gap-4 justify-center items-center mb-4 m-4'>
-      <label className='block text-center bg-sky-200 m-1 p-2  rounded-xl'>
+    <div className=' flex sm:flex-wrap gap-1 sm:gap-4 justify-center items-center mb-1 m-1 '>
+      <label className='block text-center bg-sky-200 m-1 p-1.5 sm:p-2 rounded-xl border border-white'>
         Type:
         <select
           value={type}
@@ -65,7 +65,7 @@ function Filters({
           ))}
         </select>
       </label>
-      <label className='block text-center  bg-sky-200 p-2   rounded-xl'>
+      <label className='block text-center  bg-sky-200 p-1.5 sm:p-2   rounded-xl border border-white'>
         Generation:
         <select
           value={generation}
