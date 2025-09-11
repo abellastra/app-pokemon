@@ -22,7 +22,7 @@ export const guardarLike = async (req: Request, res: Response) => {
         } else {
             const valorActual = insertLike.rows[0].like_foto
             const nuevoValor = !valorActual
-            await Pool.query('UPDATE acciones SET like_foto = $1 WHERE pokemon_id = $2 AND user_id = $3',[nuevoValor, idPokemon, id_user] )
+            await Pool.query('UPDATE acciones SET like_foto = $1, actualizado_en = NOW() WHERE pokemon_id = $2 AND user_id = $3',[nuevoValor, idPokemon, id_user] )
         }
 
 
