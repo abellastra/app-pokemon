@@ -66,7 +66,7 @@ export const getPokemones = async (req: Request, res: Response) => {
           return {
             name: name,
             idPokemon: idPokemon,
-            ability: abilities.join(', '),
+            ability: abilities,
             attacks: attacks.join(', '),
             img: img,
             generation: generation,
@@ -116,7 +116,7 @@ export const getPokemones = async (req: Request, res: Response) => {
           return {
             name: name,
             idPokemon: idPokemon,
-            ability: abilities.join(', '),
+            ability: abilities,
             attacks: attacks.join(', '),
             img: img,
             generation: generation,
@@ -180,7 +180,7 @@ console.log(idPokemon)
         return {
           name: name,
           idPokemon:idPokemon,
-          ability: abilities.join(', '),
+          ability: abilities,
           attacks: attacks.join(', '),
           img: img,
           generation: generation,

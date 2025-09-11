@@ -35,6 +35,7 @@ function Pagination({ totalPaginas, paginaActual, siblings, cambiar }: Paginatio
         {arrayItemsPag.map((value, index) => (
           <button
             key={`${value}-${index}`}
+            onClick={() => cambiar(Number(value))}
             className={`px-3 py-1 text-sm font-semibold ring-1 ring-gray-700 rounded-md ${
               value === paginaActual
                 ? 'bg-gray-700 text-white'
@@ -47,7 +48,9 @@ function Pagination({ totalPaginas, paginaActual, siblings, cambiar }: Paginatio
 
         {/* Botón siguiente con ícono */}
         <button
-          onClick={() => paginaActual < totalPaginas && cambiar(paginaActual + 1)}
+          onClick={() =>
+            paginaActual < totalPaginas && cambiar(paginaActual + 1)
+          }
           className='inline-flex items-center px-2 py-2 rounded-md ring-1 ring-gray-700 text-white hover:bg-white/10 focus:outline-none'
         >
           <svg viewBox='0 0 20 20' fill='currentColor' className='w-5 h-5'>
