@@ -10,6 +10,8 @@ import { guardarLike } from "../controllers/guardarLike";
 import { filtersDb } from "../controllers/filters";
 import { validarJwt } from "../middleware/validacionJWT";
 import cookieParser from 'cookie-parser';
+import { obtenerLike } from "../controllers/obtenerLike";
+import { pf } from "../controllers/perfil";
 
 
 
@@ -38,8 +40,9 @@ router.post('/crear-user', [
         validarCampos
 ],
 crear)
-
+router.get('/me', validarJwt, pf)
 router.put('/like-pokemon', validarJwt, guardarLike)
+router.get('/obtener-like', validarJwt, obtenerLike)
 router.get(`/pokemones/generation/:selectedGeneration`, filtersDb);
 
 export default router;
