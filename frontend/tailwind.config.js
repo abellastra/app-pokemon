@@ -22,7 +22,10 @@ module.exports = {
     'bg-gray-500',
   ],
   theme: {
-    extend: {},
-  },
+    extend: {
+      screens: {
+        'h-sm': { raw: '(min-height: 400px)' },
+      },  },
   plugins: [],
-};
+}
+}
