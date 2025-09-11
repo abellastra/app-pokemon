@@ -9,7 +9,7 @@ type Pokemon = {
   attacks: string;
   generation: string;
   types: string[];
-  isLiked:boolean
+  isLiked: boolean;
 };
 function Tarjeta({
   name,
@@ -20,7 +20,7 @@ function Tarjeta({
   attacks,
   generation,
   types,
-  isLiked
+  isLiked,
 }: Pokemon) {
   const [showDescription, setShowDescription] = useState<boolean>(false);
   console.log(ability);
@@ -54,17 +54,17 @@ function Tarjeta({
   return (
     // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
     <div
-      className='  flex justify-center items-center bg-white rounded-lg shadow-md h-70  w-40  lg:h-65  w-50 
+      className='  flex justify-center items-center bg-white rounded-lg shadow-md  w-[200px] min-h-[240px] max-h-[240px] lg:min-h-[250px]
      '
     >
-      <div className=' relative flex flex-col justify-center items-center h-full w-50 lg:h-full w-full  '>
+      <div className=' relative flex flex-col justify-center items-center h-full w-full  '>
         <h4 className='bg-sky-200 p-1 rounded-xl font-medium	 mb-1'>
           {name.toUpperCase()}
         </h4>
         <h5 className='bg-sky-300  rounded-xl'>{types}</h5>
         <img className='w-25 h-25' src={img} alt='' />
 
-        <div className='flex'>
+        <div className='flex  items-center w-full max-w-full overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-sky-300'>
           {ability &&
             ability.map(ability => (
               <span
@@ -85,7 +85,7 @@ function Tarjeta({
           >
             Show description{' '}
           </button>
-          <Like idPokemon={idPokemon} likeInicial={isLiked}/>
+          <Like idPokemon={idPokemon} likeInicial={isLiked} />
         </div>
         {showDescription && (
           <div className='absolute bg-gray-100 p-2 rounded-md mt-2 inset-0  items-center '>

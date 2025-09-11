@@ -17,7 +17,7 @@ type Pokemon = {
   generation: string;
   description: string;
   types: string[];
-  isLiked: boolean
+  isLiked: boolean;
 };
 
 const filterLimiteName = 'limit';
@@ -33,9 +33,9 @@ function Pokemones() {
   const [isLoanding, setIsLoading] = useState(false);
 
   const [likes, setLike] = useState<number[]>(() => {
-  const likesGuardados = localStorage.getItem('likes');
-  return likesGuardados ? JSON.parse(likesGuardados) : [];
-})
+    const likesGuardados = localStorage.getItem('likes');
+    return likesGuardados ? JSON.parse(likesGuardados) : [];
+  });
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
   const limite = Number(serchParams.get(filterLimiteName)) || 10;
@@ -115,27 +115,23 @@ function Pokemones() {
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
   );
 
-
   useEffect(() => {
     const cargarLikes = async () => {
-    const perfil = await hayPerfil()
+      const perfil = await hayPerfil();
 
-    if(!perfil){
-      setLike([])
-      return [];
-    }
-    const listaIds = await obtenerLike()
-    setLike(listaIds)
-    return listaIds;
-
-  }
-
+      if (!perfil) {
+        setLike([]);
+        return [];
+      }
+      const listaIds = await obtenerLike();
+      setLike(listaIds);
+      return listaIds;
+    };
 
     const offset = (pagina - 1) * limite;
 
     pedirDatosPokemones(offset, limite, type, generation);
     cargarLikes();
-
   }, [pagina, limite, type, generation, pedirDatosPokemones]);
 
   const handleChangeFilters = (filters: string) => {
@@ -199,6 +195,7 @@ function Pokemones() {
         </div>
       )}
       {errorfilters && <h1 className='text-red-500'>{errorfilters}</h1>}
+<<<<<<< HEAD
 
       <div
         className='
@@ -224,6 +221,25 @@ function Pokemones() {
           />
         ))}
         <CerrarSesion/>
+=======
+      <div className='h-full  overflow-x-auto scrollbar-thumb-sky-300'>
+        <div className='h-[435px]  sm:h-[500px] gl:h-[550px] xl:h-[570px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+          {listaPokemones.map(pokemon => (
+            <Tarjeta
+              key={pokemon.name}
+              name={pokemon.name}
+              ability={pokemon.ability}
+              img={pokemon.img}
+              description={pokemon.description}
+              generation={pokemon.generation}
+              attacks={pokemon.attacks}
+              types={pokemon.types}
+              idPokemon={pokemon.idPokemon}
+              isLiked={likes.includes(pokemon.idPokemon)}
+            />
+          ))}
+        </div>
+>>>>>>> main
       </div>
     </div>
   );
