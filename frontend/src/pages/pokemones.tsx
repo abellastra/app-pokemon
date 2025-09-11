@@ -220,7 +220,7 @@ function Pokemones() {
             attacks={pokemon.attacks}
             types={pokemon.types}
             idPokemon={pokemon.idPokemon}
-            isLiked={likes.includes(pokemon.idPokemon)}  // le pasás si ya tiene like 
+            isLiked={likes.includes(pokemon.idPokemon)} 
           />
         ))}
       </div>

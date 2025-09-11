@@ -23,7 +23,7 @@ function Tarjeta({
   isLiked
 }: Pokemon) {
   const [showDescription, setShowDescription] = useState<boolean>(false);
-
+  
   return (
     // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
     <div className='  flex justify-center items-center bg-white rounded-lg shadow-md h-70  w-40  lg:h-65  w-50  '>
