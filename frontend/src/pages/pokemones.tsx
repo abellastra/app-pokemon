@@ -36,6 +36,7 @@ function Pokemones() {
     const likesGuardados = localStorage.getItem('likes');
     return likesGuardados ? JSON.parse(likesGuardados) : [];
   });
+  const [mostrarBtnCerrar, setMostrarBtnCerra] = useState<boolean>(false)
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
   const limite = Number(serchParams.get(filterLimiteName)) || 10;
@@ -121,10 +122,12 @@ function Pokemones() {
 
       if (!perfil) {
         setLike([]);
+        setMostrarBtnCerra(false)
         return [];
       }
       const listaIds = await obtenerLike();
       setLike(listaIds);
+      setMostrarBtnCerra(true)
       return listaIds;
     };
 
@@ -213,9 +216,11 @@ function Pokemones() {
           ))}
         </div>
       </div>
+     { mostrarBtnCerrar && 
       <div>
           <CerrarSesion/>
       </div>
+     }
     </div>
   );
 }
