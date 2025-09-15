@@ -198,8 +198,10 @@ function Pokemones() {
         </div>
       )}
       {errorfilters && <h1 className='text-red-500'>{errorfilters}</h1>}
-      <div className='h-full  overflow-x-auto scrollbar-thumb-sky-300'>
-        <div className='min-h-[60vh] max-h-[80vh] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+      <div className='  items-center justify-center   overflow-x-auto scrollbar-thumb-sky-300'>
+        <div className='min-h-[30vh] max-h-[70vh]  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+          {/* sm:max-h-[40vh] md:md:max-h-[80vh] lg:min-h-[3 0vh]
+          lg:max-h-[70vh] */}
           {listaPokemones.map(pokemon => (
             <Tarjeta
               key={pokemon.name}
@@ -216,11 +218,6 @@ function Pokemones() {
           ))}
         </div>
       </div>
-     { mostrarBtnCerrar && 
-      <div>
-          <CerrarSesion/>
-      </div>
-     }
     </div>
   );
 }
