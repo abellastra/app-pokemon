@@ -44,7 +44,7 @@ export const getPokemones = async (req: Request, res: Response) => {
       const resultado = await Promise.all(
         response_url.dataPokemon.map(async pokemon => {
           const name = pokemon.name;
-          const idPokemon=pokemon.id
+          const idPokemon = pokemon.id
           const abilities = pokemon.abilities.map(a => a.ability.name);
           const attacks = pokemon.moves.map(m => m.move.name);
           const img = pokemon.sprites.front_default;
@@ -62,6 +62,8 @@ export const getPokemones = async (req: Request, res: Response) => {
             'generation-',
             ''
           );
+            
+          
 
           return {
             name: name,
@@ -87,7 +89,7 @@ export const getPokemones = async (req: Request, res: Response) => {
         limit,
         generation,
       });
-
+      // const pokemons_id = response_url.resultado.map(p => p.id)
       const resultado = await Promise.all(
         response_url.resultado.map(async (pokemon: PokemonApiResponse) => {
           const name = pokemon.name || [];
@@ -113,7 +115,9 @@ export const getPokemones = async (req: Request, res: Response) => {
           );
           console.log(idPokemon)
 
+
           return {
+
             name: name,
             idPokemon: idPokemon,
             ability: abilities,
@@ -127,8 +131,8 @@ export const getPokemones = async (req: Request, res: Response) => {
       );
       const filteredByType = type
         ? resultado
-            .filter(p => p.types.includes(type))
-            .slice(offset, offset + limit)
+          .filter(p => p.types.includes(type))
+          .slice(offset, offset + limit)
         : resultado;
       const countPokemonFilters = resultado.filter(p =>
         p.types.includes(type)
@@ -163,7 +167,7 @@ export const getPokemones = async (req: Request, res: Response) => {
     const resultado = await Promise.all(
       response_url.dataPokemon.map(async pokemon => {
         const name = pokemon.name;
-       const idPokemon=pokemon.id
+        const idPokemon = pokemon.id
         const abilities = pokemon.abilities.map(a => a.ability.name);
         const attacks = pokemon.moves.map(m => m.move.name);
         const img = pokemon.sprites.front_default;
@@ -176,10 +180,10 @@ export const getPokemones = async (req: Request, res: Response) => {
 
         const description = entry?.flavor_text || 'No se encontró descripción';
         const generation = descData.generation.name.replace('generation-', '');
-console.log(idPokemon)
+        console.log(idPokemon)
         return {
           name: name,
-          idPokemon:idPokemon,
+          idPokemon: idPokemon,
           ability: abilities,
           attacks: attacks.join(', '),
           img: img,

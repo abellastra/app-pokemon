@@ -32,11 +32,26 @@ function Pokemones() {
   const [errorfilters, setErrorfilters] = useState('');
   const [isLoanding, setIsLoading] = useState(false);
 
+  // const [likes, setLike] = useState<number[]>(() => {
+  //   const likesGuardados = localStorage.getItem('likes');
+  //   return likesGuardados ? JSON.parse(likesGuardados) : [];
+  // });
   const [likes, setLike] = useState<number[]>(() => {
-    const likesGuardados = localStorage.getItem('likes');
-    return likesGuardados ? JSON.parse(likesGuardados) : [];
-  });
+  const likesGuardados = localStorage.getItem('likes');
+
+  try {
+    // parseamos solo si hay algo
+    const parsed = likesGuardados ? JSON.parse(likesGuardados) : [];
+    
+    // asegurarnos de que sea un array de números válidos
+    return Array.isArray(parsed) ? parsed.filter(id => typeof id === 'number') : [];
+  } catch (error) {
+    console.error('Error al leer likes de localStorage:', error);
+    return [];
+  }
+});
   const [mostrarBtnCerrar, setMostrarBtnCerra] = useState<boolean>(false)
+  const [perfil, setPerfil] = useState<boolean | null>(null)
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
   const limite = Number(serchParams.get(filterLimiteName)) || 10;
@@ -115,26 +130,39 @@ function Pokemones() {
     },
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
   );
+  useEffect(() => {
+    const obtenerPerfil = async () => {
+      const res = await hayPerfil();
+      setPerfil(res);
+    }
+    obtenerPerfil()
+  }, [])
+
+console.log(perfil,('pf user'))
 
   useEffect(() => {
     const cargarLikes = async () => {
-      const perfil = await hayPerfil();
-
       if (!perfil) {
         setLike([]);
         setMostrarBtnCerra(false)
-        return [];
+        return ;
       }
-      const listaIds = await obtenerLike();
+      const idsPokemonApi = listaPokemones.map(pokemon => pokemon.idPokemon)
+      const listaIds = await obtenerLike(idsPokemonApi);
       setLike(listaIds);
       setMostrarBtnCerra(true)
-      return listaIds;
+      return ;
     };
+    if (listaPokemones.length > 0) {
+      cargarLikes();
+    }
+  }, [perfil,listaPokemones])
+  useEffect(() => {
+
 
     const offset = (pagina - 1) * limite;
 
     pedirDatosPokemones(offset, limite, type, generation);
-    cargarLikes();
   }, [pagina, limite, type, generation, pedirDatosPokemones]);
 
   const handleChangeFilters = (filters: string) => {
@@ -216,11 +244,11 @@ function Pokemones() {
           ))}
         </div>
       </div>
-     { mostrarBtnCerrar && 
-      <div>
-          <CerrarSesion/>
-      </div>
-     }
+      {mostrarBtnCerrar &&
+        <div>
+          <CerrarSesion />
+        </div>
+      }
     </div>
   );
 }

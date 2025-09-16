@@ -4,42 +4,47 @@ import Modal from "./modal";
 import { useState } from "react";
 import FormularioDeRegistro from "./registro";
 type formData = {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 const Login: React.FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<formData>()
-    const [registroActivo, setRegistroActivo] = useState<boolean>(false)
+  const { register, handleSubmit, formState: { errors } } = useForm<formData>()
+  const [registroActivo, setRegistroActivo] = useState<boolean>(false)
+  const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null)
 
-    const navegar = useNavigate();
+  const navegar = useNavigate();
 
-    async function preguntarSiEsUsuario(data: formData) {
-        try {
-            const respuesta = await fetch(`http://localhost:3000/login-user`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: data.email,
-                    password: data.password,
-                }),
-                credentials:'include'
-            });
+  async function preguntarSiEsUsuario(data: formData) {
+    try {
+      const respuesta = await fetch(`http://localhost:3000/login-user`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+        credentials: 'include'
+      });
 
-            const resultado = await respuesta.json();
-            if (!resultado.ok) {
-                throw new Error("No se encontro un usuario");
-            } else {
-                navegar("/");
-            }
-        } catch (error) {
-            console.log("OOops algo ocurrio", error)
-        }
+      const resultado = await respuesta.json();
+      if (!respuesta.ok) {
+        setMensajeGeneral(resultado.msg)
+      } else {
+        setMensajeGeneral('')
+        navegar("/");
+      }
+    } catch (error) {
+      if(error instanceof Error){
+       setMensajeGeneral("No se pudo conectar con el servidor");
+      }
     }
+  }
 
-    return (
+  return (
+    <>
       <div
         className='flex justify-center  flex-col
  '
@@ -83,6 +88,7 @@ const Login: React.FC = () => {
               Iniciar sesión
             </button>
           </form>
+          {mensajeGeneral && <p className="text-red-700 flex justify-center mt-1">{mensajeGeneral}</p>}
         </div>
         <div className=" flex justify-center items-centers">
           <p>Todavia no estas registrado?</p>
@@ -100,7 +106,8 @@ const Login: React.FC = () => {
           )}
         </div>
       </div>
-    );
+    </>
+  );
 }
 
 export default Login;
