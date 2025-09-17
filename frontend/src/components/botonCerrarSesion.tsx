@@ -2,9 +2,10 @@
 import { useNavigate } from "react-router-dom"
 import Modal from "./modal"
 import { useState } from "react"
-
+import { useAuth } from "../context/AuthContext";
 export const CerrarSesion = () => {
-    console.log()
+      const { perfil, setPerfil } = useAuth();
+    console.log(perfil)
   const navegar = useNavigate();
   const [modalActivo, setModaActivo] = useState<boolean>(false);
   const logOut = async () => {
@@ -23,6 +24,9 @@ export const CerrarSesion = () => {
     console.log(resultado);
     if (resultado.ok) {
       navegar('/login');
+      setPerfil(false)
+ localStorage.removeItem('token');
+
     }
   };
   return (
@@ -43,7 +47,7 @@ export const CerrarSesion = () => {
         </Modal>
       )}
       <button
-        className='p-4 py-2 bg-blue-200/30 hover:bg-blue-300/50 rounded mt-2'
+        className='p-4 py-2 bg-blue-200/30 hover:bg-blue-300/50 rounded mr-2'
         onClick={() => setModaActivo(true)}
       >
         Cerrar sesion

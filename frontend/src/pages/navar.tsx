@@ -2,39 +2,35 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { hayPerfil } from '../services/perfil';
 import { useEffect, useState } from 'react';
 import { CerrarSesion } from '../components/botonCerrarSesion';
-import Login from '../components/login';
-import { obtenerLike } from '../services/obtenerLike';
-export default function Navar() {
+
+import { useAuth } from '../context/AuthContext';
+export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
   const navigate = useNavigate();
-  const [pefil, setPerfil] = useState<boolean | null>(false);
-  const [cerrarSesion, setCerrarSesion] = useState();
-    const location = useLocation();
-
-    const islogin = location.pathname === '/login';
- console.log(pefil)
-
+  const { perfil, setPerfil } = useAuth();
+       const token = localStorage.getItem('token');
+       console.log(token);
+  console.log(perfil);
   useEffect(() => {
     const obtenerPefil = async () => {
       const res = await hayPerfil();
-      console.log(res)
+      console.log(res);
       setPerfil(res);
     };
-    obtenerPefil()
-  },[]);
-
+    obtenerPefil();
+  }, []);
 
   return (
-    <header className='flex justify-between item-center text-center  '>
+    <header className='flex justify-center sm:justify-between item-center text-center  '>
       <h1
         onClick={() => {
           navigate('/');
         }}
-        className='sm:ml-[10vh] bg-gradient-to-b from-red-500 via-green-500 to-blue-500 bg-clip-text text-transparent font-bold text-3xl sm:text-4xl '
+        className='pt-2 radient-to-b from-red-500 via-green-500 to-blue-500 bg-clip-text text-transparent font-bold text-3xl sm:text-4xl '
       >
         Pokemones
       </h1>
 
-      {!islogin && pefil === false && (
+      {!ocultarbotones && perfil === false && (
         <div className='item-center'>
           <button
             onClick={() => navigate('/login')}
@@ -45,10 +41,14 @@ export default function Navar() {
         </div>
       )}
 
-      {!islogin && pefil && (
+      {!ocultarbotones && perfil && (
         <>
-          <h1></h1>
-          <CerrarSesion  />
+          <div className='flex items-center mt-2 '>
+            <h1 className=' p-1 sm:text-3xl mr-4  bg-blue-200/30 rounded '>
+              Bienvenido user
+            </h1>
+            <CerrarSesion />
+          </div>
         </>
       )}
     </header>

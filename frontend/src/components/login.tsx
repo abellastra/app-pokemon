@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "./modal";
 import { useState } from "react";
 import FormularioDeRegistro from "./registro";
+import { useAuth } from "../context/AuthContext";
 type formData = {
     email: string;
     password: string;
@@ -10,9 +11,9 @@ type formData = {
 
 const Login: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<formData>()
-    const [registroActivo, setRegistroActivo] = useState<boolean>(false)
-
+    const [registroActivo, setRegistroActivo] = useState<boolean>(false)    
     const navegar = useNavigate();
+    const{perfil,setPerfil}=useAuth()
 
     async function preguntarSiEsUsuario(data: formData) {
         try {
@@ -32,7 +33,9 @@ const Login: React.FC = () => {
             if (!resultado.ok) {
                 throw new Error("No se encontro un usuario");
             } else {
+              setPerfil(true)
                 navegar("/");
+
             }
         } catch (error) {
             console.log("OOops algo ocurrio", error)

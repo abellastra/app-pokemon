@@ -1,6 +1,7 @@
 import './App.css';
 import Rutas from './routers/routers';
 import fondo from './assets/fondo.png';
+import { BrowserRouter} from 'react-router-dom';
 
 function App() {
   return (
@@ -9,7 +10,10 @@ function App() {
         className='h-screen w-screen bg-cover bg-center '
         style={{ backgroundImage: `url(${fondo})` }}
       >
+            <BrowserRouter>
+        
         <Rutas />
+        </BrowserRouter>
       </div>
     </div>
   );
