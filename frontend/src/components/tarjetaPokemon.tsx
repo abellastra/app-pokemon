@@ -23,7 +23,6 @@ function Tarjeta({
   isLiked,
 }: Pokemon) {
   const [showDescription, setShowDescription] = useState<boolean>(false);
-  console.log(ability);
 
   const generarColor = (ability: string) => {
     const colores = [

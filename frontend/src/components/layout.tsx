@@ -6,7 +6,7 @@ export default function Layout(){
   
 
 return(
-    <div>
+    <div className="flex item-center ">
         <Navar/>
         <Outlet/>
     </div>
