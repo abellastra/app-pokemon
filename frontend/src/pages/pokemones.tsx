@@ -18,6 +18,7 @@ type Pokemon = {
   description: string;
   types: string[];
   isLiked: boolean;
+  botonVisible: boolean
 };
 
 const filterLimiteName = 'limit';
@@ -32,26 +33,24 @@ function Pokemones() {
   const [errorfilters, setErrorfilters] = useState('');
   const [isLoanding, setIsLoading] = useState(false);
 
-  // const [likes, setLike] = useState<number[]>(() => {
-  //   const likesGuardados = localStorage.getItem('likes');
-  //   return likesGuardados ? JSON.parse(likesGuardados) : [];
-  // });
   const [likes, setLike] = useState<number[]>(() => {
-  const likesGuardados = localStorage.getItem('likes');
+    const likesGuardados = localStorage.getItem('likes');
+    return likesGuardados ? JSON.parse(likesGuardados) : [];
+  });
 
-  try {
-    // parseamos solo si hay algo
-    const parsed = likesGuardados ? JSON.parse(likesGuardados) : [];
-    
-    // asegurarnos de que sea un array de números válidos
-    return Array.isArray(parsed) ? parsed.filter(id => typeof id === 'number') : [];
-  } catch (error) {
-    console.error('Error al leer likes de localStorage:', error);
-    return [];
-  }
-});
   const [mostrarBtnCerrar, setMostrarBtnCerra] = useState<boolean>(false)
-  const [perfil, setPerfil] = useState<boolean | null>(null)
+  const [perfil, setPerfil] = useState<boolean >(false)
+
+    useEffect(() => {
+      console.log("Se ejecutó useEffect")
+    const obtenerPerfil = async () => {
+      const res = await hayPerfil();
+      setPerfil(res);
+    }
+    obtenerPerfil()
+  }, [])
+
+console.log(perfil,('pf user'))
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
   const limite = Number(serchParams.get(filterLimiteName)) || 10;
@@ -130,18 +129,11 @@ function Pokemones() {
     },
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
   );
-  useEffect(() => {
-    const obtenerPerfil = async () => {
-      const res = await hayPerfil();
-      setPerfil(res);
-    }
-    obtenerPerfil()
-  }, [])
 
-console.log(perfil,('pf user'))
 
   useEffect(() => {
     const cargarLikes = async () => {
+      if (perfil === null) return;
       if (!perfil) {
         setLike([]);
         setMostrarBtnCerra(false)
@@ -150,12 +142,13 @@ console.log(perfil,('pf user'))
       const idsPokemonApi = listaPokemones.map(pokemon => pokemon.idPokemon)
       const listaIds = await obtenerLike(idsPokemonApi);
       setLike(listaIds);
+      console.log(listaIds, 'lista')
       setMostrarBtnCerra(true)
       return ;
     };
-    if (listaPokemones.length > 0) {
+    
       cargarLikes();
-    }
+    
   }, [perfil,listaPokemones])
   useEffect(() => {
 
@@ -240,6 +233,7 @@ console.log(perfil,('pf user'))
               types={pokemon.types}
               idPokemon={pokemon.idPokemon}
               isLiked={likes.includes(pokemon.idPokemon)}
+              botonVisible={perfil}
             />
           ))}
         </div>

@@ -4,7 +4,6 @@ import Pool from "../database/connecionPostgresSQL";
 export const obtenerLike = async (req: Request, res: Response) => {
     const idsPokemonApi = req.body
     const email_usuario = req.usuario?.email
-    console.log(idsPokemonApi)
     try {
         const result = await Pool.query('SELECT id_user FROM usuarios WHERE user_email = $1', [email_usuario])
 
@@ -19,8 +18,6 @@ export const obtenerLike = async (req: Request, res: Response) => {
         const listaIds = likeGuardado.rows.map(row => row.pokemon_id)
 
         const enComun = listaIds.filter(id => idsPokemonApi.includes(id))
-        console.log("Likes en común:", enComun)
-        console.log("Likes en lista base :", listaIds)
 
         res.status(200).json({ ok: true, enComun })
 

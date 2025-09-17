@@ -10,6 +10,7 @@ type Pokemon = {
   generation: string;
   types: string[];
   isLiked: boolean;
+  botonVisible:boolean;
 };
 function Tarjeta({
   name,
@@ -21,9 +22,10 @@ function Tarjeta({
   generation,
   types,
   isLiked,
+  botonVisible
 }: Pokemon) {
   const [showDescription, setShowDescription] = useState<boolean>(false);
-  console.log(ability);
+  console.log(isLiked, 'isliked');
 
   const generarColor = (ability: string) => {
     const colores = [
@@ -52,7 +54,6 @@ function Tarjeta({
   };
 
   return (
-    // <div className="grid grid-cols-3 grid-rows-2 gap-2 w-full">
     <div
       className='  flex justify-center items-center bg-white rounded-lg shadow-md  w-[200px] min-h-[240px] max-h-[240px] lg:min-h-[250px]
      '
@@ -85,7 +86,7 @@ function Tarjeta({
           >
             Show description{' '}
           </button>
-          <Like idPokemon={idPokemon} likeInicial={isLiked} />
+          <Like idPokemon={idPokemon} likeInicial={isLiked} botonVisible={botonVisible}/>
         </div>
         {showDescription && (
           <div className='absolute bg-gray-100 p-2 rounded-md mt-2 inset-0  items-center '>

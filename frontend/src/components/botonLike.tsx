@@ -1,29 +1,17 @@
 import { useState, useCallback, useEffect } from "react";
-import { hayPerfil } from '../services/perfil';
 
 type props = {
     idPokemon: number,
     likeInicial: boolean
+    botonVisible:boolean
 }
-const Like = ({ idPokemon, likeInicial }: props) => {
+const Like = ({ idPokemon, likeInicial,botonVisible }: props) => {
     const [likePhoto, setLike] = useState<boolean>(likeInicial)
-    const [botonVisible, setBotonVisible] = useState<boolean>(false)
+    
     useEffect(() => {
-        const perfil = async () => {
-            try {
-                const result = await hayPerfil()
-                if (result) {
-                    setBotonVisible(true)
-                } else {
-                    setBotonVisible(false)
-                }
+        setLike(likeInicial);
+    }, [likeInicial]);
 
-            } catch (error) {
-                console.error("Error al verificar perfil:", error)
-            }
-        }
-        perfil()
-    }, [])
 
     const updateLike = useCallback(async (nuevoValor: boolean) => {
         try {
