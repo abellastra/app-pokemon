@@ -56,21 +56,23 @@ function Tarjeta({
 
   return (
     <div
-      className='  flex justify-center items-center bg-white rounded-lg shadow-md  w-[200px] min-h-[240px] max-h-[240px] lg:min-h-[250px]
-     '
+      className='mt-2 pt-2 bg-red-100 flex justify-center items-center bg-white rounded-lg shadow-md
+       '
     >
+      {/* min-h-[27vh] max-h-[40vh] h-auto */}
+      {/* /*w-[200px] min-h-[240px] max-h-[240px] lg:min-h-[250px]*/}
       <div className=' relative flex flex-col justify-center items-center h-full w-full  '>
         <h4 className='bg-sky-200 p-1 rounded-xl font-medium	 mb-1'>
           {name.toUpperCase()}
         </h4>
         <h5 className='bg-sky-300  rounded-xl'>{types}</h5>
-        <img className='w-25 h-25' src={img} alt='' />
+        <img className='max-w-[25vh] max-h-[25vh]' src={img} alt='' />
 
-        <div className='flex  items-center w-full max-w-full overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-sky-300'>
+        <div className='flex   items-center w-[26vh] h-[10vh] max-h-[20vh] max-w-full  overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-sky-300 '>
           {ability &&
             ability.map(ability => (
               <span
-                className={` ${generarColor(ability)} m-1 p-0.5 whitespace-nowrap  text-xs font-semibold   rounded`}
+                className={` ${generarColor(ability)} m-1 p-0.5 whitespace-nowrap  text-xs font-semibold   rounded rounded-full`}
               >
                 {ability}
               </span>
@@ -78,7 +80,7 @@ function Tarjeta({
         </div>
         <h5 className='font-medium'>Generation {generation.toUpperCase()}</h5>
 
-        <div>
+        <div className='h-full w-full'>
           <button
             className='bg-sky-200 p-1 rounded-md hover:bg-sky-300 '
             onClick={() => {
@@ -89,9 +91,10 @@ function Tarjeta({
           </button>
           <Like idPokemon={idPokemon} likeInicial={isLiked} botonVisible={botonVisible}/>
         </div>
+
         {showDescription && (
           <div className='absolute bg-gray-100 p-2 rounded-md mt-2 inset-0  items-center '>
-            <p>{description}</p>
+            <p className='text-xs'>{description}</p>
             <button
               className='bg-red-200 p-1 rounded-md hover:bg-red-300 mt-2 '
               onClick={() => setShowDescription(false)}

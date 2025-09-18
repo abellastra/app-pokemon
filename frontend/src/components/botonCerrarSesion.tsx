@@ -31,7 +31,7 @@ return(
         <button className="w-full py-2 bg-blue-200/30 hover:bg-blue-300/50 rounded mt-2" onClick={logOut}>Aceptar</button>
     </Modal>
     }
-    <button className="w-full py-2 bg-blue-200/30 hover:bg-blue-300/50 rounded mt-2" onClick={() => setModaActivo(true)}>
+    <button className="p-4 py-2 bg-blue-200/30 hover:bg-blue-300/50 rounded mt-2" onClick={() => setModaActivo(true)}>
         Cerrar sesion
     </button>
     </>
