@@ -1,42 +1,56 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import Modal from "./modal";
 import { useState } from "react";
 import FormularioDeRegistro from "./registro";
+import { useAuth } from "../context/AuthContext";
 type formData = {
   email: string;
   password: string;
 }
 
 const Login: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<formData>()
-  const [registroActivo, setRegistroActivo] = useState<boolean>(false)
-  const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null)
+  
+    const { register, handleSubmit, formState: { errors } } = useForm<formData>()
+    const [registroActivo, setRegistroActivo] = useState<boolean>(false)  
+      const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null)
+  
+    const navegar = useNavigate();
+    const{setPerfil,setUserName}=useAuth()
 
-  const navegar = useNavigate();
+    async function preguntarSiEsUsuario(data: formData) {
+        try {
+            const respuesta = await fetch(
+              `http://localhost:3000/login-user` ,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  email: data.email,
+                  password: data.password,
+                }),
+                credentials: 'include',
+              }
+            );
 
-  async function preguntarSiEsUsuario(data: formData) {
-    try {
-      const respuesta = await fetch(`http://localhost:3000/login-user`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
-        credentials: 'include'
-      });
 
-      const resultado = await respuesta.json();
-      if (!respuesta.ok) {
+            const resultado = await respuesta.json();
+            const name = resultado.data.name;
+            localStorage.setItem('userName', name);
+            
+         setUserName(name);
+            if (!resultado.ok) {
         setMensajeGeneral(resultado.msg)
-      } else {
-        setMensajeGeneral('')
-        navegar("/");
-      }
-    } catch (error) {
+            } else {
+              setPerfil(true)
+                      setMensajeGeneral('')
+
+                navegar("/");
+
+            }
+        } catch (error) {
       if(error instanceof Error){
        setMensajeGeneral("No se pudo conectar con el servidor");
       }

@@ -1,7 +1,9 @@
 
 type user = {
+
     password: string;
     email: string;
+    userName:string
 }
 export async function crearSolicitudUsuario(dataUser: user) {
     try {
@@ -12,11 +14,17 @@ export async function crearSolicitudUsuario(dataUser: user) {
             },
             body: JSON.stringify({
                 email: dataUser.email,
+                userName:dataUser.userName,
                 password: dataUser.password
+
 
             })
         })
+        console.log( "email",dataUser.email,"name",
+                dataUser.userName,"password",
+                dataUser.password)
         const resultado = await respuesta.json()
+
         if (!respuesta.ok) {
             throw new Error(resultado.message);
 

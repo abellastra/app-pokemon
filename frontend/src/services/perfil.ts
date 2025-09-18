@@ -1,5 +1,6 @@
 export const hayPerfil = async () => {
 try {
+    
     const result = await fetch('http://localhost:3000/me',
         { method: 'GET',
           headers: {
@@ -13,6 +14,7 @@ try {
             throw new Error(resultado.message);
 
         }
+        const statusPefil=result.ok
     return result.ok
     
 } catch (error) {

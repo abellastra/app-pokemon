@@ -11,6 +11,7 @@ type User = {
     id_user: string;
     user_email: string;
     user_password: string;
+    user_name:string
 }
 
 export const Login = async (req: Request, res: Response) => {
@@ -27,12 +28,15 @@ export const Login = async (req: Request, res: Response) => {
         // guardo el usuario si es que hay 
 
         const usuario = result.rows[0]
+        console.log(usuario.user_name)
+
         //comparo las contraseñas
         const comparePassword = await bcrypt.compare(password, usuario.user_password)
         if (comparePassword) {
             const payload =  {
                     id: usuario.id_user,
-                    email: usuario.user_email
+                    email: usuario.user_email,
+                    name:usuario.user_name
                 }
             const token = jwt.sign(
                 payload,

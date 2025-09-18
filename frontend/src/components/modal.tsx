@@ -44,7 +44,8 @@ const Overlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(10px) ; /* efecto esmerilado */
+  backdrop-filter: blur(10px); /* efecto esmerilado */
+  z-index: 9999;
 `;
 const ContenedorModal = styled.div`
   width: 300px;
