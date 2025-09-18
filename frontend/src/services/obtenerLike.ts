@@ -1,11 +1,13 @@
-export const obtenerLike = async () => {
+type idsPokemonApi = number[]
+export const obtenerLike = async (idsPokemonApi:idsPokemonApi) => {
     try {
         const respuesta = await fetch ('http://localhost:3000/obtener-like',{
-            method: 'GET',
+            method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             },
-          credentials:'include'
+            body: JSON.stringify(idsPokemonApi),
+         credentials:'include'
         })
         if (!respuesta.ok) {
             throw new Error('Ocurrio un problema al obtener los "Me gusta" ');
@@ -14,8 +16,8 @@ export const obtenerLike = async () => {
 
         const resultado = await respuesta.json()
        
-        localStorage.setItem('likes', JSON.stringify(resultado.listaIds));
-        return resultado.listaIds || [];
+        localStorage.setItem('likes', JSON.stringify(resultado.enComun));
+        return resultado.enComun || [];
 
 
     } catch (error) {

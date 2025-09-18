@@ -22,7 +22,7 @@ export const validarJwt = (req: Request, res: Response, next:NextFunction) => {
         }
         const validPayload = jwt.verify(token,secreto) as { id: string; email: string; iat: number; exp: number };
         req.usuario = validPayload;
-       console.log('Email del usuario:', req.usuario.email);
+       
         next()
     } catch (error) {
        return res.status(400).json({ok: false, message: 'token invalido', error})

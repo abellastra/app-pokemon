@@ -43,7 +43,7 @@ router.post('/crear-user', [
 crear)
 router.get('/me', validarJwt, pf)
 router.put('/like-pokemon', validarJwt, guardarLike)
-router.get('/obtener-like', validarJwt, obtenerLike)
+router.post('/obtener-like', validarJwt, obtenerLike)
 router.get('/logout', validarJwt, logout)
 router.get(`/pokemones/generation/:selectedGeneration`, filtersDb);
 

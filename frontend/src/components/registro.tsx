@@ -24,7 +24,7 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
              cerrar()
         }catch(error: unknown){
             if(error instanceof Error){
-                  setMensajeGeneral(error.message)
+                  setMensajeGeneral(error.message || "Ocurrio un problema")
             }else{
                 setMensajeGeneral('Ocurrio un error desconocido.')
             }
@@ -34,7 +34,7 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
        
     }
     return (
-    
+<>
         <form onSubmit={handleSubmit(crearUsuario)}>
             <span className="mb-1">Email</span>
             <input
@@ -83,7 +83,8 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
             </button>
 
         </form>
-  
+  {/* {mensajeGeneral && <p className="text-red-700">{mensajeGeneral}</p> } */}
+  </>
     )
 }
 export default FormularioDeRegistro
