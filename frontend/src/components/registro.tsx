@@ -26,7 +26,7 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
              cerrar()
         }catch(error: unknown){
             if(error instanceof Error){
-                  setMensajeGeneral(error.message)
+                  setMensajeGeneral(error.message || "Ocurrio un problema")
             }else{
                 setMensajeGeneral('Ocurrio un error desconocido.')
             }

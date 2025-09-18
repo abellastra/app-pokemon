@@ -30,8 +30,11 @@ export async function crearSolicitudUsuario(dataUser: user) {
 
         }
         return resultado
-    } catch (error) {
-        console.error("Error al crear usuario:", error);
-        throw error
+    } catch (error:unknown) {
+        if (error instanceof Error) {
+            throw new Error("No se pudo conectar con el servidor:", error);
+        } else {
+            throw new Error("No se pudo conectar con el servidor");
+        }
     }
 }

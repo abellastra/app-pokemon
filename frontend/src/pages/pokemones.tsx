@@ -18,6 +18,7 @@ type Pokemon = {
   description: string;
   types: string[];
   isLiked: boolean;
+  botonVisible: boolean
 };
 
 const filterLimiteName = 'limit';
@@ -36,7 +37,17 @@ function Pokemones() {
     const likesGuardados = localStorage.getItem('likes');
     return likesGuardados ? JSON.parse(likesGuardados) : [];
   });
+
   const [mostrarBtnCerrar, setMostrarBtnCerra] = useState<boolean>(false)
+  const [perfil, setPerfil] = useState<boolean >(false)
+
+    useEffect(() => {
+      const obtenerPerfil = async () => {
+      const res = await hayPerfil();
+      setPerfil(res);
+    }
+    obtenerPerfil()
+  }, [])
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
   const limite = Number(serchParams.get(filterLimiteName)) || 10;
@@ -75,7 +86,6 @@ function Pokemones() {
         }
       }
 
-      console.log('huboCambioFiltros', { huboCambioFiltros, type, generation });
 
       if (huboCambioFiltros) {
         queryParams.set('offset', '0');
@@ -116,37 +126,37 @@ function Pokemones() {
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
   );
 
+
   useEffect(() => {
     const cargarLikes = async () => {
-      const perfil = await hayPerfil();
-
+      if (perfil === null) return;
       if (!perfil) {
         setLike([]);
         setMostrarBtnCerra(false)
-        return [];
+        return ;
       }
-      const listaIds = await obtenerLike();
+      const idsPokemonApi = listaPokemones.map(pokemon => pokemon.idPokemon)
+      const listaIds = await obtenerLike(idsPokemonApi);
       setLike(listaIds);
       setMostrarBtnCerra(true)
-      return listaIds;
+      return ;
     };
+    
+      cargarLikes();
+    
+  }, [perfil,listaPokemones])
+  useEffect(() => {
+
 
     const offset = (pagina - 1) * limite;
 
     pedirDatosPokemones(offset, limite, type, generation);
-    cargarLikes();
   }, [pagina, limite, type, generation, pedirDatosPokemones]);
 
   const handleChangeFilters = (filters: string) => {
     const reiniciarPagina = filters !== filterPaginaName;
 
     return (value: string | number) => {
-      console.log('reiniciarPagina', {
-        reiniciarPagina,
-        filters,
-        filterPaginaName,
-      });
-
       setSerchParams({
         ...Object.fromEntries(serchParams.entries()),
         [filters]: value.toString(),
@@ -214,10 +224,17 @@ function Pokemones() {
               types={pokemon.types}
               idPokemon={pokemon.idPokemon}
               isLiked={likes.includes(pokemon.idPokemon)}
+              botonVisible={perfil}
             />
           ))}
         </div>
       </div>
+      {mostrarBtnCerrar &&
+        <div>
+          <CerrarSesion />
+        </div>
+      }
+
     </div>
   );
 }

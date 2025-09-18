@@ -1,8 +1,3 @@
-// type user = {
-//     email:string;
-//     password:string;
-
-// }
 import Pool from "../database/connecionPostgresSQL"
 import { Request, Response } from "express"
 import bcrypt from 'bcrypt'
@@ -25,8 +20,6 @@ export const crear = async (req: Request, res: Response) => {
                 [email, passwordHas,userName]
             );
 
-
-            console.log('se registro el user')
             return res.status(201).json({ ok: true, message: "Usuario registrado correctamente" });
         } else {
             return res.status(400).json({  message: "El email ya está registrado" });

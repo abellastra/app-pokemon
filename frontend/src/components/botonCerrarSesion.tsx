@@ -21,11 +21,9 @@ export const CerrarSesion = () => {
       throw new Error('Ocurrio un problema al cerrar la sesion');
     }
     const resultado = await respuesta.json();
-    console.log(resultado);
     if (resultado.ok) {
       navegar('/login');
       setPerfil(false)
- localStorage.removeItem('token');
 
     }
   };

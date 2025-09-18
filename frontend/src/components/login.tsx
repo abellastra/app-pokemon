@@ -5,13 +5,16 @@ import { useState } from "react";
 import FormularioDeRegistro from "./registro";
 import { useAuth } from "../context/AuthContext";
 type formData = {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 const Login: React.FC = () => {
+  
     const { register, handleSubmit, formState: { errors } } = useForm<formData>()
-    const [registroActivo, setRegistroActivo] = useState<boolean>(false)    
+    const [registroActivo, setRegistroActivo] = useState<boolean>(false)  
+      const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null)
+  
     const navegar = useNavigate();
     const{setPerfil,setUserName}=useAuth()
 
@@ -39,18 +42,23 @@ const Login: React.FC = () => {
             
          setUserName(name);
             if (!resultado.ok) {
-                throw new Error("No se encontro un usuario");
+        setMensajeGeneral(resultado.msg)
             } else {
               setPerfil(true)
+                      setMensajeGeneral('')
+
                 navegar("/");
 
             }
         } catch (error) {
-            console.log("OOops algo ocurrio", error)
-        }
+      if(error instanceof Error){
+       setMensajeGeneral("No se pudo conectar con el servidor");
+      }
     }
+  }
 
-    return (
+  return (
+    <>
       <div
         className='flex justify-center  flex-col
  '
@@ -94,6 +102,7 @@ const Login: React.FC = () => {
               Iniciar sesión
             </button>
           </form>
+          {mensajeGeneral && <p className="text-red-700 flex justify-center mt-1">{mensajeGeneral}</p>}
         </div>
         <div className=" flex justify-center items-centers">
           <p>Todavia no estas registrado?</p>
@@ -111,7 +120,8 @@ const Login: React.FC = () => {
           )}
         </div>
       </div>
-    );
+    </>
+  );
 }
 
 export default Login;
