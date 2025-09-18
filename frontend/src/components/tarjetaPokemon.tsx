@@ -25,7 +25,8 @@ function Tarjeta({
   botonVisible
 }: Pokemon) {
   const [showDescription, setShowDescription] = useState<boolean>(false);
-  console.log(isLiked, 'isliked');
+  
+  
 
   const generarColor = (ability: string) => {
     const colores = [

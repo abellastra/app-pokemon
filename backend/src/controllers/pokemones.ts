@@ -113,8 +113,6 @@ export const getPokemones = async (req: Request, res: Response) => {
             'generation-',
             ''
           );
-          console.log(idPokemon)
-
 
           return {
 
@@ -180,7 +178,7 @@ export const getPokemones = async (req: Request, res: Response) => {
 
         const description = entry?.flavor_text || 'No se encontró descripción';
         const generation = descData.generation.name.replace('generation-', '');
-        console.log(idPokemon)
+ 
         return {
           name: name,
           idPokemon: idPokemon,

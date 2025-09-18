@@ -7,7 +7,6 @@ export const CerrarSesion = () => {
  const navegar = useNavigate()
  const [modalActivo,setModaActivo] = useState<boolean>(false)
  const logOut = async () => {
-    console.log('logout')
     const respuesta = await fetch('http://localhost:3000/logout',
        { method: 'GET',
           headers: {
@@ -20,7 +19,6 @@ export const CerrarSesion = () => {
         throw new Error('Ocurrio un problema al cerrar la sesion')
     }
     const resultado = await respuesta.json()
-    console.log(resultado)
     if(resultado.ok){
         navegar('/login')
     }

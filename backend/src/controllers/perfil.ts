@@ -16,7 +16,6 @@ export const pf = async (req: Request, res: Response) => {
         }
         res.status(201).json({ ok: true })
     } catch (error) {
-        console.error("Error en la consulta:", error);
-        res.status(500).json({ ok: false ,msg: "Error del servidor" });
+        res.status(500).json({ ok: false ,msg: "Error del servidor :", error });
     }
 }

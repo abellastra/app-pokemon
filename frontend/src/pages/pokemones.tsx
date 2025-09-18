@@ -42,15 +42,12 @@ function Pokemones() {
   const [perfil, setPerfil] = useState<boolean >(false)
 
     useEffect(() => {
-      console.log("Se ejecutó useEffect")
-    const obtenerPerfil = async () => {
+      const obtenerPerfil = async () => {
       const res = await hayPerfil();
       setPerfil(res);
     }
     obtenerPerfil()
   }, [])
-
-console.log(perfil,('pf user'))
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
   const limite = Number(serchParams.get(filterLimiteName)) || 10;
@@ -89,7 +86,6 @@ console.log(perfil,('pf user'))
         }
       }
 
-      console.log('huboCambioFiltros', { huboCambioFiltros, type, generation });
 
       if (huboCambioFiltros) {
         queryParams.set('offset', '0');
@@ -142,7 +138,6 @@ console.log(perfil,('pf user'))
       const idsPokemonApi = listaPokemones.map(pokemon => pokemon.idPokemon)
       const listaIds = await obtenerLike(idsPokemonApi);
       setLike(listaIds);
-      console.log(listaIds, 'lista')
       setMostrarBtnCerra(true)
       return ;
     };
@@ -162,12 +157,6 @@ console.log(perfil,('pf user'))
     const reiniciarPagina = filters !== filterPaginaName;
 
     return (value: string | number) => {
-      console.log('reiniciarPagina', {
-        reiniciarPagina,
-        filters,
-        filterPaginaName,
-      });
-
       setSerchParams({
         ...Object.fromEntries(serchParams.entries()),
         [filters]: value.toString(),
