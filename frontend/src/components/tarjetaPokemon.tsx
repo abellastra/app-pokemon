@@ -63,7 +63,13 @@ function Tarjeta({
           {name.toUpperCase()}
         </h4>
         <h5 className='bg-sky-300  rounded-xl'>{types}</h5>
-        <img className='max-w-[25vh] max-h-[25vh]' src={img} alt='' />
+        <div className='relative'>
+          <div className=' absolute top-2 right-2 z-10'>
+            <Like idPokemon={idPokemon} likeInicial={isLiked} />
+          </div>
+
+          <img className='max-w-[25vh] max-h-[25vh]' src={img} alt='' />
+        </div>
 
         <div className='flex   items-center w-[26vh] h-[10vh] max-h-[20vh] max-w-full  overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-sky-300 '>
           {ability &&
@@ -77,16 +83,15 @@ function Tarjeta({
         </div>
         <h5 className='font-medium'>Generation {generation.toUpperCase()}</h5>
 
-        <div className='h-full w-full'>
+        <div className='  flex justify-center'>
           <button
-            className='bg-sky-200 p-1 rounded-md hover:bg-sky-300 '
+            className='bg-sky-200  p-1 rounded-md hover:bg-sky-300 '
             onClick={() => {
               setShowDescription(true);
             }}
           >
             Show description{' '}
           </button>
-          <Like idPokemon={idPokemon} likeInicial={isLiked} />
         </div>
 
         {showDescription && (

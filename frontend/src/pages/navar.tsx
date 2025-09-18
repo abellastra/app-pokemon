@@ -7,13 +7,13 @@ import { useAuth } from '../context/AuthContext';
 export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
   const navigate = useNavigate();
   const { perfil, setPerfil } = useAuth();
-       const token = localStorage.getItem('token');
-       console.log(token);
-  console.log(perfil);
+  const { userName } = useAuth();
+  console.log(userName);
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
     const obtenerPefil = async () => {
       const res = await hayPerfil();
-      console.log(res);
       setPerfil(res);
     };
     obtenerPefil();
@@ -25,7 +25,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
         onClick={() => {
           navigate('/');
         }}
-        className='pt-2 radient-to-b from-red-500 via-green-500 to-blue-500 bg-clip-text text-transparent font-bold text-3xl sm:text-4xl '
+        className='pt-2 bg-gradient-to-b from-red-500 via-green-500 to-blue-500 bg-clip-text text-transparent font-bold text-3xl sm:text-4xl '
       >
         Pokemones
       </h1>
@@ -44,9 +44,12 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
       {!ocultarbotones && perfil && (
         <>
           <div className='flex items-center mt-2 '>
-            <h1 className=' p-1 sm:text-3xl mr-4  bg-blue-200/30 rounded '>
-              Bienvenido user
-            </h1>
+            {userName && (
+              <h1 className=' p-1 sm:text-3xl mr-4  bg-blue-200/30 rounded '>
+                Bienvenido {userName}
+              </h1>
+            )}
+
             <CerrarSesion />
           </div>
         </>

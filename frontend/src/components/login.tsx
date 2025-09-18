@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import Modal from "./modal";
 import { useState } from "react";
 import FormularioDeRegistro from "./registro";
@@ -13,23 +13,31 @@ const Login: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<formData>()
     const [registroActivo, setRegistroActivo] = useState<boolean>(false)    
     const navegar = useNavigate();
-    const{perfil,setPerfil}=useAuth()
+    const{setPerfil,setUserName}=useAuth()
 
     async function preguntarSiEsUsuario(data: formData) {
         try {
-            const respuesta = await fetch(`http://localhost:3000/login-user`, {
+            const respuesta = await fetch(
+              `http://localhost:3000/login-user` ,
+              {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                  'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: data.email,
-                    password: data.password,
+                  email: data.email,
+                  password: data.password,
                 }),
-                credentials:'include'
-            });
+                credentials: 'include',
+              }
+            );
+
 
             const resultado = await respuesta.json();
+            const name = resultado.data.name;
+            localStorage.setItem('userName', name);
+            
+         setUserName(name);
             if (!resultado.ok) {
                 throw new Error("No se encontro un usuario");
             } else {

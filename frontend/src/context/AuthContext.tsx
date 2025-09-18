@@ -1,24 +1,34 @@
-import { createContext,useState,useContext } from "react";
+import { createContext,useState,useContext, useEffect } from "react";
 import type { ReactNode } from 'react';
 
-type AutContextType={
+type AuthContextType={
     perfil:boolean;
     setPerfil:(estado:boolean)=>void
+    userName:string;
+    setUserName:(estado:string)=>void
+
 }
 
-const AuthContext= createContext<AutContextType|null>(null);
+const AuthContext= createContext<AuthContextType|null>(null);
 
 
 export const AuthPrivider=({children}:{children:ReactNode})=>{
-    const [perfil,setPerfil]=useState(()=>{
-        const token= localStorage.getItem('token')
-        console.log(token)
-        return !!token
-    })
+    const [perfil,setPerfil]=useState(false)
 
+    const [userName,setUserName]=useState('')
+    useEffect(() => {
+      const nombreGuardado = localStorage.getItem('userName');
+      if (nombreGuardado) {
+        setUserName(nombreGuardado);
+        setPerfil(true);
+      }
+    }, []);
+    // useEffect(()=>{
+
+    // },[userName])
 
     return(
-        <AuthContext.Provider value={{perfil,setPerfil}}>
+        <AuthContext.Provider value={{perfil,setPerfil,userName,setUserName}}>
             {children}
         </AuthContext.Provider>
     )
