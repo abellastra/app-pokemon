@@ -14,7 +14,6 @@ const AuthContext= createContext<AuthContextType|null>(null);
 
 export const AuthPrivider=({children}:{children:ReactNode})=>{
     const [perfil,setPerfil]=useState(false)
-
     const [userName,setUserName]=useState('')
     useEffect(() => {
       const nombreGuardado = localStorage.getItem('userName');

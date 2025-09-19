@@ -38,7 +38,6 @@ function Pokemones() {
     return likesGuardados ? JSON.parse(likesGuardados) : [];
   });
 
-  const [mostrarBtnCerrar, setMostrarBtnCerra] = useState<boolean>(false)
   const [perfil, setPerfil] = useState<boolean >(false)
 
     useEffect(() => {
@@ -132,13 +131,11 @@ function Pokemones() {
       if (perfil === null) return;
       if (!perfil) {
         setLike([]);
-        setMostrarBtnCerra(false)
         return ;
       }
       const idsPokemonApi = listaPokemones.map(pokemon => pokemon.idPokemon)
       const listaIds = await obtenerLike(idsPokemonApi);
       setLike(listaIds);
-      setMostrarBtnCerra(true)
       return ;
     };
     
@@ -229,12 +226,6 @@ function Pokemones() {
           ))}
         </div>
       </div>
-      {mostrarBtnCerrar &&
-        <div>
-          <CerrarSesion />
-        </div>
-      }
-
     </div>
   );
 }

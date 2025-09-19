@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Like from './botonLike';
+import { useTema } from '../context/temaContext';
 type Pokemon = {
   name: string;
   idPokemon: number;
@@ -25,7 +26,7 @@ function Tarjeta({
   botonVisible
 }: Pokemon) {
   const [showDescription, setShowDescription] = useState<boolean>(false);
-  
+  const{tema}=useTema()
   
 
   const generarColor = (ability: string) => {
@@ -56,18 +57,21 @@ function Tarjeta({
 
   return (
     <div
-      className='mt-2 pt-2 bg-red-100 flex justify-center items-center bg-white rounded-lg shadow-md
-       '
+      className={`mt-2 pt-2  flex justify-center items-center rounded-lg shadow-m
+         ${tema=== 'claro'?  'bg-[rgb(255,255,255)] text-[rgb(0, 0, 0)] '
+                    : 'bg-[rgb(108,108,115)] '
+         }`}
+       
     >
       {/* min-h-[27vh] max-h-[40vh] h-auto */}
       {/* /*w-[200px] min-h-[240px] max-h-[240px] lg:min-h-[250px]*/}
-      <div className=' relative flex flex-col justify-center items-center h-full w-full  '>
+      <div className=' relative flex flex-col justify-center items-center h-[30vh] w-full  '>
         <h4 className='bg-sky-200 p-1 rounded-xl font-medium	 mb-1'>
           {name.toUpperCase()}
         </h4>
         <h5 className='bg-sky-300  rounded-xl'>{types}</h5>
         <div className='relative'>
-          <div className=' absolute top-2 right-2 z-10'>
+          <div className={`absolute p-0.5 right-2 z-10  rounded-full flex justyfi-center items-center `}>
             <Like
               idPokemon={idPokemon}
               likeInicial={isLiked}
