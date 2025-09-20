@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { data, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Modal from "./modal";
 import { useState } from "react";
 import FormularioDeRegistro from "./registro";
@@ -10,49 +10,51 @@ type formData = {
 }
 
 const Login: React.FC = () => {
-  
-    const { register, handleSubmit, formState: { errors } } = useForm<formData>()
-    const [registroActivo, setRegistroActivo] = useState<boolean>(false)  
-      const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null)
-  
-    const navegar = useNavigate();
-    const{setPerfil,setUserName}=useAuth()
 
-    async function preguntarSiEsUsuario(data: formData) {
-        try {
-            const respuesta = await fetch(
-              `http://localhost:3000/login-user` ,
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  email: data.email,
-                  password: data.password,
-                }),
-                credentials: 'include',
-              }
-            );
+  const { register, handleSubmit, formState: { errors } } = useForm<formData>()
+  const [registroActivo, setRegistroActivo] = useState<boolean>(false)
+  const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null)
+
+  const navegar = useNavigate();
+  const { setPerfil, setUserName } = useAuth()
+
+  async function preguntarSiEsUsuario(data: formData) {
+    try {
+      const respuesta = await fetch(
+        `http://localhost:3000/login-user`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+          }),
+          credentials: 'include',
+        }
+      );
 
 
-            const resultado = await respuesta.json();
-            const name = resultado.data.name;
-            localStorage.setItem('userName', name);
-            
-         setUserName(name);
-            if (!resultado.ok) {
+      const resultado = await respuesta.json();
+
+
+
+      if (!resultado.ok) {
         setMensajeGeneral(resultado.msg)
-            } else {
-              setPerfil(true)
-                      setMensajeGeneral('')
+        return;
+      }
+      const name = resultado.data.name;
+      localStorage.setItem('userName', name);
+      setUserName(name);
+      setMensajeGeneral('')
+      setPerfil(true)
+      navegar("/");
 
-                navegar("/");
 
-            }
-        } catch (error) {
-      if(error instanceof Error){
-       setMensajeGeneral("No se pudo conectar con el servidor");
+    } catch (error) {
+      if (error instanceof Error) {
+        setMensajeGeneral("No se pudo conectar con el servidor");
       }
     }
   }

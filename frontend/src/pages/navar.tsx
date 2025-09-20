@@ -8,8 +8,8 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
   const navigate = useNavigate();
   const { perfil, setPerfil } = useAuth();
   const { userName } = useAuth();
-  console.log(userName);
-  const token = localStorage.getItem('token');
+  
+  // const token = localStorage.getItem('token');
 
   useEffect(() => {
     const obtenerPefil = async () => {

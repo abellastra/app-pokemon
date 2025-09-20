@@ -52,11 +52,7 @@ const FormularioDeRegistro = ({ cerrar }: ModalProps) => {
         <samp>Name User</samp>
         <input
           {...register('userName', {
-            required: 'El nombre de usuario es obligatorio',
-            // pattern: {
-            //   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            //   message: 'Debe tener formato valido: ejemplo@dominio.com',
-            // },
+            required: 'El nombre de usuario es obligatorio'
           })}
           placeholder='ingrese nombre de usuario'
           className='w-full px-4 py-2 rounded border-gray-600 outline-none text-blue-950 border placeholder-gray-500'

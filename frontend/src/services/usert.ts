@@ -20,9 +20,7 @@ export async function crearSolicitudUsuario(dataUser: user) {
 
             })
         })
-        console.log( "email",dataUser.email,"name",
-                dataUser.userName,"password",
-                dataUser.password)
+       
         const resultado = await respuesta.json()
 
         if (!respuesta.ok) {

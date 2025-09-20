@@ -25,9 +25,6 @@ function Tarjeta({
   botonVisible
 }: Pokemon) {
   const [showDescription, setShowDescription] = useState<boolean>(false);
-  
-  
-
   const generarColor = (ability: string) => {
     const colores = [
       'red',
@@ -59,8 +56,6 @@ function Tarjeta({
       className='mt-2 pt-2 bg-red-100 flex justify-center items-center bg-white rounded-lg shadow-md
        '
     >
-      {/* min-h-[27vh] max-h-[40vh] h-auto */}
-      {/* /*w-[200px] min-h-[240px] max-h-[240px] lg:min-h-[250px]*/}
       <div className=' relative flex flex-col justify-center items-center h-full w-full  '>
         <h4 className='bg-sky-200 p-1 rounded-xl font-medium	 mb-1'>
           {name.toUpperCase()}
@@ -90,7 +85,7 @@ function Tarjeta({
         </div>
         <h5 className='font-medium'>Generation {generation.toUpperCase()}</h5>
 
-        <div className=' flex flex justify-center'>
+        <div className=' flex justify-center'>
           <button
             className='bg-sky-200  p-1 rounded-md hover:bg-sky-300 '
             onClick={() => {
