@@ -38,10 +38,11 @@ function Pokemones() {
     return likesGuardados ? JSON.parse(likesGuardados) : [];
   });
 
+
   const [perfil, setPerfil] = useState<boolean >(false)
 
-    useEffect(() => {
-      const obtenerPerfil = async () => {
+  useEffect(() => {
+    const obtenerPerfil = async () => {
       const res = await hayPerfil();
       setPerfil(res);
     }
@@ -136,17 +137,16 @@ function Pokemones() {
       const idsPokemonApi = listaPokemones.map(pokemon => pokemon.idPokemon)
       const listaIds = await obtenerLike(idsPokemonApi);
       setLike(listaIds);
-      return ;
+      return;
+
     };
-    
-      cargarLikes();
-    
-  }, [perfil,listaPokemones])
+
+    cargarLikes();
+
+  }, [perfil, listaPokemones])
+  
   useEffect(() => {
-
-
     const offset = (pagina - 1) * limite;
-
     pedirDatosPokemones(offset, limite, type, generation);
   }, [pagina, limite, type, generation, pedirDatosPokemones]);
 

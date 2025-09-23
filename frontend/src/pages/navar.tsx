@@ -12,6 +12,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
   const navigate = useNavigate();
   const { perfil, setPerfil } = useAuth();
   const { userName } = useAuth();
+
   const { tema, setTema } = useTema();
   const [openMenu, setOpenMenu] = useState(false);
   console.log(userName);

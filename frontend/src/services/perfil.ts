@@ -14,7 +14,6 @@ try {
             throw new Error(resultado.message);
 
         }
-        const statusPefil=result.ok
     return result.ok
     
 } catch (error) {
