@@ -52,7 +52,8 @@ export const CerrarSesion = () => {
                 </Modal>
             )}
       <button
-        className={`max-w-[30vh] p-4 py-2 bg-blue-200/30 hover:bg-blue-300/50 rounded  ${
+        className={`max-w-[30vh] p-4 py-2 bg-blue-200/30 hover:bg-blue-300/50 rounded 
+            ${
           tema === 'oscuro'
             ? 'bg-[rgb(0,0,0)] text-[rgb(199,234,227)]'
             : 'bg-[rgb(243,236,236)] '

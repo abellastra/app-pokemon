@@ -6,7 +6,6 @@ import Tarjeta from '../components/tarjetaPokemon';
 import PokemonBall from '../components/pokemonBall';
 import { hayPerfil } from '../services/perfil';
 import { obtenerLike } from '../services/obtenerLike';
-import { CerrarSesion } from '../components/botonCerrarSesion';
 
 type Pokemon = {
   name: string;

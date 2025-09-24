@@ -61,7 +61,7 @@ function Tarjeta({
       className={`mt-2 pt-2  flex justify-center items-center rounded-lg shadow-m
          ${tema=== 'claro'?  'bg-[rgb(255,255,255)] text-[rgb(0, 0, 0)] '
                     : 'bg-[rgb(108,108,115)] '
-         }`}
+         }`}>
       <div className=' relative flex flex-col justify-center items-center h-[30vh] w-full  '>
         <h4 className='bg-sky-200 p-1 rounded-xl font-medium	 mb-1'>
           {name.toUpperCase()}

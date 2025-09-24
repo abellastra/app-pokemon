@@ -1,4 +1,3 @@
-
 type user = {
 
     password: string;
@@ -25,14 +24,11 @@ export async function crearSolicitudUsuario(dataUser: user) {
 
         if (!respuesta.ok) {
             throw new Error(resultado.message);
-
         }
         return resultado
     } catch (error:unknown) {
         if (error instanceof Error) {
-            throw new Error("No se pudo conectar con el servidor:", error);
-        } else {
-            throw new Error("No se pudo conectar con el servidor");
+           throw error;
         }
     }
 }
