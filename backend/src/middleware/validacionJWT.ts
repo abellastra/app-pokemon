@@ -8,7 +8,7 @@ export const validarJwt = (req: Request, res: Response, next:NextFunction) => {
      const token = req.cookies.jwt
 
      if(!token){
-        return res.status(400).json({ok: false,message:'No hay token'})
+        return res.status(401).json({ok: false,message:'No hay token'})
         }
 
      if(blackList.includes(token)){

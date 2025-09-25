@@ -41,13 +41,13 @@ export const Login = async (req: Request, res: Response) => {
             const token = jwt.sign(
                 payload,
                 process.env.JWT_SECRET as string,
-                { expiresIn: "1h" }
+                { expiresIn: "1d" }
             )
             res.cookie("jwt", token, {
                 httpOnly: true,
                 secure: false, // ponelo en false si estás en localhost sin HTTPS
                 sameSite: "strict",
-                maxAge: 3600000, // 1 hora,
+                maxAge: 24 * 60 * 60 * 1000,
                 path: '/' // para q sea accesible de todos lados 
             });
             return res.status(200).json({ ok: true,data: payload ,msg: 'Usuario encontrado' })

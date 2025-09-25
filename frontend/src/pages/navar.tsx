@@ -1,12 +1,13 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { hayPerfil } from '../services/perfil';
 import { useEffect, useState } from 'react';
 import { CerrarSesion } from '../components/botonCerrarSesion';
 import { useTema } from '../context/temaContext';
 import { useAuth } from '../context/AuthContext';
 
+
 import menuSvg from '../assets/Bullet-List--Streamline-Plump.png';
-import type { text } from 'express';
+
 
 export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
   const navigate = useNavigate();
@@ -15,8 +16,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
 
   const { tema, setTema } = useTema();
   const [openMenu, setOpenMenu] = useState(false);
-  console.log(userName);
-  const token = localStorage.getItem('token');
+ 
 
   useEffect(() => {
     const obtenerPefil = async () => {
@@ -45,7 +45,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
         <div className='item-center'>
           <button
             onClick={() => navigate('/login')}
-            className='p-1 m-2 bg-sky-200 hover:bg-sky-300 sm:text-xl border-1 border-white rounded rounded-xl '
+            className='p-1 m-2 bg-sky-200 hover:bg-sky-300 sm:text-xl border-1 border-white  rounded-xl '
           >
             Sig in
           </button>
