@@ -19,5 +19,6 @@ try {
 } catch (error) {
     console.error("Error al buscar usuario:", error);
     throw error
+   
 }
 }

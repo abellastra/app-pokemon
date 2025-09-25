@@ -4,6 +4,7 @@ import fondoClaro from './assets/fondo.png';
 import fondoOscuro from './assets/fondoOscuro.png'
 import { BrowserRouter } from 'react-router-dom';
 import {useTema} from'./context/temaContext'
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const { tema } = useTema();
@@ -18,6 +19,8 @@ function App() {
         <BrowserRouter>
           <Rutas />
         </BrowserRouter>
+
+        <Toaster position="top-center" />
       </div>
     </div>
   );
