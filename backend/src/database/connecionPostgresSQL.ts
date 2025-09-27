@@ -9,7 +9,7 @@ const Pool = new pg.Pool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   ssl: process.env.DB_SSL === 'true',
-  // port: Number(process.env.DB_PORT) 
+  ...(process.env.DB_PORT ? { port: Number(process.env.DB_PORT) } : {}),
 })
 
 export default Pool;
