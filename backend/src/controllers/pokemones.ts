@@ -44,7 +44,7 @@ export const getPokemones = async (req: Request, res: Response) => {
       const resultado = await Promise.all(
         response_url.dataPokemon.map(async pokemon => {
           const name = pokemon.name;
-          const idPokemon = pokemon.id
+          const idPokemon = pokemon.id;
           const abilities = pokemon.abilities.map(a => a.ability.name);
           const attacks = pokemon.moves.map(m => m.move.name);
           const img = pokemon.sprites.front_default;
@@ -62,8 +62,6 @@ export const getPokemones = async (req: Request, res: Response) => {
             'generation-',
             ''
           );
-            
-          
 
           return {
             name: name,
@@ -115,7 +113,6 @@ export const getPokemones = async (req: Request, res: Response) => {
           );
 
           return {
-
             name: name,
             idPokemon: idPokemon,
             ability: abilities,
@@ -129,8 +126,8 @@ export const getPokemones = async (req: Request, res: Response) => {
       );
       const filteredByType = type
         ? resultado
-          .filter(p => p.types.includes(type))
-          .slice(offset, offset + limit)
+            .filter(p => p.types.includes(type))
+            .slice(offset, offset + limit)
         : resultado;
       const countPokemonFilters = resultado.filter(p =>
         p.types.includes(type)
@@ -165,7 +162,7 @@ export const getPokemones = async (req: Request, res: Response) => {
     const resultado = await Promise.all(
       response_url.dataPokemon.map(async pokemon => {
         const name = pokemon.name;
-        const idPokemon = pokemon.id
+        const idPokemon = pokemon.id;
         const abilities = pokemon.abilities.map(a => a.ability.name);
         const attacks = pokemon.moves.map(m => m.move.name);
         const img = pokemon.sprites.front_default;
@@ -178,7 +175,7 @@ export const getPokemones = async (req: Request, res: Response) => {
 
         const description = entry?.flavor_text || 'No se encontró descripción';
         const generation = descData.generation.name.replace('generation-', '');
- 
+
         return {
           name: name,
           idPokemon: idPokemon,
