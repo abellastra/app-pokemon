@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from "express"
+
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { blackList } from "../routers/useRouters";
-dotenv.config({ path: "../../.env" });
-
+import { blackList } from '../routers/useRouters';
+dotenv.config({ path: '../../.env' });
 
 
 function mostrarExp(exp: number) {
@@ -53,3 +53,4 @@ export const validarJwt = (req: Request, res: Response, next: NextFunction) => {
    }
 
 }
+
