@@ -5,7 +5,6 @@ function Home() {
     <>
       <header>
         <main className='mx-auto '>
-        
           <Pokemones />
         </main>
       </header>

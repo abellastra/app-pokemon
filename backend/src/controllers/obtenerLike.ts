@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import Pool from '../database/connecionPostgresSQL';
 import { db } from '../../db';
 import { usuarios } from '../../db/schema';
 import { acciones } from '../../db/schema';
@@ -10,11 +9,11 @@ export const obtenerLike = async (req: Request, res: Response) => {
   const email_usuario = req.usuario?.email;
   if (!email_usuario) {
     throw new Error('Email de usuario no encontrado en el token');
-  } else if (!email_usuario) {
+  } 
+   if (!email_usuario) {
     throw new Error('No se enviaron ids de pokemones');
   }
   try {
-    // Pool.query('SELECT id_user FROM usuarios WHERE user_email = $1', [email_usuario])
     const result = await db
       .select({ id_user: usuarios.id_user })
       .from(usuarios)
@@ -25,10 +24,7 @@ export const obtenerLike = async (req: Request, res: Response) => {
     }
 
     const id_user = result[0].id_user;
-    //  Pool.query(
-    //       'SELECT pokemon_id FROM acciones WHERE user_id = $1 AND like_foto = true',
-    //       [id_user]
-    //     );
+    
     const likeGuardado = await db
       .select({ pokemon_id: acciones.pokemon_id })
       .from(acciones)
