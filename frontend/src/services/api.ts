@@ -11,15 +11,15 @@ export async function requestConCookie(url: string, opciones: RequestInit = {}) 
     });
 
     if (response.status === 401) {
-         if (!toastMostrado) {
-         toast.error("Tu sesión ha expirado");
-         toastMostrado = true;
+        if (!toastMostrado) {
+            toast.error("Tu sesión ha expirado");
+            toastMostrado = true;
 
-      setTimeout(() => {
-        window.location.href = "/login";
+            setTimeout(() => {
+                window.location.href = "/login";
 
-      }, 2000);
-    }
+            }, 2000);
+        }
     }
 
     if (!response.ok) {

@@ -1,6 +1,4 @@
 import { Request, Response } from 'express';
-import { QueryResult } from 'pg';
-import Pool from '../database/connecionPostgresSQL';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -8,13 +6,6 @@ import { db } from '../../db/index';
 import { usuarios } from '../../db/schema';
 import { eq } from 'drizzle-orm';
 dotenv.config({ path: '../../.env' });
-
-type User = {
-  id_user: string;
-  user_email: string;
-  user_password: string;
-  user_Name: string;
-};
 
 export const Login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -24,7 +15,7 @@ export const Login = async (req: Request, res: Response) => {
 
   try {
     // hago una consulta para ver si el email ingresado esta registrado en la base de datos
-    //  Pool.query('SELECT * FROM usuarios WHERE user_email = $1', [email])
+    
     const result = await db
       .select()
       .from(usuarios)
@@ -37,14 +28,14 @@ export const Login = async (req: Request, res: Response) => {
     // guardo el usuario si es que hay
 
     const usuario = result[0];
-    console.log(usuario.user_Name);
+    
 
     //comparo las contraseñas
     const comparePassword = await bcrypt.compare(
       password,
       usuario.user_password
     );
-    console.log(comparePassword, 'comparePassword');
+  
     if (comparePassword) {
       const payload = {
         id: usuario.id_user,
