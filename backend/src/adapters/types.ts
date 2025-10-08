@@ -1,7 +1,7 @@
 import { Request } from "express";
 
 export interface RequestConCookies extends Request {
-    cookies: { [key: string]: string };
+  cookies: { [key: string]: string };
 }
 
 

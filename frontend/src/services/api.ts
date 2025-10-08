@@ -11,10 +11,11 @@ export async function requestConCookie(url: string, opciones: RequestInit = {}) 
     });
 
     if (response.status === 401) {
+        localStorage.clear();
+        
         if (!toastMostrado) {
             toast.error("Tu sesión ha expirado");
             toastMostrado = true;
-
             setTimeout(() => {
                 window.location.href = "/login";
 
