@@ -16,7 +16,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
 
   const { tema, setTema } = useTema();
   const [openMenu, setOpenMenu] = useState(false);
- 
+
 
   useEffect(() => {
     const obtenerPefil = async () => {
@@ -61,7 +61,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
               </h1>
             )}
             <img
-              className={`w-[5vh] ${tema==='oscuro' ? 'bg-[rgb(251,251,251)] m-2':''} `}
+              className={`w-[5vh] ${tema === 'oscuro' ? 'bg-[rgb(251,251,251)] m-2' : ''} `}
               onClick={() => {
                 setOpenMenu(!openMenu);
               }}
@@ -71,31 +71,28 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
 
             {openMenu && (
               <div
-                className={`absolute top-full  right-0 p-3 shadow-lg rounded flex flex-col items-center   ${
-                  tema === 'claro'
+                className={`absolute top-full  right-0 p-3 shadow-lg rounded flex flex-col items-center   ${tema === 'claro'
                     ? 'bg-[rgb(243,236,236)] text-[rgb(0, 0, 0)] '
                     : 'bg-[rgb(0,0,0)]'
-                }`}
+                  }`}
               >
                 <button
                   onClick={alernarTema}
-                  className={`max-w-[30vh]  p-4 py-2 rounded transition-colors duration-300 mb-3 ${
-                    tema === 'claro'
+                  className={`max-w-[30vh]  p-4 py-2 rounded transition-colors duration-300 mb-3 ${tema === 'claro'
                       ? 'bg-[rgb(0,0,0)] text-[rgb(199,234,227)]'
                       : 'bg-[rgb(243,236,236)] '
-                  }`}
+                    }`}
                 >
                   Cambiar tema
                 </button>
-                <button className={`max-w-[30vh]  p-4 py-2  bg-blue-200/30 hover:bg-blue-300/50 rounded mb-3 ${
-                    tema === 'oscuro'
-                      ? 'bg-[rgb(0,0,0)] text-[rgb(199,234,227)]'
-                      : 'bg-[rgb(243,236,236)] '
+                <button className={`max-w-[30vh]  p-4 py-2  bg-blue-200/30 hover:bg-blue-300/50 rounded mb-3 ${tema === 'oscuro'
+                    ? 'bg-[rgb(0,0,0)] text-[rgb(199,234,227)]'
+                    : 'bg-[rgb(243,236,236)] '
                   }`}>
                   configuracion
                 </button>
 
-                <CerrarSesion/>
+                <CerrarSesion />
               </div>
             )}
           </div>

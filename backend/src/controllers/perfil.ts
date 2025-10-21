@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import Pool from '../database/connecionPostgresSQL';
 import { usuarios } from '../../db/schema';
 import { eq } from 'drizzle-orm';
 import { db } from '../../db';
@@ -14,7 +13,6 @@ export const pf = async (req: Request, res: Response) => {
   }
 
   try {
-    // Pool.query('SELECT id_user FROM usuarios WHERE user_email = $1', [email_usuario])
     const result = await db
       .select({
         id_user: usuarios.id_user,

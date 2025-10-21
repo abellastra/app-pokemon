@@ -38,7 +38,7 @@ function Pokemones() {
   });
 
 
-  const [perfil, setPerfil] = useState<boolean >(false)
+  const [perfil, setPerfil] = useState<boolean>(false)
 
   useEffect(() => {
     const obtenerPerfil = async () => {
@@ -131,7 +131,7 @@ function Pokemones() {
       if (perfil === null) return;
       if (!perfil) {
         setLike([]);
-        return ;
+        return;
       }
       const idsPokemonApi = listaPokemones.map(pokemon => pokemon.idPokemon)
       const listaIds = await obtenerLike(idsPokemonApi);
@@ -143,7 +143,7 @@ function Pokemones() {
     cargarLikes();
 
   }, [perfil, listaPokemones])
-  
+
   useEffect(() => {
     const offset = (pagina - 1) * limite;
     pedirDatosPokemones(offset, limite, type, generation);
