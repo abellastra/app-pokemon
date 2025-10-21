@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+     "migrate": "npx drizzle-kit push",
+    "reset-db": "ts-node db/reset-db.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "format": "prettier --write \"src/**/*.{js,ts,json}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,json}\"",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "fix-all": "npm run format && npm run lint:fix",
-    "migrate": "npx knex migrate:latest"
+    "fix-all": "npm run format && npm run lint:fix"
   },
   "keywords": [],
   "author": "",

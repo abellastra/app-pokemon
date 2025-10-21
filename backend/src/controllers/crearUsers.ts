@@ -17,11 +17,14 @@ export const crear = async (req: Request, res: Response) => {
       // si no esta registrado hashear el password
       const passwordHas = await bcrypt.hash(password, 10);
       //inserto el usuario
-    //   Pool.query(
-    //     'INSERT INTO usuarios (user_email, user_password,user_Name) VALUES ($1, $2,$3)',
-    //     [email, passwordHas, userName]
-      await db.insert(usuarios).values({user_email:email,user_password:passwordHas,user_Name:userName})
-      
+      //   Pool.query(
+      //     'INSERT INTO usuarios (user_email, user_password,user_Name) VALUES ($1, $2,$3)',
+      //     [email, passwordHas, userName]
+      await db.insert(usuarios).values({
+        user_email: email,
+        user_password: passwordHas,
+        user_Name: userName,
+      });
 
       return res
         .status(201)

@@ -1,69 +1,65 @@
-# React + TypeScript + Vite
+# 🐾 App de Pokemones
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación full stack para explorar, filtrar y visualizar Pokemones con datos dinámicos. Integra un frontend moderno con React + Vite y un backend robusto con Express, TypeScript y Drizzle ORM sobre PostgreSQL.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧩 Descripción general
 
-## Expanding the ESLint configuration
+Esta app permite:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🔍 Filtrar Pokemones por tipo  
+- 📸 Visualizar imágenes y datos técnicos  
+- 🧠 Practicar manejo de estado y renderizado condicional en React  
+- 🗃️ Persistir datos en una base relacional con migraciones automáticas  
+- 🧼 Aplicar buenas prácticas de modularización, validación y diseño visual  
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ⚙️ Tecnologías utilizadas
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Frontend
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- ⚛️ React + TypeScript  
+- ⚡ Vite como entorno de desarrollo  
+- 🎨 CSS plano con clases semánticas  
+- 📦 Componentes organizados por lógica, estilos y estructura  
+- 🧠 Estado con `useState` y renderizado condicional  
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Backend
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 🔧 Express + TypeScript  
+- 🐘 PostgreSQL con Drizzle ORM  
+- 🔐 Autenticación con JWT y validación con `express-validator`  
+- 🌐 Rutas REST (`GET`, `POST`, `DELETE`) para gestionar Pokemones  
+- 🧪 Scripts para migrar y resetear la base de datos  
+
+---
+
+## 🐘 Configuración de la base de datos
+
+Antes de ejecutar el backend, es necesario tener una base de datos PostgreSQL creada y accesible.
+
+### 1. Crear la base de datos
+
+Podés hacerlo desde tu cliente favorito (pgAdmin, DBeaver, consola, etc.):
+
+```sql
+CREATE DATABASE pokemones;
+
+## 🐘 Base de datos con Drizzle ORM
+
+El backend usa **Drizzle ORM** para interactuar con PostgreSQL de forma segura y tipada.
+
+**Estructura:**
+
+- `db/schema.ts`: define las tablas y relaciones  
+- `db/index.ts`: configura la conexión  
+- `drizzle.config.ts`: configuración para migraciones  
+
+**Scripts útiles:**
+
+```bash
+npm run migrate     # Aplica migraciones con drizzle-kit
+npm run reset-db    # Reinicia la base de datos desde cero
+
