@@ -1,4 +1,4 @@
-# 🐾 App de Pokemones Aplicación **full stack** para explorar, filtrar y visualizar Pokemones con datos dinámicos. Integra un frontend moderno con **React + Vite** y un backend robusto con **Express, TypeScript y Drizzle ORM** sobre **PostgreSQL**. 
+## 🐾 App de Pokemones Aplicación **full stack** para explorar, filtrar y visualizar Pokemones con datos dinámicos. Integra un frontend moderno con **React + Vite** y un backend robusto con **Express, TypeScript y Drizzle ORM** sobre **PostgreSQL**. 
 
 ---
  ## 🧩 Descripción general Esta app permite:
@@ -36,24 +36,30 @@
   
   ### 1. Crear la base de datos
 
-sql
-CREATE DATABASE pokemones;
-2. Configurar conexión
-Crea un archivo .env en la raíz del backend con las siguientes variables:
+  sql
+  CREATE DATABASE pokemones;
 
-ini
-Copiar código
-PORT=4000
-DB_HOST=localhost
-DB_USER=usuario
-DB_PASSWORD=contraseña
-DB_NAME=pokemones
-JWT_SECRET=secreto
-3. Migrar base de datos
-bash
-Copiar código
-npm run migrate     # Aplica migraciones con drizzle-kit
-npm run reset-db    # Reinicia la base de datos desde cero
+
+  ### 2. Configurar conexión
+  Crea un archivo .env en la raíz del backend con las siguientes variables:
+
+    ini
+    Copiar código
+    PORT=4000
+    DB_HOST=localhost
+    DB_USER=usuario
+    DB_PASSWORD=contraseña
+    DB_NAME=pokemones
+    JWT_SECRET=secreto
+
+
+### 3. Migrar base de datos
+
+  bash
+  Copiar código
+  npm run migrate     # Aplica migraciones con drizzle-kit
+  npm run reset-db    # Reinicia la base de datos desde cero
+
 
 🚀 Instalación y ejecución
 bash
