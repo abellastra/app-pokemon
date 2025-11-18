@@ -24,7 +24,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
       setPerfil(res);
     };
     obtenerPefil();
-  }, []);
+  }, [setPerfil]);
 
   const alernarTema = () => {
     console.log(tema);
@@ -54,48 +54,52 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
 
       {!ocultarbotones && perfil && (
         <>
-          <div className='flex items-center mt-2 relative z-11 '>
+          <div className="flex items-center mt-2 relative z-10">
             {userName && (
-              <h1 className=' p-1 sm:text-3xl mr-4  bg-blue-200/30 rounded '>
+              <h1 className="p-1 sm:text-3xl mr-4 bg-blue-200/30 rounded">
                 Bienvenido {userName.toUpperCase()}
               </h1>
             )}
             <img
-              className={`w-[5vh] ${tema === 'oscuro' ? 'bg-[rgb(251,251,251)] m-2' : ''} `}
+              className={`w-[5vh] ${openMenu ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} ${tema === 'oscuro' ? 'bg-[rgb(251,251,251)] m-2' : ''}`}
               onClick={() => {
-                setOpenMenu(!openMenu);
+                if (!openMenu) setOpenMenu(true);
               }}
               src={menuSvg}
-              alt='menu'
+              alt="menu"
             />
 
-            {openMenu && (
-              <div
-                className={`absolute top-full  right-0 p-3 shadow-lg rounded flex flex-col items-center   ${tema === 'claro'
-                    ? 'bg-[rgb(243,236,236)] text-[rgb(0, 0, 0)] '
-                    : 'bg-[rgb(0,0,0)]'
-                  }`}
+          </div>
+
+          {openMenu && (
+            <div className={`fixed top-0 left-0 w-[200px] h-full z-50 bg-[#B6CEEF] shadow-lg p-[4px] `}>
+              <button
+                onClick={() => setOpenMenu(false)}
+                className="absolute top-2 right-2 text-xl font-bold text-gray-700 hover:text-red-500"
               >
+                x
+              </button>
+
+              <nav className='flex flex-col w-[152px] h-[276px] p-[28px] gap-[4px]'>
                 <button
                   onClick={alernarTema}
-                  className={`max-w-[30vh]  p-4 py-2 rounded transition-colors duration-300 mb-3 ${tema === 'claro'
-                      ? 'bg-[rgb(0,0,0)] text-[rgb(199,234,227)]'
-                      : 'bg-[rgb(243,236,236)] '
-                    }`}
+                  className='flex items-center justify-start w-full  px-4 py-2 whitespace-nowrap hover:cursor-pointer '
                 >
-                  Cambiar tema
+                  Cambiar modo
                 </button>
-                <button className={`max-w-[30vh]  p-4 py-2  bg-blue-200/30 hover:bg-blue-300/50 rounded mb-3 ${tema === 'oscuro'
-                    ? 'bg-[rgb(0,0,0)] text-[rgb(199,234,227)]'
-                    : 'bg-[rgb(243,236,236)] '
-                  }`}>
-                  configuracion
+                <button className='flex items-center justify-start w-full max-w-[200px] px-4 py-2 whitespace-nowrap hover:cursor-pointer'>
+                  Configuracion
+                </button>
+
+                <button className='flex items-center justify-start w-full max-w-[200px] px-4 py-2 whitespace-nowrap hover:cursor-pointer'>
+                  Favoritos
                 </button>
 
                 <CerrarSesion />
-              </div>
-            )}
-          </div>
+              </nav>
+            </div>
+          )}
+
         </>
       )}
     </header>
