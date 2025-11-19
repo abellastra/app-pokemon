@@ -5,8 +5,10 @@ import { CerrarSesion } from '../components/botonCerrarSesion';
 import { useTema } from '../context/temaContext';
 import { useAuth } from '../context/AuthContext';
 
+import { IoMenu } from "react-icons/io5";
 
-import menuSvg from '../assets/Bullet-List--Streamline-Plump.png';
+
+// import menuSvg from '../assets/Bullet-List--Streamline-Plump.png';
 
 
 export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
@@ -31,15 +33,24 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
     setTema(tema === 'claro' ? 'oscuro' : 'claro');
   };
   return (
-    <header className='flex justify-center sm:justify-between item-center text-center  '>
+    <header className='flex justify-center  items-center text-center mb-12  '>
       <h1
         onClick={() => {
           navigate('/');
         }}
-        className='pt-2 bg-gradient-to-b from-red-500 via-green-500 to-blue-500 bg-clip-text text-transparent font-bold text-3xl sm:text-4xl '
+        className=' font-bold text-3xl sm:text-4xl text-white cursor-pointer'
       >
-        Pokemones
+        LOGO
       </h1>
+
+      <select className={`border border-white rounded-md px-2 py-1 cursor-pointer fixed right-0 mt-2 mr-12 ${tema === 'oscuro' ? 'text-white' : 'text-black'}`} defaultValue="es" >
+        <option value="es" className={`${tema === 'oscuro' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+          ES
+        </option>
+        <option value="en" className={`${tema === 'oscuro' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+          EN
+        </option>
+      </select>
 
       {!ocultarbotones && perfil === false && (
         <div className='item-center'>
@@ -54,25 +65,30 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
 
       {!ocultarbotones && perfil && (
         <>
-          <div className="flex items-center mt-2 relative z-10">
-            {userName && (
+          <div className="flex items-center mt-2 fixed top-0 left-0 z-50">
+            {/* {userName && (
               <h1 className="p-1 sm:text-3xl mr-4 bg-blue-200/30 rounded">
                 Bienvenido {userName.toUpperCase()}
               </h1>
-            )}
-            <img
-              className={`w-[5vh] ${openMenu ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} ${tema === 'oscuro' ? 'bg-[rgb(251,251,251)] m-2' : ''}`}
+            )} */}
+            <div
+              className={`w-[5vh] ml-12 ${openMenu ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} ${tema === 'oscuro' ? 'bg-[rgb(251,251,251)] ' : ''}`}
               onClick={() => {
                 if (!openMenu) setOpenMenu(true);
-              }}
-              src={menuSvg}
-              alt="menu"
-            />
+              }}>
+              <IoMenu size={30} />
+            </div>
 
           </div>
 
           {openMenu && (
             <div className={`fixed top-0 left-0 w-[200px] h-full z-50 bg-[#B6CEEF] shadow-lg p-[4px] `}>
+
+              {userName && (
+                <h1 className="p-1 sm:text-2xl mb-2 mt-4  text-center">
+                  Bienvenido {userName.toUpperCase()}
+                </h1>
+              )}
               <button
                 onClick={() => setOpenMenu(false)}
                 className="absolute top-2 right-2 text-xl font-bold text-gray-700 hover:text-red-500"
