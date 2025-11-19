@@ -1,143 +1,161 @@
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import Modal from "./modal";
-import { useState } from "react";
-import FormularioDeRegistro from "./registro";
-import { useAuth } from "../context/AuthContext";
-import { useTema } from "../context/temaContext";
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import Modal from './modal';
+import { useState } from 'react';
+
+import FormularioDeRegistro from './registro';
+import { useAuth } from '../context/AuthContext';
+import { useTema } from '../context/temaContext';
 type formData = {
   email: string;
   password: string;
-}
+};
 
 const Login: React.FC = () => {
-
-  const { register, handleSubmit, formState: { errors } } = useForm<formData>()
-  const [registroActivo, setRegistroActivo] = useState<boolean>(false)
-  const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<formData>();
+  const [registroActivo, setRegistroActivo] = useState<boolean>(false);
+  const [mensajeGeneral, setMensajeGeneral] = useState<string | null>(null);
 
   const navegar = useNavigate();
-  const { setPerfil, setUserName } = useAuth()
-    const{tema}=useTema()
+  const { setPerfil, setUserName } = useAuth();
+  const { tema } = useTema();
 
   async function preguntarSiEsUsuario(data: formData) {
     try {
-      const respuesta = await fetch(
-        `http://localhost:3000/login-user`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: data.email,
-            password: data.password,
-          }),
-          credentials: 'include',
-        }
-      );
-
+      const respuesta = await fetch(`http://localhost:3000/login-user`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+        credentials: 'include',
+      });
 
       const resultado = await respuesta.json();
 
-
-
       if (!resultado.ok) {
-        setMensajeGeneral(resultado.msg)
+        setMensajeGeneral(resultado.msg);
         return;
       }
       const name = resultado.data.name;
       localStorage.setItem('userName', name);
       setUserName(name);
-      setMensajeGeneral('')
-      setPerfil(true)
-      navegar("/");
-
-
+      setMensajeGeneral('');
+      setPerfil(true);
+      navegar('/');
     } catch (error) {
       if (error instanceof Error) {
-        setMensajeGeneral("No se pudo conectar con el servidor");
+        setMensajeGeneral('No se pudo conectar con el servidor');
       }
     }
   }
 
   return (
-    <>
-      <div
-        className='flex justify-center items-center flex-col
-        
-       
- '
-      >
-        <div
-          className={` ${tema === 'oscuro' ? 'bg-[rgb(151,151,159)]' : ''} `}
-        >
-          <div className=' px-8 py-10 rounded-md max-w-md  mx-auto'>
-            <h2 className={` ${tema === 'oscuro' ? 'text-white' : ''}  `}>
-              Iniciar sesión{' '}
-            </h2>
-            <form
-              className='w-full max-w-sm space-y-4'
-              onSubmit={handleSubmit(preguntarSiEsUsuario)}
-            >
-              <input
-                {...register('email', {
-                  required: 'El email es obligatorio',
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: 'Debe tener formato valido: ejemplo@dominio.com',
-                  },
-                })}
-                placeholder='Email'
-                className={`w-full px-4 py-2 rounded border-gray-600 outline-none text-blue-950 border placeholder-gray-500 ${tema === 'oscuro' ? 'placeholder-white' : ''}`}
-              />
-              {errors.email && <p>{errors.email.message}</p>}
-              <input
-                type='password'
-                {...register('password', {
-                  required: 'La contraseña es obligatoria',
-                  minLength: {
-                    value: 6,
-                    message: 'La contraseña debe tener al menos 6 caracteres',
-                  },
-                })}
-                placeholder='Contraseña'
-                className={`w-full px-4 py-2 rounded border-gray-600 outline-none text-blue-950 border placeholder-gray-500 ${tema === 'oscuro' ? 'placeholder-white' : ''}`}
-              />
-              {errors.password && <p>{errors.password.message}</p>}
+    // PANTALLA LOGIN 
+    <div className='bg-[linear-gradient(180deg,#B6CEEF_0%,#6095DB_100%)] w-full h-full'>
 
-              <button
-                type='submit'
-                className='w-full py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2'
-              >
-                Iniciar sesión
-              </button>
-            </form>
-            {mensajeGeneral && (
-              <p className='text-red-700 flex justify-center mt-1'>
-                {mensajeGeneral}
-              </p>
-            )}
-          </div>
-          <div className=' flex justify-center items-centers'>
-            <p>Todavia no estas registrado?</p>
-            <button
-              onClick={() => setRegistroActivo(true)}
-              className=' py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2'
+      {/* // CONENEDOR FINAL LOG IN */}
+      <div className=' bg-[#6095DB33] flex flex-row w-full h-full max-w-[707px] max-h-[766px] '>
+        {/* CONTENEDOR LOG IN */}
+        <div>
+          {/* FRAME21 */}
+          <div>
+            {/* FRAMA 18 */}
+            <div
+              className={` ${tema === 'oscuro' ? 'text-white' : ''}  w-[385px] h-auto h-max-[115px]`}
             >
-              Registrarme
-            </button>
-
-            {registroActivo && (
-              <Modal estado={registroActivo} cambiarEstado={setRegistroActivo}>
-                <FormularioDeRegistro cerrar={() => setRegistroActivo(false)} />
-              </Modal>
-            )}
+              <h1 className='font-bold w-[385px] h-[48px] text-[40px]'>
+                Bienvenido de nuevo!
+              </h1>
+              <h2>Registro</h2>
+            </div>
           </div>
         </div>
       </div>
-    </>
+       {/* ECLIPSE */}
+       <div className=' w-full max-w-[284px] h-full max-h-[284px] top-[162px] left-[1298px] rounded-full'>
+        </div>
+
+
+    </div>
+    // <>
+    //   <div className='flex justify-center items-center flex-col'>
+    //     <div
+    //       className={` ${tema === 'oscuro' ? 'bg-[rgb(151,151,159)]' : ''} `}
+    //     >
+    //       <div className=' px-8 py-10 rounded-md max-w-md  mx-auto'>
+    //         <h2 className={` ${tema === 'oscuro' ? 'text-white' : ''}  `}>
+    //           Iniciar sesión{' '}
+    //         </h2>
+    //         <form
+    //           className='w-full max-w-sm space-y-4'
+    //           onSubmit={handleSubmit(preguntarSiEsUsuario)}
+    //         >
+    //           <input
+    //             {...register('email', {
+    //               required: 'El email es obligatorio',
+    //               pattern: {
+    //                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    //                 message: 'Debe tener formato valido: ejemplo@dominio.com',
+    //               },
+    //             })}
+    //             placeholder='Email'
+    //             className={`w-full px-4 py-2 rounded border-gray-600 outline-none text-blue-950 border placeholder-gray-500 ${tema === 'oscuro' ? 'placeholder-white' : ''}`}
+    //           />
+    //           {errors.email && <p>{errors.email.message}</p>}
+    //           <input
+    //             type='password'
+    //             {...register('password', {
+    //               required: 'La contraseña es obligatoria',
+    //               minLength: {
+    //                 value: 6,
+    //                 message: 'La contraseña debe tener al menos 6 caracteres',
+    //               },
+    //             })}
+    //             placeholder='Contraseña'
+    //             className={`w-full px-4 py-2 rounded border-gray-600 outline-none text-blue-950 border placeholder-gray-500 ${tema === 'oscuro' ? 'placeholder-white' : ''}`}
+    //           />
+    //           {errors.password && <p>{errors.password.message}</p>}
+
+    //           <button
+    //             type='submit'
+    //             className='w-full py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2'
+    //           >
+    //             Iniciar sesión
+    //           </button>
+    //         </form>
+    //         {mensajeGeneral && (
+    //           <p className='text-red-700 flex justify-center mt-1'>
+    //             {mensajeGeneral}
+    //           </p>
+    //         )}
+    //       </div>
+    //       <div className=' flex justify-center items-centers'>
+    //         <p>Todavia no estas registrado?</p>
+    //         <button
+    //           onClick={() => setRegistroActivo(true)}
+    //           className=' py-2 bg-blue-200/30 hover:bg-blue-200/50 rounded mt-2'
+    //         >
+    //           Registrarme
+    //         </button>
+
+    //         {registroActivo && (
+    //           <Modal estado={registroActivo} cambiarEstado={setRegistroActivo}>
+    //             <FormularioDeRegistro cerrar={() => setRegistroActivo(false)} />
+    //           </Modal>
+    //         )}
+    //       </div>
+    //     </div>
+    //   </div>
+    // </>
   );
-}
+};
 
 export default Login;
