@@ -164,7 +164,14 @@ function Pokemones() {
   return (
     <div className=' flex flex-col items-center justify-center relative w-full h-full '>
       <div>
-        <div className='flex items-center justify-center '>
+        <Pagination
+          totalPaginas={totalPag}
+          paginaActual={pagina}
+          siblings={1}
+          cambiar={handleChangeFilters(filterPaginaName)}
+        />
+
+               <div className='flex items-center justify-center '>
           <Filters
             type={type}
             generation={generation}
@@ -184,12 +191,6 @@ function Pokemones() {
             <option value='20'>20</option>
           </select>
         </div>
-        <Pagination
-          totalPaginas={totalPag}
-          paginaActual={pagina}
-          siblings={1}
-          cambiar={handleChangeFilters(filterPaginaName)}
-        />
 
         {isLoanding == false && limite > listaPokemones.length && (
           <h1 className='m-4 bg-sky-200 p-2 rounded-xl  '>
