@@ -1,69 +1,104 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🐾 App de Pokemones Aplicación **full stack** para explorar, filtrar y visualizar Pokemones con datos dinámicos. Integra un frontend moderno con **React + Vite** y un backend robusto con **Express, TypeScript y Drizzle ORM** sobre **PostgreSQL**. 
 
-Currently, two official plugins are available:
+---
+ ## 🧩 Descripción general Esta app permite:
+  - 🔍 Filtrar Pokemones por tipo 
+  - 📸 Visualizar imágenes y datos técnicos 
+  - 🧠 Practicar manejo de estado y renderizado condicional en React 
+  - 🗃️ Persistir datos en una base relacional con migraciones automáticas 
+  - 🧼 Aplicar buenas prácticas de modularización, validación y diseño visual 
+  --- 
+  ## ⚙️ Tecnologías utilizadas 
+  
+  ### 🖥️ Frontend 
+  - ⚛️ **React + TypeScript** 
+  - ⚡ **Vite** como entorno de desarrollo 
+  - 🎨 **CSS plano** con clases semánticas 
+  - 📦 Componentes organizados por lógica, estilos y estructura 
+  - 🧠 Estado con useState y renderizado condicional 
+  
+  ### ⚙️ Backend 
+  - 🔧 **Express + TypeScript** 
+  - 🐘 **PostgreSQL con Drizzle ORM** 
+  - 🔐 Autenticación con **JWT** y validación con **express-validator** 
+  - 🌐 Rutas **REST (GET, POST, DELETE)** para gestionar Pokemones 
+  - 🧪 Scripts para migrar y resetear la base de datos 
+  
+  --- 
+  
+  ## 🧠 Requisitos previos Antes de comenzar, asegurate de tener instalado: 
+  - 🟢 Node.js 18 o superior 
+  - 🐘 PostgreSQL corriendo en tu máquina 
+  - 📦 npm o pnpm 
+  
+  --- 
+  ## 🐘 Configuración de la base de datos Antes de ejecutar el backend, es necesario tener una base de datos **PostgreSQL** creada y accesible. 
+  
+  ### 1. Crear la base de datos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  sql
+  CREATE DATABASE pokemones;
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  ### 2. Configurar conexión
+  Crea un archivo .env en la raíz del backend con las siguientes variables:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+    ini
+    Copiar código
+    PORT=4000
+    DB_HOST=localhost
+    DB_USER=usuario
+    DB_PASSWORD=contraseña
+    DB_NAME=pokemones
+    JWT_SECRET=secreto
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 3. Migrar base de datos
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+  bash
+  Copiar código
+  npm run migrate     # Aplica migraciones con drizzle-kit
+  npm run reset-db    # Reinicia la base de datos desde cero
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🚀 Instalación y ejecución
+bash
+Copiar código
+# Clonar repositorio
+git clone https://github.com/abellastra/app-pokemon
+cd app-pokemon
+
+# Frontend
+cd frontend
+npm install
+npm run dev
+
+# Backend
+cd ../backend
+npm install
+npm run dev
+
+
+## 🎯 Uso de la app
+🧍‍♀️ Crear una cuenta y loguearse
+
+🔍 Explorar y filtrar Pokemones por tipo
+
+📸 Ver detalles e imágenes de cada Pokemon
+
+🤝 Contribuciones
+Hacer fork del repositorio
+
+Crear un branch:
+
+bash
+Copiar código
+git checkout -b feature/nueva-funcionalidad
+Hacer commit de tus cambios
+
+Enviar pull request
+
+📄 Licencia
+Este proyecto está bajo la licencia MIT.
+>>>>>>> 9e7c0922e779cdbda83dbd95236828bd46d0d439

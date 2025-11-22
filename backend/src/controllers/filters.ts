@@ -18,7 +18,7 @@ export const filtersDb = async (req: Request, res: Response) => {
   try {
     if (!response.ok) {
       console.error(`Error ${response.status}: ${response.statusText}`);
-      return null ;
+      return null;
     }
     const data = await response.json();
 
@@ -37,7 +37,7 @@ export const filtersDb = async (req: Request, res: Response) => {
         const descRes = await fetch(pokeData.species.url);
         if (!pokeRes.ok) {
           console.error(`Error ${resultado}`);
-          return null   ;
+          return null;
         }
         const descData = await descRes.json();
 
@@ -56,11 +56,10 @@ export const filtersDb = async (req: Request, res: Response) => {
           description: description,
           attacks: ataques.join(', '),
           generation: generation,
-
         };
       })
     );
-     
+
     res.status(200).json({ resultado: resultado });
   } catch (error) {
     console.log(error);
