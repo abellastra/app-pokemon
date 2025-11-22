@@ -58,17 +58,17 @@ function Tarjeta({
 
   return (
     <div
-      className={`mt-2 pt-2  flex justify-center items-center rounded-lg shadow-m
+      className={`mt-2 gap-1 ml-2 pt-1 pb-1  h-[368px] flex justify-center items-center text-center rounded-[28px] shadow-m
          ${tema=== 'claro'?  'bg-[rgb(255,255,255)] text-[rgb(0, 0, 0)] '
                     : 'bg-[rgb(108,108,115)] '
          }`}>
-      <div className=' relative flex flex-col justify-center items-center h-[30vh] w-full  '>
-        <h4 className='bg-sky-200 p-1 rounded-xl font-medium	 mb-1'>
+      <div className=' gap-4 relative flex flex-col justify-center items-center h-[310px] w-[200px] text-center pr-1 '>
+        <h4 className='bg-sky-200 p-1 rounded-xl text-base mr-1 '>
           {name.toUpperCase()}
         </h4>
         <h5 className='bg-sky-300  rounded-xl'>{types}</h5>
-        <div className='relative'>
-          <div className={`absolute p-0.5 right-2 z-10  rounded-full flex justyfi-center items-center `}>
+        
+          <div className={`absolute  top-0 right-2 z-10  rounded-full flex justify-center items-center`}>
             <Like
               idPokemon={idPokemon}
               likeInicial={isLiked}
@@ -77,13 +77,13 @@ function Tarjeta({
           </div>
 
           <img className='max-w-[25vh] max-h-[25vh]' src={img} alt='' />
-        </div>
+       
 
         <div className='flex   items-center w-[26vh] h-[10vh] max-h-[20vh] max-w-full  overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-sky-300 '>
           {ability &&
             ability.map(ability => (
               <span
-                className={` ${generarColor(ability)} m-1 p-0.5 whitespace-nowrap  text-xs font-semibold   rounded rounded-full`}
+                className={` ${generarColor(ability)} m-1 p-0.5 whitespace-nowrap  text-xs font-semibold  rounded-full`}
               >
                 {ability}
               </span>
@@ -103,7 +103,7 @@ function Tarjeta({
         </div>
 
         {showDescription && (
-          <div className='absolute bg-gray-100 p-2 rounded-md mt-2 inset-0  items-center '>
+          <div className='absolute bg-gray-100 p-2 rounded-md mt-9 inset-0 pt-8 items-center '>
             <p className='text-xs'>{description}</p>
             <button
               className='bg-red-200 p-1 rounded-md hover:bg-red-300 mt-2 '

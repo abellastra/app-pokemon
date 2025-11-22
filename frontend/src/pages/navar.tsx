@@ -53,7 +53,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
       </select>
 
       {!ocultarbotones && perfil === false && (
-        <div className='item-center'>
+        <div className=''>
           <button
             onClick={() => navigate('/login')}
             className='p-1 m-2 bg-sky-200 hover:bg-sky-300 sm:text-xl border-1 border-white  rounded-xl '
