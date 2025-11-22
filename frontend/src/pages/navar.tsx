@@ -72,7 +72,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
               </h1>
             )} */}
             <div
-              className={`w-[5vh] ml-12 ${openMenu ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} ${tema === 'oscuro' ? 'bg-[rgb(251,251,251)] ' : ''}`}
+              className={`w-[5vh] ml-12 ${openMenu ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} ${tema === 'oscuro' ? 'text-[rgb(251,251,251)] ' : ''}`}
               onClick={() => {
                 if (!openMenu) setOpenMenu(true);
               }}>

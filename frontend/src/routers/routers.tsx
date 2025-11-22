@@ -11,7 +11,7 @@ const Rutas = () => {
   const islogin = location.pathname === '/login';
   return (
     <AuthPrivider>
-      {/* <Navar ocultarbotones={islogin} />  */}
+     <Navar ocultarbotones={islogin} /> 
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
