@@ -5,8 +5,10 @@ import { CerrarSesion } from '../components/botonCerrarSesion';
 import { useTema } from '../context/temaContext';
 import { useAuth } from '../context/AuthContext';
 
+import { IoMenu } from "react-icons/io5";
 
-import menuSvg from '../assets/Bullet-List--Streamline-Plump.png';
+
+// import menuSvg from '../assets/Bullet-List--Streamline-Plump.png';
 
 
 export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
@@ -24,22 +26,31 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
       setPerfil(res);
     };
     obtenerPefil();
-  }, []);
+  }, [setPerfil]);
 
   const alernarTema = () => {
     console.log(tema);
     setTema(tema === 'claro' ? 'oscuro' : 'claro');
   };
   return (
-    <header className='flex justify-center sm:justify-between item-center text-center  '>
+    <header className='flex justify-center  items-center text-center mb-12  '>
       <h1
         onClick={() => {
           navigate('/');
         }}
-        className='pt-2 bg-gradient-to-b from-red-500 via-green-500 to-blue-500 bg-clip-text text-transparent font-bold text-3xl sm:text-4xl '
+        className=' font-bold text-3xl sm:text-4xl text-white cursor-pointer'
       >
-        Pokemones
+        LOGO
       </h1>
+
+      <select className={`border border-white rounded-md px-2 py-1 cursor-pointer fixed right-0 mt-2 mr-12 ${tema === 'oscuro' ? 'text-white' : 'text-black'}`} defaultValue="es" >
+        <option value="es" className={`${tema === 'oscuro' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+          ES
+        </option>
+        <option value="en" className={`${tema === 'oscuro' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+          EN
+        </option>
+      </select>
 
       {!ocultarbotones && perfil === false && (
         <div className='item-center'>
@@ -54,48 +65,57 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
 
       {!ocultarbotones && perfil && (
         <>
-          <div className='flex items-center mt-2 relative z-11 '>
-            {userName && (
-              <h1 className=' p-1 sm:text-3xl mr-4  bg-blue-200/30 rounded '>
+          <div className="flex items-center mt-2 fixed top-0 left-0 z-50">
+            {/* {userName && (
+              <h1 className="p-1 sm:text-3xl mr-4 bg-blue-200/30 rounded">
                 Bienvenido {userName.toUpperCase()}
               </h1>
-            )}
-            <img
-              className={`w-[5vh] ${tema === 'oscuro' ? 'bg-[rgb(251,251,251)] m-2' : ''} `}
+            )} */}
+            <div
+              className={`w-[5vh] ml-12 ${openMenu ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} ${tema === 'oscuro' ? 'bg-[rgb(251,251,251)] ' : ''}`}
               onClick={() => {
-                setOpenMenu(!openMenu);
-              }}
-              src={menuSvg}
-              alt='menu'
-            />
+                if (!openMenu) setOpenMenu(true);
+              }}>
+              <IoMenu size={30} />
+            </div>
 
-            {openMenu && (
-              <div
-                className={`absolute top-full  right-0 p-3 shadow-lg rounded flex flex-col items-center   ${tema === 'claro'
-                    ? 'bg-[rgb(243,236,236)] text-[rgb(0, 0, 0)] '
-                    : 'bg-[rgb(0,0,0)]'
-                  }`}
+          </div>
+
+          {openMenu && (
+            <div className={`fixed top-0 left-0 w-[200px] h-full z-50 bg-[#B6CEEF] shadow-lg p-[4px] `}>
+
+              {userName && (
+                <h1 className="p-1 sm:text-2xl mb-2 mt-4  text-center">
+                  Bienvenido {userName.toUpperCase()}
+                </h1>
+              )}
+              <button
+                onClick={() => setOpenMenu(false)}
+                className="absolute top-2 right-2 text-xl font-bold text-gray-700 hover:text-red-500"
               >
+                x
+              </button>
+
+              <nav className='flex flex-col w-[152px] h-[276px] p-[28px] gap-[4px]'>
                 <button
                   onClick={alernarTema}
-                  className={`max-w-[30vh]  p-4 py-2 rounded transition-colors duration-300 mb-3 ${tema === 'claro'
-                      ? 'bg-[rgb(0,0,0)] text-[rgb(199,234,227)]'
-                      : 'bg-[rgb(243,236,236)] '
-                    }`}
+                  className='flex items-center justify-start w-full  px-4 py-2 whitespace-nowrap hover:cursor-pointer '
                 >
-                  Cambiar tema
+                  Cambiar modo
                 </button>
-                <button className={`max-w-[30vh]  p-4 py-2  bg-blue-200/30 hover:bg-blue-300/50 rounded mb-3 ${tema === 'oscuro'
-                    ? 'bg-[rgb(0,0,0)] text-[rgb(199,234,227)]'
-                    : 'bg-[rgb(243,236,236)] '
-                  }`}>
-                  configuracion
+                <button className='flex items-center justify-start w-full max-w-[200px] px-4 py-2 whitespace-nowrap hover:cursor-pointer'>
+                  Configuracion
+                </button>
+
+                <button className='flex items-center justify-start w-full max-w-[200px] px-4 py-2 whitespace-nowrap hover:cursor-pointer'>
+                  Favoritos
                 </button>
 
                 <CerrarSesion />
-              </div>
-            )}
-          </div>
+              </nav>
+            </div>
+          )}
+
         </>
       )}
     </header>
