@@ -58,32 +58,101 @@ const Login: React.FC = () => {
   }
 
   return (
-    // PANTALLA LOGIN 
-    <div className='bg-[linear-gradient(180deg,#B6CEEF_0%,#6095DB_100%)] w-full h-full'>
+    // PANTALLA LOGIN
+    <div className=' flex flex-col items-center  bg-[linear-gradient(180deg,#B6CEEF_50%,#6095DB_100%)] relative w-screen  h-screen '>
+      <div className='w-full h-[10vh] flex justify-between items-center pl-[10vh] pr-[10vh]'>
+        <h1>logo</h1>
+        <span>es_</span>
+      </div>
 
       {/* // CONENEDOR FINAL LOG IN */}
-      <div className=' bg-[#6095DB33] flex flex-row w-full h-full max-w-[707px] max-h-[766px] '>
+      <div className=' z-10 bg-[#6095DB33] flex  justify-center  flex-row w-full h-full max-w-[707px] max-h-[766px] rounded-2xl'>
         {/* CONTENEDOR LOG IN */}
-        <div>
+        <div className=' mt-[7vh] w-[539px]  max-h-[614px] flex  flex-col justify-between'>
           {/* FRAME21 */}
-          <div>
-            {/* FRAMA 18 */}
-            <div
-              className={` ${tema === 'oscuro' ? 'text-white' : ''}  w-[385px] h-auto h-max-[115px]`}
-            >
-              <h1 className='font-bold w-[385px] h-[48px] text-[40px]'>
-                Bienvenido de nuevo!
-              </h1>
-              <h2>Registro</h2>
+          <div className=' w-full max-h-[491px] flex justify-center flex-col items-center '>
+            {/* FRAME20 */}
+            <div className='flex justify-center  flex-col w-fit max-h-[150px] mt-[2vh]'>
+              {/* FRAMA 18 */}
+              <div
+                className={` flex justify-center  items-center flex-col text-white w-[385px]  max-h-[115px]`}
+              >
+                <h1 className='font-semibold w-[80%] h-[6vh]  text-[30px] '>
+                  Bienvenido de nuevo!
+                </h1>
+                <h2 className='text-[30px]'>Registro</h2>
+              </div>
             </div>
+            <form
+              className='flex flex-col justify-center items-center text-white'
+              onSubmit={handleSubmit(preguntarSiEsUsuario)}
+            >
+              <input
+                {...register('email', {
+                  required: 'El email es obligatorio',
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: 'Debe tener formato valido: ejemplo@dominio.com',
+                  },
+                })}
+                placeholder='Email'
+                className={`w-[588px] mt-[5vh]  mb-[5vh] px-4 py-2  rounded-lg border border-[#00000033] border-[2px] outline-none`}
+              />
+              {errors.email && <p>{errors.email.message}</p>}
+              <input
+                type='password'
+                {...register('password', {
+                  required: 'La contraseña es obligatoria',
+                  minLength: {
+                    value: 6,
+                    message: 'La contraseña debe tener al menos 6 caracteres',
+                  },
+                })}
+                placeholder='Contraseña'
+                className={`w-full  mb-[5vh] px-4 py-2  rounded-lg border-[#00000033] outline-none  border-[2px] placeholder-gray-500}`}
+              />
+              {errors.password && <p>{errors.password.message}</p>}
+
+              <button
+                type='submit'
+                className='w-[283px] py-2 bg-[#1261CA] rounded-xl mt-2'
+              >
+                Iniciar sesión
+              </button>
+            </form>
           </div>
+          {/* FIGMA 17 */}
+          <div className='button-[0px] flex justify-between max-w-[80vh] h-[4vh]  text-[20px]'>
+            <button className='ml-[10vh] text-white '>no tenes cuenta?</button>
+            <button
+           onClick={() => setRegistroActivo(true)}
+
+              className='mr-[10vh] text-[#0D458F] '
+            >
+              {' '}
+              Iniciar{' '}
+            </button>
+          </div>
+          {mensajeGeneral && (
+            <p className='text-red-700 flex justify-center mt-1'>
+              {mensajeGeneral}
+            </p>
+          )}
+           {registroActivo && (
+              <Modal estado={registroActivo} cambiarEstado={setRegistroActivo}>
+                <FormularioDeRegistro cerrar={() => setRegistroActivo(false)} />
+              </Modal>
+            )}
         </div>
       </div>
-       {/* ECLIPSE */}
-       <div className=' w-full max-w-[284px] h-full max-h-[284px] top-[162px] left-[1298px] rounded-full'>
-        </div>
-
-
+      {/* ECLIPSE */}
+      <div className=' w-[15vw] h-[15vw] top-[20vh] left-[180vh] rounded-full bg-[#0D458F]/40 blur-3xl absolute'></div>
+      {/* GRAD 3 */}
+      <div className='z-0 absolute w-[15vw] h-[15vw]  rounded-full top-[45vh] left-[120vh] bg-[#0D458F]/40 blur-3xl'></div>
+      {/* GRAD 2 */}
+      <div className=' absolute w-[15vw] h-[15vw]  rounded-full top-[5vh] left-[50vh] bg-[#0D458F]/40 blur-3xl'></div>
+      {/* GRAD1 */}
+      <div className=' absolute w-[15vw] h-[15vw]  rounded-full top-[60vh] left-[-15vh] bg-[#0D458F]/40 blur-3xl'></div>
     </div>
     // <>
     //   <div className='flex justify-center items-center flex-col'>
