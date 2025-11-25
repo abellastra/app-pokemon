@@ -164,32 +164,35 @@ function Pokemones() {
   return (
     <div className=' flex flex-col items-center justify-center relative w-full h-full '>
       <div>
-        <div className='flex items-center justify-center '>
-          <Filters
-            type={type}
-            generation={generation}
-            setSelectedGeneration={handleChangeFilters(filterGenerationName)}
-            setSelectedType={handleChangeFilters(filtertype)}
-          />
-          <select
-            onChange={e =>
-              handleChangeFilters(filterLimiteName)(Number(e.target.value))
-            }
-            value={String(limite)}
-            className='bg-sky-200 p-2 rounded-xl'
-          >
-            <option value='5'>5</option>
-            <option value='10'>10</option>
-            <option value='15'>15</option>
-            <option value='20'>20</option>
-          </select>
-        </div>
         <Pagination
           totalPaginas={totalPag}
           paginaActual={pagina}
           siblings={1}
           cambiar={handleChangeFilters(filterPaginaName)}
         />
+
+        <div className='flex items-center   '>
+          <Filters
+            type={type}
+            generation={generation}
+            setSelectedGeneration={handleChangeFilters(filterGenerationName)}
+            setSelectedType={handleChangeFilters(filtertype)}
+          />
+          <label className='bg-[#4181D5] text-white  w-[127px] h-[48px] rounded-xl flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 '>
+            <select
+              onChange={e =>
+                handleChangeFilters(filterLimiteName)(Number(e.target.value))
+              }
+              className='text-white w-[100px] h-[32px] outline-none bg-[#4181D5]'
+              value={String(limite)}
+            >
+              <option value='5' className='bg-[#0D185B]'>5</option>
+              <option value='10' className='bg-[#0D185B]'>10</option>
+              <option value='15' className='bg-[#0D185B]'>15</option>
+              <option value='20' className='bg-[#0D185B]'>20</option>
+            </select>
+          </label>
+        </div>
 
         {isLoanding == false && limite > listaPokemones.length && (
           <h1 className='m-4 bg-sky-200 p-2 rounded-xl  '>

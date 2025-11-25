@@ -43,20 +43,21 @@ function Filters({
   ];
 
   return (
-    <div className=' flex sm:flex-wrap gap-1 sm:gap-4 justify-center items-center mb-1 m-1 '>
-      <label className='block text-center bg-sky-200 m-1 p-1.5 sm:p-2 rounded-xl border border-white'>
-        Type:
+    <div className='flex m-6 gap-8'>
+      <label className='w-[229px] h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl  text-white text-base'>
+          Type
         <select
           value={type}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             setSelectedType(e.target.value);
           }}
           name='selectedType'
+          className="outline-none"
         >
-          <option>all</option>
+          <option></option>
           {FiltersType.map(option => (
             <option
-              className='bg-[rgb(128,128,128)]'
+              className='bg-[#0D185B]'
               value={option.value}
               key={option.value}
             >
@@ -65,18 +66,20 @@ function Filters({
           ))}
         </select>
       </label>
-      <label className='block text-center  bg-sky-200 p-1.5 sm:p-2   rounded-xl border border-white'>
-        Generation:
+      <label className='w-[229px] h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl text-white text-base'
+      >
+        Generation
         <select
           value={generation}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             setSelectedGeneration(Number(e.target.value));
           }}
           name='selectedGeneracion'
+          className="outline-none"
         >
-          <option>all</option>
+          <option></option>
           {FiltersGeneration.map(option => (
-            <option value={option.value} key={option.value}>
+            <option value={option.value} key={option.value}   className='bg-[#0D185B]'>
               {option.label}
             </option>
           ))}

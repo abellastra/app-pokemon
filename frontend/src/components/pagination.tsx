@@ -16,47 +16,54 @@ function Pagination({ totalPaginas, paginaActual, siblings, cambiar }: Paginatio
   }, []);
 
   return (
-    <div className='w-full flex justify-center  sm:px-6'>
+    <div className=' flex justify-center '>
       <nav
         aria-label='Pagination'
-        className='flex flex-wrap gap-1 sm:gap-2 items-center justify-center bg-sky-200 p-2 rounded-md ring-1 ring-white/10'
+        className='flex items-center justify-center p-2   h-[33px]'
       >
-        {/* Botón anterior con ícono */}
-        <button
-          onClick={() => paginaActual > 1 && cambiar(paginaActual - 1)}
-          className='inline-flex items-center px-2 py-2 rounded-md ring-1 ring-gray-700 text-white hover:bg-white/10 focus:outline-none'
-        >
-          <svg viewBox='0 0 20 20' fill='currentColor' className='w-5 h-5'>
-            <path d='M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z' />
-          </svg>
-        </button>
+        <div className='text-sm flex items-center gap-2  bg-[#b6b6b6]  h-8 rounded-full '>
+          {/* Botón anterior con ícono */}
+          <div className='flex pr-1'>
+            <button
+              onClick={() => paginaActual > 1 && cambiar(paginaActual - 1)}
+              className=' w-[38px] h-[34px] rounded-full bg-[#8b8888] text-white flex items-center justify-center'
+            >
+              <svg viewBox='0 0 20 20' fill='currentColor' className='w-5 h-5'>
+                <path d='M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z' />
+              </svg>
+            </button>
+          </div>
 
-        {/* Números de página */}
-        {arrayItemsPag.map((value, index) => (
-          <button
-            key={`${value}-${index}`}
-            onClick={() => cambiar(Number(value))}
-            className={`px-3 py-1 text-sm font-semibold ring-1 ring-gray-700 rounded-md ${
-              value === paginaActual
-                ? 'bg-gray-700 text-white'
+
+          {/* Números de página */}
+          {arrayItemsPag.map((value, index) => (
+            <button
+              key={`${value}-${index}`}
+              onClick={() => cambiar(Number(value))}
+              className={`text-sm font-semibold rounded-full w-[22px] h-[22px] flex items-center justify-center cursor-pointer pt-1 pr-2 pb-1 pl-2   ${value === paginaActual
+                ? 'bg-[#013479CC] text-white'
                 : 'text-white hover:bg-white/10'
-            }`}
-          >
-            {value}
-          </button>
-        ))}
+                }`}
+            >
+              {value}
+            </button>
+          ))}
 
-        {/* Botón siguiente con ícono */}
-        <button
-          onClick={() =>
-            paginaActual < totalPaginas && cambiar(paginaActual + 1)
-          }
-          className='inline-flex items-center px-2 py-2 rounded-md ring-1 ring-gray-700 text-white hover:bg-white/10 focus:outline-none'
-        >
-          <svg viewBox='0 0 20 20' fill='currentColor' className='w-5 h-5'>
-            <path d='M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z' />
-          </svg>
-        </button>
+          {/* Botón siguiente con ícono */}
+          <div className='flex pl-1'>
+            <button
+              onClick={() =>
+                paginaActual < totalPaginas && cambiar(paginaActual + 1)
+              }
+              className=' w-[38px] h-[34px]  rounded-full bg-[#8b8888] text-white flex items-center justify-center'
+            >
+              <svg viewBox='0 0 20 20' fill='currentColor' className='w-5 h-5 '>
+                <path d='M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z' />
+              </svg>
+            </button>
+          </div>
+
+        </div>
       </nav>
     </div>
   );
