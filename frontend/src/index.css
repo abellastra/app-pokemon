@@ -1,1 +1,7 @@
 @import 'tailwindcss';
+@layer components {
+  .swiper-button-prev,
+  .swiper-button-next {
+    @apply h-[68px] ;
+  }
+}

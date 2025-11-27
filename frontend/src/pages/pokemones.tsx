@@ -1,7 +1,15 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+import { Navigation, Pagination } from "swiper/modules";
+
+
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Filters from '../components/filters';
-import Pagination from '../components/pagination';
+import Paginationp from '../components/pagination';
 import Tarjeta from '../components/tarjetaPokemon';
 import PokemonBall from '../components/pokemonBall';
 import { hayPerfil } from '../services/perfil';
@@ -49,7 +57,7 @@ function Pokemones() {
   }, [])
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
-  const limite = Number(serchParams.get(filterLimiteName)) || 10;
+  const limite = Number(serchParams.get(filterLimiteName)) || 3;
   const type = serchParams.get(filtertype) || '';
   const generation = serchParams.get(filterGenerationName) || '';
 
@@ -125,7 +133,7 @@ function Pokemones() {
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
   );
 
-
+  console.log(listaPokemones)
   useEffect(() => {
     const cargarLikes = async () => {
       if (perfil === null) return;
@@ -161,10 +169,11 @@ function Pokemones() {
     };
   };
 
+
   return (
     <div className=' flex flex-col items-center justify-center relative w-full h-full '>
       <div>
-        <Pagination
+        <Paginationp
           totalPaginas={totalPag}
           paginaActual={pagina}
           siblings={1}
@@ -186,7 +195,7 @@ function Pokemones() {
               className='text-white w-[100px] h-[32px] outline-none bg-[#4181D5]'
               value={String(limite)}
             >
-              <option value='5' className='bg-[#0D185B]'>5</option>
+              <option value='3' className='bg-[#0D185B]'>3</option>
               <option value='10' className='bg-[#0D185B]'>10</option>
               <option value='15' className='bg-[#0D185B]'>15</option>
               <option value='20' className='bg-[#0D185B]'>20</option>
@@ -207,26 +216,32 @@ function Pokemones() {
         </div>
       )}
       {errorfilters && <h1 className='text-red-500'>{errorfilters}</h1>}
-      <div className='  items-center justify-center   overflow-x-auto scrollbar-thumb-sky-300'>
-        <div className='min-h-[30vh] max-h-[70vh]  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-          {/* sm:max-h-[40vh] md:md:max-h-[80vh] lg:min-h-[3 0vh]
-          lg:max-h-[70vh] */}
-          {listaPokemones.map(pokemon => (
-            <Tarjeta
-              key={pokemon.name}
-              name={pokemon.name}
-              ability={pokemon.ability}
-              img={pokemon.img}
-              description={pokemon.description}
-              generation={pokemon.generation}
-              attacks={pokemon.attacks}
-              types={pokemon.types}
-              idPokemon={pokemon.idPokemon}
-              isLiked={likes.includes(pokemon.idPokemon)}
-              botonVisible={perfil}
-            />
+      <div className=' flex overflow-x-auto w-[108vh]'>
+        <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={16}          // separación entre tarjetas
+          slidesPerView={3}          // cuántas tarjetas visibles a la vez
+          navigation                 // flechas prev/next
+          pagination={{ clickable: true }} // puntitos abajo
+          style={{ width: "108vh", minHeight: "30vh", maxHeight: "70vh" }}
+        >
+          {listaPokemones.map((pokemon) => (
+            <SwiperSlide key={pokemon.name}>
+              <Tarjeta
+                name={pokemon.name}
+                ability={pokemon.ability}
+                img={pokemon.img}
+                description={pokemon.description}
+                generation={pokemon.generation}
+                attacks={pokemon.attacks}
+                types={pokemon.types}
+                idPokemon={pokemon.idPokemon}
+                isLiked={likes.includes(pokemon.idPokemon)}
+                botonVisible={perfil}
+              />
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </div>
     </div>
   );

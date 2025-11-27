@@ -17,9 +17,11 @@ type PokemonDescriptionProps = {
 function  PokemonDescription({ dataPokemon }: PokemonDescriptionProps) {
   return (
     <div className='  flex flex-col absoluted  '>
-    
+      <div>
+        <button className='w-[25px] h-[25px]  relative rigth-[0px] '>x</button>
+      </div>
       {/* TARJETA DESPLEGADA                                                */}
-      <div className='   flex flex-col  justify-center items-center  '>
+      <div className='w-]   flex flex-col  justify-center items-center  '>
         {/* TARJETA POKEMON  */}
         <div className='  flex flex-col items-center  rounded-3xl bg-[#0E1F361A]'>
           {/* FRAME 44 */}
