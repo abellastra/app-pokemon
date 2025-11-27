@@ -11,7 +11,7 @@ type Pokemon = {
   generation: string;
   types: string[];
   isLiked: boolean;
-  botonVisible:boolean;
+  botonVisible: boolean;
 };
 function Tarjeta({
   name,
@@ -27,8 +27,8 @@ function Tarjeta({
 }: Pokemon) {
   const [showDescription, setShowDescription] = useState<boolean>(false);
 
-  const{tema}=useTema()
-  
+  const { tema } = useTema()
+
 
   const generarColor = (ability: string) => {
     const colores = [
@@ -55,66 +55,70 @@ function Tarjeta({
 
     return `bg-${colores[index]}-500`;
   };
-
+  console.log(types, 'tipos')
   return (
-    <div
-      className={`mt-2 pt-2  flex justify-center items-center rounded-lg shadow-m
-         ${tema=== 'claro'?  'bg-[rgb(255,255,255)] text-[rgb(0, 0, 0)] '
-                    : 'bg-[rgb(108,108,115)] '
-         }`}>
-      <div className=' relative flex flex-col justify-center items-center h-[30vh] w-full  '>
-        <h4 className='bg-sky-200 p-1 rounded-xl font-medium	 mb-1'>
-          {name.toUpperCase()}
-        </h4>
-        <h5 className='bg-sky-300  rounded-xl'>{types}</h5>
-        <div className='relative'>
-          <div className={`absolute p-0.5 right-2 z-10  rounded-full flex justyfi-center items-center `}>
-            <Like
-              idPokemon={idPokemon}
-              likeInicial={isLiked}
-              botonVisible={botonVisible}
-            />
-          </div>
+    <div className={`mt-2 ml-4 w-[282px] h-[520px] rounded-[28px] shadow-md p-4 flex flex-col justify-between 
+  ${tema === 'claro' ? 'bg-white text-black' : 'bg-[rgb(108,108,115)] text-white'}`}>
 
-          <img className='max-w-[25vh] max-h-[25vh]' src={img} alt='' />
-        </div>
+      <div className="flex justify-between items-center mb-2">
+        <h4 className="text-base font-semibold">{name.toUpperCase()}</h4>
+        <Like idPokemon={idPokemon} likeInicial={isLiked} botonVisible={botonVisible} />
+      </div>
 
-        <div className='flex   items-center w-[26vh] h-[10vh] max-h-[20vh] max-w-full  overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-sky-300 '>
-          {ability &&
-            ability.map(ability => (
-              <span
-                className={` ${generarColor(ability)} m-1 p-0.5 whitespace-nowrap  text-xs font-semibold   rounded rounded-full`}
-              >
-                {ability}
-              </span>
-            ))}
-        </div>
-        <h5 className='font-medium'>Generation {generation.toUpperCase()}</h5>
+      <div className="bg-gray-400 w-full h-[177px] flex justify-center items-center rounded-2xl mb-2">
+        <img className="max-w-[25vh] max-h-[25vh]" src={img} alt={name} />
+      </div>
 
-        <div className=' flex justify-center'>
-          <button
-            className='bg-sky-200  p-1 rounded-md hover:bg-sky-300 '
-            onClick={() => {
-              setShowDescription(true);
-            }}
+      <div className="flex flex-wrap justify-center gap-2 mb-2">
+        {ability?.map((ab, index) => (
+          <span
+            key={index}
+            className={`${generarColor(ab)} px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap`}
           >
-            Show description{' '}
-          </button>
-        </div>
-
-        {showDescription && (
-          <div className='absolute bg-gray-100 p-2 rounded-md mt-2 inset-0  items-center '>
-            <p className='text-xs'>{description}</p>
-            <button
-              className='bg-red-200 p-1 rounded-md hover:bg-red-300 mt-2 '
-              onClick={() => setShowDescription(false)}
-            >
-              Hide description
-            </button>
-          </div>
+            {ab}
+          </span>
+        ))}
+      </div>
+      <div className="flex flex-wrap gap-2 mb-2">
+        {types && (
+          <span
+            className="bg-sky-300/70 text-black px-2 py-0.5 text-xs font-semibold rounded-full"
+          >
+            {types}
+          </span>
         )}
       </div>
+
+
+      <h5 className="text-sm font-medium mb-1 text-center">Generación {generation.toUpperCase()}</h5>
+
+      <p className="text-xs mb-2  text-center line-clamp-1">{description}</p>
+
+      <button
+        className="bg-blue-800 text-white py-1 rounded-md hover:bg-blue-900"
+        onClick={() => setShowDescription(true)}
+      >
+        Ver más
+      </button>
+
+      {showDescription && (
+        <div className="absolute inset-0 bg-black/30 z-20 flex items-center justify-center">
+          {/* Contenedor del modal */}
+          <div className="bg-white text-black rounded-xl shadow-lg p-4 w-[85%] max-w-[240px] max-h-[70%] overflow-auto">
+            <p className="text-sm mb-4 ">{description}</p>
+            <button
+              className="bg-red-200 px-3 py-1 rounded-md hover:bg-red-300 w-full"
+              onClick={() => setShowDescription(false)}
+            >
+              Ocultar descripción
+            </button>
+          </div>
+        </div>
+
+
+      )}
     </div>
+
   );
 }
 export default Tarjeta;
