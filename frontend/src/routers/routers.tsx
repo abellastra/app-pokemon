@@ -9,7 +9,8 @@ const Rutas = () => {
 
   const location = useLocation();
 
-  const islogin = location.pathname === '/login'|| '/registro'
+  const islogin =
+    location.pathname === '/login' || location.pathname === '/registro';
   return (
     <AuthPrivider>
       {!islogin && <Navar ocultarbotones={islogin} />}{' '}
