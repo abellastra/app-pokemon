@@ -1,7 +1,8 @@
 import './App.css';
 import Rutas from './routers/routers';
 import fondoClaro from './assets/fondo.png';
-import fondoOscuro from './assets/fondoOscuro.png'
+
+import fondoOscuro from './assets/prueba.png'  /**fondoOscuro.png */
 import { BrowserRouter } from 'react-router-dom';
 import {useTema} from'./context/temaContext'
 import { Toaster } from "react-hot-toast";
