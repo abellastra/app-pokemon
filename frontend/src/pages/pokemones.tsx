@@ -1,10 +1,11 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from 'swiper/modules';
 
+import vector2 from '../assets/vector2.png';
 
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -14,6 +15,8 @@ import Tarjeta from '../components/tarjetaPokemon';
 import PokemonBall from '../components/pokemonBall';
 import { hayPerfil } from '../services/perfil';
 import { obtenerLike } from '../services/obtenerLike';
+import PokemonDescription from '../components/pokemonDescription';
+import { useTema } from '../context/temaContext';
 
 type Pokemon = {
   name: string;
@@ -25,7 +28,7 @@ type Pokemon = {
   description: string;
   types: string[];
   isLiked: boolean;
-  botonVisible: boolean
+  botonVisible: boolean;
 };
 
 const filterLimiteName = 'limit';
@@ -39,22 +42,24 @@ function Pokemones() {
   const [serchParams, setSerchParams] = useSearchParams();
   const [errorfilters, setErrorfilters] = useState('');
   const [isLoanding, setIsLoading] = useState(false);
+  const [modalDescripcion, setModalDescripcion] = useState<Pokemon | null>(
+    null
+  );
 
   const [likes, setLike] = useState<number[]>(() => {
     const likesGuardados = localStorage.getItem('likes');
     return likesGuardados ? JSON.parse(likesGuardados) : [];
   });
 
-
-  const [perfil, setPerfil] = useState<boolean>(false)
+  const [perfil, setPerfil] = useState<boolean>(false);
 
   useEffect(() => {
     const obtenerPerfil = async () => {
       const res = await hayPerfil();
       setPerfil(res);
-    }
-    obtenerPerfil()
-  }, [])
+    };
+    obtenerPerfil();
+  }, []);
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
   const limite = Number(serchParams.get(filterLimiteName)) || 3;
@@ -62,6 +67,8 @@ function Pokemones() {
   const generation = serchParams.get(filterGenerationName) || '';
 
   const totalPag = Math.ceil(registros / limite);
+
+  const { tema } = useTema();
 
   const pedirDatosPokemones = useCallback(
     async (
@@ -92,7 +99,6 @@ function Pokemones() {
           queryParams.delete('generation');
         }
       }
-
 
       if (huboCambioFiltros) {
         queryParams.set('offset', '0');
@@ -133,7 +139,7 @@ function Pokemones() {
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
   );
 
-  console.log(listaPokemones)
+  console.log(listaPokemones);
   useEffect(() => {
     const cargarLikes = async () => {
       if (perfil === null) return;
@@ -141,16 +147,14 @@ function Pokemones() {
         setLike([]);
         return;
       }
-      const idsPokemonApi = listaPokemones.map(pokemon => pokemon.idPokemon)
+      const idsPokemonApi = listaPokemones.map(pokemon => pokemon.idPokemon);
       const listaIds = await obtenerLike(idsPokemonApi);
       setLike(listaIds);
       return;
-
     };
 
     cargarLikes();
-
-  }, [perfil, listaPokemones])
+  }, [perfil, listaPokemones]);
 
   useEffect(() => {
     const offset = (pagina - 1) * limite;
@@ -169,6 +173,31 @@ function Pokemones() {
     };
   };
 
+  const generarColor = (ability: string) => {
+    const colores = [
+      'red',
+      'yellow',
+      'blue',
+      'purple',
+      'pink',
+      'indigo',
+      'teal',
+      'orange',
+      'lime',
+      'amber',
+      'cyan',
+      'emerald',
+      'fuchsia',
+      'rose',
+      'violet',
+      'sky',
+      'stone',
+      'gray',
+    ];
+    const index = ability[0].charCodeAt(0) % colores.length;
+
+    return `bg-${colores[index]}-500`;
+  };
 
   return (
     <div className=' flex flex-col items-center justify-center relative w-full h-full '>
@@ -195,10 +224,18 @@ function Pokemones() {
               className='text-white w-[100px] h-[32px] outline-none bg-[#4181D5]'
               value={String(limite)}
             >
-              <option value='3' className='bg-[#0D185B]'>3</option>
-              <option value='10' className='bg-[#0D185B]'>10</option>
-              <option value='15' className='bg-[#0D185B]'>15</option>
-              <option value='20' className='bg-[#0D185B]'>20</option>
+              <option value='3' className='bg-[#0D185B]'>
+                3
+              </option>
+              <option value='10' className='bg-[#0D185B]'>
+                10
+              </option>
+              <option value='15' className='bg-[#0D185B]'>
+                15
+              </option>
+              <option value='20' className='bg-[#0D185B]'>
+                20
+              </option>
             </select>
           </label>
         </div>
@@ -216,16 +253,16 @@ function Pokemones() {
         </div>
       )}
       {errorfilters && <h1 className='text-red-500'>{errorfilters}</h1>}
-      <div className=' flex overflow-x-auto w-[108vh]'>
+      <div className=' flex overflow-x-auto w-[120vh]'>
         <Swiper
           modules={[Navigation, Pagination]}
-          spaceBetween={16}          // separación entre tarjetas
-          slidesPerView={3}          // cuántas tarjetas visibles a la vez
-          navigation                 // flechas prev/next
+          spaceBetween={16} // separación entre tarjetas
+          slidesPerView={3} // cuántas tarjetas visibles a la vez
+          navigation // flechas prev/next
           pagination={{ clickable: true }} // puntitos abajo
-          style={{ width: "108vh", minHeight: "30vh", maxHeight: "70vh" }}
+          style={{ width: '108vh', minHeight: '30vh', maxHeight: '70vh' }}
         >
-          {listaPokemones.map((pokemon) => (
+          {listaPokemones.map(pokemon => (
             <SwiperSlide key={pokemon.name}>
               <Tarjeta
                 name={pokemon.name}
@@ -238,10 +275,36 @@ function Pokemones() {
                 idPokemon={pokemon.idPokemon}
                 isLiked={likes.includes(pokemon.idPokemon)}
                 botonVisible={perfil}
+                setModalDescripcion={setModalDescripcion}
               />
             </SwiperSlide>
           ))}
         </Swiper>
+
+        {modalDescripcion && (
+          <div className='fixed inset-0 bg-black/60 absolute z-[20] flex items-center justify-center'>
+            <div className='flex flex-col justify-center items-center '>
+              <button
+                onClick={() => {
+                  setModalDescripcion(null);
+                }}
+                className=' text-[50px] text-white     '
+              >
+                x
+              </button>
+              <PokemonDescription
+                dataPokemon={modalDescripcion}
+                generarColor={generarColor}
+              />
+              <img
+                src={vector2}
+                alt=''
+                className='fixed inset-0 w-full h-[50vh] top-[55vh] z-30'
+              />
+              ;
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
