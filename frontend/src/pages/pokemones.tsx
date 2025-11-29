@@ -16,7 +16,6 @@ import PokemonBall from '../components/pokemonBall';
 import { hayPerfil } from '../services/perfil';
 import { obtenerLike } from '../services/obtenerLike';
 import PokemonDescription from '../components/pokemonDescription';
-import { useTema } from '../context/temaContext';
 
 type Pokemon = {
   name: string;
@@ -45,7 +44,6 @@ function Pokemones() {
   const [modalDescripcion, setModalDescripcion] = useState<Pokemon | null>(
     null
   );
-
   const [likes, setLike] = useState<number[]>(() => {
     const likesGuardados = localStorage.getItem('likes');
     return likesGuardados ? JSON.parse(likesGuardados) : [];
@@ -68,7 +66,6 @@ function Pokemones() {
 
   const totalPag = Math.ceil(registros / limite);
 
-  const { tema } = useTema();
 
   const pedirDatosPokemones = useCallback(
     async (
@@ -139,7 +136,6 @@ function Pokemones() {
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
   );
 
-  console.log(listaPokemones);
   useEffect(() => {
     const cargarLikes = async () => {
       if (perfil === null) return;

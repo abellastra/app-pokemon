@@ -1,4 +1,5 @@
 import Like from './botonLike';
+import { useState } from 'react';
 type PokemonDescriptionProps = {
   dataPokemon: {
     name: string;
@@ -19,19 +20,30 @@ function PokemonDescription({
   dataPokemon,
   generarColor,
 }: PokemonDescriptionProps) {
+  const ataquesArray = dataPokemon.attacks.split(',').map(a => a.trim());
+
+  const [visibleCount, setVisibleCount] = useState(5); // mostramos 5 al inicio
+
+  const handleShowMore = () => {
+    setVisibleCount(prev => prev + 20); // cada click muestra 5 más
+  };
+  const handleShowless = () => {
+    setVisibleCount(5); // cada click muestra 5 más
+  };
+
   return (
     <div className='text-white '>
-      <div>
-        <div></div>;
+      <div className='flex flex-col justify-center items-center'>
         {/* TARJETA DESPLEGADA                                                */}
         <div
-          className='w-[500px]  h-[80vh] bg-[#FFFFFF33]
+          className='w-[70%] md:w-[500px] max-h-[90vh] bg-[#FFFFFF]/40
  flex flex-col   items-center  relative z-[90] rounded-3xl  '
         >
           {/* TARJETA POKEMON  */}
-          <div className='  flex flex-col items-center  rounded-3xl bg-[#0E1F361A]'>
+          <div className='  flex flex-col m-4 rounded-3xl'>
+            <h1 className='text-white text-3xl'>{dataPokemon.name}</h1>
+
             <div className='flex flex-col items-center mt-[3vh]'>
-              <h1 className='text-white text-3xl'>{dataPokemon.name}</h1>
               <div className='flex justify-between items-center mb-2'>
                 <Like
                   idPokemon={dataPokemon.idPokemon}
@@ -39,19 +51,20 @@ function PokemonDescription({
                   botonVisible={dataPokemon.botonVisible}
                 />
               </div>
-              <h5 className='text-xl mb-1 text-center mt-[2vh] t'>
-                Generación {dataPokemon.generation.toUpperCase()}
-              </h5>
-              <div className=' bg-[rgb(255,255,255)]/40 w-[80%] h-[177px] flex justify-center items-center rounded-2xl mb-[4vh] '>
+
+              <div className=' bg-[rgb(255,255,255)]/40 w-[80%] h-[40%] flex justify-center items-center rounded-2xl mb-[4vh] '>
                 <img
                   className='w-[30vh] h-[30vh]'
                   src={dataPokemon.img}
                   alt={dataPokemon.name}
                 />
               </div>
+              <h5 className='text-xl mb-1 text-center  t'>
+                Generación {dataPokemon.generation.toUpperCase()}
+              </h5>
 
               <div className='flex flex-col items-center  justify-center gap-2 mb-2'>
-                <h2>Ability</h2>
+                <h2 className='text-lg'>Ability</h2>
                 <div className='flex flex-wrap'>
                   {dataPokemon.ability?.map((ab, index) => (
                     <span
@@ -72,10 +85,42 @@ function PokemonDescription({
                   </span>
                 )}
               </div>
+              <div className='flex  flex-col items-center  justify-center gap-2'>
+                <h2 className='text-lg'>Descripcion </h2>
+                <p className='text-md mb-2  text-center line-clamp-3  ml-4 mr-4'>
+                  {dataPokemon.description}
+                </p>
+              </div>
 
-              <p className='text-xs mb-2  text-center line-clamp-1'>
-                {dataPokemon.description}
-              </p>
+              <div className='flex flex-col justify-center items-center'>
+                <h2 className='text-lg mt-4'>Attacks</h2>
+                <div className='flex flex-wrap justify-center items-center gap-2 mb-2 max-h-[150px] overflow-y-auto'>
+                  {ataquesArray?.slice(0, visibleCount).map((attack, index) => (
+                    <span
+                      key={index}
+                      className={`${generarColor(attack)} bg-green-300/70 text-black px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap`}
+                    >
+                      {attack}
+                    </span>
+                  ))}
+
+                  {visibleCount < ataquesArray.length ? (
+                    <button
+                      onClick={handleShowMore}
+                      className='mt-2 px-3 py-1 text-xs font-semibold text-white rounded'
+                    >
+                      Ver más
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleShowless}
+                      className='mt-2 px-3 py-1 text-xs font-semibold text-white rounded'
+                    >
+                      Ver menos
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
