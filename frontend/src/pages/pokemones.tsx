@@ -207,6 +207,7 @@ function Pokemones() {
           paginaActual={pagina}
           siblings={1}
           cambiar={handleChangeFilters(filterPaginaName)}
+          tema={tema}
         />
 
         <div className='flex items-center   '>
