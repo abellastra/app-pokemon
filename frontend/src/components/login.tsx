@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Modal from './modal';
 import { useState } from 'react';
 
-import FormularioDeRegistro from './registro';
+import {FormularioDeRegistro} from './registro';
 import { useAuth } from '../context/AuthContext';
-import { useTema } from '../context/temaContext';
 type formData = {
   email: string;
   password: string;
@@ -22,7 +21,6 @@ const Login: React.FC = () => {
 
   const navegar = useNavigate();
   const { setPerfil, setUserName } = useAuth();
-  const { tema } = useTema();
 
   async function preguntarSiEsUsuario(data: formData) {
     try {
@@ -80,7 +78,7 @@ const Login: React.FC = () => {
                 <h1 className='font-semibold w-[80%] h-[6vh]  text-[30px] '>
                   Bienvenido de nuevo!
                 </h1>
-                <h2 className='text-[30px]'>Registro</h2>
+                <h2 className='text-[30px]'>Login</h2>
               </div>
             </div>
             <form
@@ -96,7 +94,7 @@ const Login: React.FC = () => {
                   },
                 })}
                 placeholder='Email'
-                className={`w-[588px] mt-[5vh]  mb-[5vh] px-4 py-2  rounded-lg border border-[#00000033] border-[2px] outline-none`}
+                className={`w-[90vw] sm:w-[70vw] md:w-[50vw] lg:w-[40vw] xl:w-[30vw] mt-[5vh]  mb-[5vh] px-4 py-2  rounded-lg border border-[#00000033] border-[2px] outline-none`}
               />
               {errors.email && <p>{errors.email.message}</p>}
               <input
@@ -108,8 +106,9 @@ const Login: React.FC = () => {
                     message: 'La contraseña debe tener al menos 6 caracteres',
                   },
                 })}
-                placeholder='Contraseña'
-                className={`w-full  mb-[5vh] px-4 py-2  rounded-lg border-[#00000033] outline-none  border-[2px] placeholder-gray-500}`}
+                placeholder='Password'
+                autoComplete='off'
+                className={`w-full    mb-[5vh] px-4 py-2  rounded-lg border-[#00000033] outline-none  border-[2px] placeholder-gray-500}`}
               />
               {errors.password && <p>{errors.password.message}</p>}
 
@@ -123,12 +122,15 @@ const Login: React.FC = () => {
           </div>
           {/* FIGMA 17 */}
           <div className='button-[0px] flex justify-between max-w-[80vh] h-[4vh]  text-[20px]'>
-            <button className='ml-[10vh] text-white '>no tenes cuenta?</button>
             <button
-           onClick={() => setRegistroActivo(true)}
-
-              className='mr-[10vh] text-[#0D458F] '
+              className='ml-[10vh] text-white '
+              onClick={() => {
+                navegar('/registro');
+              }}
             >
+              no tenes cuenta?
+            </button>
+            <button onClick={() => {}} className='mr-[10vh] text-[#0D458F] '>
               {' '}
               Iniciar{' '}
             </button>
@@ -138,11 +140,6 @@ const Login: React.FC = () => {
               {mensajeGeneral}
             </p>
           )}
-           {registroActivo && (
-              <Modal estado={registroActivo} cambiarEstado={setRegistroActivo}>
-                <FormularioDeRegistro cerrar={() => setRegistroActivo(false)} />
-              </Modal>
-            )}
         </div>
       </div>
       {/* ECLIPSE */}
