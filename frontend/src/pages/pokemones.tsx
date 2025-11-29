@@ -16,6 +16,7 @@ import PokemonBall from '../components/pokemonBall';
 import { hayPerfil } from '../services/perfil';
 import { obtenerLike } from '../services/obtenerLike';
 import PokemonDescription from '../components/pokemonDescription';
+import { useTema } from '../context/temaContext';
 
 type Pokemon = {
   name: string;
@@ -65,7 +66,7 @@ function Pokemones() {
   const generation = serchParams.get(filterGenerationName) || '';
 
   const totalPag = Math.ceil(registros / limite);
-
+  const { tema } = useTema();
 
   const pedirDatosPokemones = useCallback(
     async (
@@ -205,7 +206,6 @@ function Pokemones() {
           cambiar={handleChangeFilters(filterPaginaName)}
           tema={tema}
         />
-
         <div className='flex items-center   '>
           <Filters
             type={type}
