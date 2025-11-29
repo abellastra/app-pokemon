@@ -33,17 +33,16 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
     setTema(tema === 'claro' ? 'oscuro' : 'claro');
   };
   return (
-    <header className='flex justify-center  items-center text-center mb-12  '>
+    <header className="relative flex justify-center items-center mb-12 h-[80px]">
       <h1
         onClick={() => {
           navigate('/');
         }}
-        className=' font-bold text-3xl sm:text-4xl text-white cursor-pointer'
-      >
+        className="absolute left-1/2 transform -translate-x-1/2 font-bold text-3xl sm:text-4xl text-white cursor-pointer">
         LOGO
       </h1>
 
-      <select className={`border border-white rounded-md px-2 py-1 cursor-pointer fixed right-0 mt-2 mr-12 ${tema === 'oscuro' ? 'text-white' : 'text-black'}`} defaultValue="es" >
+      <select className={`absolute right-12 top-2 border border-white rounded-md px-2 py-1 cursor-pointer ${tema === 'oscuro' ? 'text-white' : 'text-black'}`} defaultValue="es" >
         <option value="es" className={`${tema === 'oscuro' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
           ES
         </option>
@@ -53,7 +52,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
       </select>
 
       {!ocultarbotones && perfil === false && (
-        <div className=''>
+        <div className='fixed left-0 mt-2 mr-12'>
           <button
             onClick={() => navigate('/login')}
             className='p-1 m-2 bg-sky-200 hover:bg-sky-300 sm:text-xl border-1 border-white  rounded-xl '

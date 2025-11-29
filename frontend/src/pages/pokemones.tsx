@@ -211,7 +211,7 @@ function Pokemones() {
       </div>
 
       {isLoanding && (
-        <div className='absolute inset-0 z-50 flex items-center justify-center bg-white/30 '>
+        <div className='absolute inset-0 z-50 flex items-center justify-center bg-gray-400/25 '>
           <PokemonBall />
         </div>
       )}

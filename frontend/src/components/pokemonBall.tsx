@@ -1,7 +1,7 @@
 import pokeball from '../assets/pokebola.png';
 export default function PokemonBall() {
  return (
-    <div className="flex flex-col items-center justify-center h-48">
+    <div className="flex flex-col items-center justify-center h-full w-full ">
       <img
         src={pokeball}
         alt="Cargando Pokébola"
