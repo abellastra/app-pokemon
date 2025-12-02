@@ -6,6 +6,7 @@ import { useTema } from '../context/temaContext';
 import { useAuth } from '../context/AuthContext';
 
 import { IoMenu } from "react-icons/io5";
+import logoPikachu from '../assets/logo-pikachu.png';
 
 
 // import menuSvg from '../assets/Bullet-List--Streamline-Plump.png';
@@ -39,7 +40,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
           navigate('/');
         }}
         className="absolute left-1/2 transform -translate-x-1/2 font-bold text-3xl sm:text-4xl text-white cursor-pointer">
-        LOGO
+        <img src={logoPikachu} alt="Logo Pikachu" className="h-40" />
       </h1>
 
       <select className={`absolute right-12 top-2 border border-white rounded-md px-2 py-1 cursor-pointer ${tema === 'oscuro' ? 'text-white' : 'text-black'}`} defaultValue="es" >
