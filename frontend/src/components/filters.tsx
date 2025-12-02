@@ -4,13 +4,14 @@ type filtersProps = {
   setSelectedGeneration: (value: string | number) => void;
   setSelectedType: (value: string | number) => void;
 };
-
+import { useTranslation } from "react-i18next"
 function Filters({
   type,
   generation,
   setSelectedGeneration,
   setSelectedType,
 }: filtersProps) {
+  const {t} = useTranslation();
   const FiltersType = [
 
     { value: 'normal', label: '🌀 Normal' },
@@ -45,7 +46,7 @@ function Filters({
   return (
     <div className='flex m-6 gap-8'>
       <label className='w-[229px] h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl  text-white text-base'>
-          Type
+          {t("Tipo")}
         <select
           value={type}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -68,7 +69,7 @@ function Filters({
       </label>
       <label className='w-[229px] h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl text-white text-base'
       >
-        Generation
+        {t("Generacion")}
         <select
           value={generation}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
