@@ -32,7 +32,7 @@ export const getPokemones = async (req: Request, res: Response) => {
     fairy: 18,
   };
   const typeNum = typeInt[type];
-
+  const lang = req.query.lang as string || 'en';
   try {
     if (typeNum > 0 && generation <= 0) {
       const response_url = await pokemonesType({
@@ -53,9 +53,11 @@ export const getPokemones = async (req: Request, res: Response) => {
           const descRes = await fetch(pokemon.species.url);
           const descData = await descRes.json();
           const entry = descData.flavor_text_entries.find(
-            (entry: any) => entry.language.name === 'es'
+            (entry: any) => entry.language.name === lang
+          ) || descData.flavor_text_entries.find(
+            (entry: any) => entry.language.name === 'en'
           );
-
+          console.log(entry, 'entry del pokemon en el backend');
           const description =
             entry?.flavor_text || 'No se encontró descripción';
           const generation = descData.generation.name.replace(
@@ -102,8 +104,10 @@ export const getPokemones = async (req: Request, res: Response) => {
 
           const types = pokemon.types.map(t => t.type.name);
           console.log(types, 'tipos en el backend ')
-          const entry = descData.flavor_text_entries.find(
-            (entry: any) => entry.language.name === 'es'
+         const entry = descData.flavor_text_entries.find(
+            (entry: any) => entry.language.name === lang
+          ) || descData.flavor_text_entries.find(
+            (entry: any) => entry.language.name === 'en'
           );
 
           const description =
@@ -171,8 +175,10 @@ export const getPokemones = async (req: Request, res: Response) => {
         const descRes = await fetch(pokemon.species.url);
         const descData = await descRes.json();
         const entry = descData.flavor_text_entries.find(
-          (entry: any) => entry.language.name === 'es'
-        );
+            (entry: any) => entry.language.name === lang
+          ) || descData.flavor_text_entries.find(
+            (entry: any) => entry.language.name === 'en'
+          );
 
         const description = entry?.flavor_text || 'No se encontró descripción';
         const generation = descData.generation.name.replace('generation-', '');

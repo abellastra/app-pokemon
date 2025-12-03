@@ -3,6 +3,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import  i18n  from 'i18next';
 import { Navigation, Pagination } from 'swiper/modules';
 
 import vector2 from '../assets/vector2.png';
@@ -45,7 +46,7 @@ function Pokemones() {
   const [modalDescripcion, setModalDescripcion] = useState<Pokemon | null>(
     null
   );
-
+  const language = i18n.language;
   const [likes, setLike] = useState<number[]>(() => {
     const likesGuardados = localStorage.getItem('likes');
     return likesGuardados ? JSON.parse(likesGuardados) : [];
@@ -112,7 +113,7 @@ function Pokemones() {
       setIsLoading(true);
 
       const response = await fetch(
-        `http://localhost:3000/pokemones?${queryParams.toString()}`,
+        `http://localhost:3000/pokemones?${queryParams.toString()}&lang=${language}`,
 
         {
           method: 'GET',
@@ -136,7 +137,7 @@ function Pokemones() {
         // setSerchParams('1');
       }
     },
-    [serchParams, setSerchParams, setListaPokemones, setRegistros]
+    [serchParams, setSerchParams, setListaPokemones, setRegistros,language]
   );
 
   console.log(listaPokemones);
