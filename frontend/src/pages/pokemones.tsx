@@ -3,7 +3,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import  i18n  from 'i18next';
+import { useTranslation } from "react-i18next";
+
+
 import { Navigation, Pagination } from 'swiper/modules';
 
 import vector2 from '../assets/vector2.png';
@@ -46,6 +48,7 @@ function Pokemones() {
   const [modalDescripcion, setModalDescripcion] = useState<Pokemon | null>(
     null
   );
+  const { i18n } = useTranslation();
   const language = i18n.language;
   const [likes, setLike] = useState<number[]>(() => {
     const likesGuardados = localStorage.getItem('likes');
@@ -140,7 +143,6 @@ function Pokemones() {
     [serchParams, setSerchParams, setListaPokemones, setRegistros,language]
   );
 
-  console.log(listaPokemones);
   useEffect(() => {
     const cargarLikes = async () => {
       if (perfil === null) return;
@@ -160,7 +162,7 @@ function Pokemones() {
   useEffect(() => {
     const offset = (pagina - 1) * limite;
     pedirDatosPokemones(offset, limite, type, generation);
-  }, [pagina, limite, type, generation, pedirDatosPokemones]);
+  }, [pagina, limite, type, generation, pedirDatosPokemones,language]);
 
   const handleChangeFilters = (filters: string) => {
     const reiniciarPagina = filters !== filterPaginaName;
