@@ -2,13 +2,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-<<<<<<< HEAD
 
 import { useTranslation } from "react-i18next";
 
 
-=======
->>>>>>> be4813aaa9ae905f711988fe5c5864c1abe80cc5
 import { Navigation, Pagination } from 'swiper/modules';
 
 import vector2 from '../assets/vector2.png';
@@ -51,11 +48,8 @@ function Pokemones() {
   const [modalDescripcion, setModalDescripcion] = useState<Pokemon | null>(
     null
   );
-<<<<<<< HEAD
   const { i18n } = useTranslation();
   const language = i18n.language;
-=======
->>>>>>> be4813aaa9ae905f711988fe5c5864c1abe80cc5
   const [likes, setLike] = useState<number[]>(() => {
     const likesGuardados = localStorage.getItem('likes');
     return likesGuardados ? JSON.parse(likesGuardados) : [];
@@ -217,7 +211,7 @@ function Pokemones() {
           cambiar={handleChangeFilters(filterPaginaName)}
           tema={tema}
         />
-        <div className='flex flex-col items-center justify-center sm:flex-row items-center gap-4 w-full'>
+        <div className='flex flex-col  justify-center sm:flex-row items-center gap-4 w-full'>
           <Filters
             type={type}
             generation={generation}

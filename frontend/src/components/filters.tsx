@@ -1,4 +1,4 @@
-import { FiltersGeneration, FiltersType } from '../data/filters';
+// import { FiltersGeneration, FiltersType } from '../data/filters';
 type filtersProps = {
   type: string;
   generation: string;
@@ -12,7 +12,7 @@ function Filters({
   setSelectedGeneration,
   setSelectedType,
 }: filtersProps) {
-<<<<<<< HEAD
+
   const {t} = useTranslation();
   const FiltersType = [
 
@@ -45,18 +45,12 @@ function Filters({
     { value: 6, label: 'VI' },
   ];
 
-  return (
-    <div className='flex m-6 gap-8'>
-      <label className='w-[229px] h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl  text-white text-base'>
-          {t("Tipo")}
-=======
- 
 
   return (
     <div className='md:flex  m-6 gap-8'>
       <label className=' mb-4 md:mb-[0px] w-[20vh] h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl  text-white text-base'>
-        Type
->>>>>>> be4813aaa9ae905f711988fe5c5864c1abe80cc5
+         {t("Tipo")}
+
         <select
           value={type}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -78,14 +72,10 @@ function Filters({
           ))}
         </select>
       </label>
-<<<<<<< HEAD
-      <label className='w-[229px] h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl text-white text-base'
-      >
-        {t("Generacion")}
-=======
+
       <label className='w-[20vh]  h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl text-white text-base'>
-        Generation
->>>>>>> be4813aaa9ae905f711988fe5c5864c1abe80cc5
+        {t("Generacion")}
+
         <select
           value={generation}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
