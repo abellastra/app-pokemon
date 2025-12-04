@@ -74,14 +74,18 @@ function Tarjeta({
   };
   console.log(tema, 'tema en tarjeta');
   console.log(dataPokemon);
+  console.log(ability, 'ability en tarjeta', name);
   return (
     <>
       <div
-        className={`mt-2 ml-4 w-[282px] h-[520px] rounded-[28px] shadow-md p-4 flex flex-col justify-between 
-  ${tema === 'claro' ? 'bg-white text-black' : 'bg-[#FFFFFF33] text-white'}`}
+        className={`w-[30%] sm:w-[40%] md:w-[40%] lg:w-[80%] h-[80%] rounded-[4vh] p-[1vh] flex flex-col justify-between
+         bg-[rgb(255,255,255)]/7 text-white shadow-xl`}
       >
-        <div className='flex justify-between items-center mb-2'>
-          <h4 className='text-base font-semibold'>{name.toUpperCase()}</h4>
+        {/* Header */}
+        <div className='flex justify-center items-center  mb-[1vh]'>
+          <h4 className='text-[2vh] font-bold capitalize'>
+            {name}
+          </h4>
           <Like
             idPokemon={idPokemon}
             likeInicial={isLiked}
@@ -89,36 +93,36 @@ function Tarjeta({
           />
         </div>
 
-        <div className='bg-gray-400 w-full h-[177px] flex justify-center items-center rounded-2xl mb-2'>
-          <img className='max-w-[25vh] max-h-[25vh]' src={img} alt={name} />
+        {/* Imagen */}
+        <div className='bg-[#8a8989ff]/10 w-full h-[25vh] flex justify-center items-center rounded-[2vh] mb-[1vh]'>
+          <img className='w-[25vh] h-[25vh]' src={img} alt={name} />
         </div>
 
-        <div className='flex flex-wrap justify-center gap-2 mb-2'>
-          {ability?.slice(0, 2).map((ab, index) => (
+        {/* Abilities */}
+        <div className='flex flex-wrap justify-center gap-[1vh] mb-[1vh]'>
+          {ability?.slice(0, 2).map((ab: string, index: number) => (
             <span
               key={index}
-              className={`${generarColor(ab)} px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap`}
+              className={`${generarColor(ab)} px-[1vh] py-[0.5vh] text-[1.5vh] font-semibold rounded-full whitespace-nowrap`}
             >
               {ab}
             </span>
           ))}
         </div>
-        <div className='flex flex-wrap gap-2 mb-2'>
-          {types && (
-            <span className='bg-sky-300/70 text-black px-2 py-0.5 text-xs font-semibold rounded-full'>
-              {types}
-            </span>
-          )}
-        </div>
 
-        <h5 className='text-sm font-medium mb-1 text-center'>
+        {/* Generación */}
+        <h5 className='text-[1.8vh] font-medium mb-[0.5vh] text-center'>
           Generación {generation.toUpperCase()}
         </h5>
 
-        <p className='text-xs mb-2  text-center line-clamp-1'>{description}</p>
+        {/* Descripción */}
+        <p className='text-[1.5vh] mb-[1vh] text-center line-clamp-1'>
+          {description}
+        </p>
 
+        {/* Botón */}
         <button
-          className='bg-blue-800 text-white py-1 rounded-md hover:bg-blue-900'
+          className='bg-blue-800 text-white py-[1vh] m-[1vh] rounded-[1vh] hover:bg-blue-900 text-[1.5vh]'
           onClick={() => setModalDescripcion(dataPokemon)}
         >
           Ver más
