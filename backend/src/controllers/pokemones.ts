@@ -73,7 +73,7 @@ export const getPokemones = async (req: Request, res: Response) => {
             img: img,
             generation: generation,
             description: description,
-            types: types.join(','),
+            types: types,
           };
         })
       );
@@ -104,7 +104,7 @@ export const getPokemones = async (req: Request, res: Response) => {
 
           const types = pokemon.types.map(t => t.type.name);
           console.log(types, 'tipos en el backend ')
-         const entry = descData.flavor_text_entries.find(
+          const entry = descData.flavor_text_entries.find(
             (entry: any) => entry.language.name === lang
           ) || descData.flavor_text_entries.find(
             (entry: any) => entry.language.name === 'en'
@@ -125,14 +125,14 @@ export const getPokemones = async (req: Request, res: Response) => {
             img: img,
             generation: generation,
             description: description,
-            types: types.join(', '),
+            types: types,
           };
         })
       );
       const filteredByType = type
         ? resultado
-            .filter(p => p.types.includes(type))
-            .slice(offset, offset + limit)
+          .filter(p => p.types.includes(type))
+          .slice(offset, offset + limit)
         : resultado;
       const countPokemonFilters = resultado.filter(p =>
         p.types.includes(type)
@@ -171,14 +171,16 @@ export const getPokemones = async (req: Request, res: Response) => {
         const abilities = pokemon.abilities.map(a => a.ability.name);
         const attacks = pokemon.moves.map(m => m.move.name);
         const img = pokemon.sprites.front_default;
+        const types = pokemon.types.map(t => t.type.name);
+
 
         const descRes = await fetch(pokemon.species.url);
         const descData = await descRes.json();
         const entry = descData.flavor_text_entries.find(
-            (entry: any) => entry.language.name === lang
-          ) || descData.flavor_text_entries.find(
-            (entry: any) => entry.language.name === 'en'
-          );
+          (entry: any) => entry.language.name === lang
+        ) || descData.flavor_text_entries.find(
+          (entry: any) => entry.language.name === 'en'
+        );
 
         const description = entry?.flavor_text || 'No se encontró descripción';
         const generation = descData.generation.name.replace('generation-', '');
@@ -191,6 +193,7 @@ export const getPokemones = async (req: Request, res: Response) => {
           img: img,
           generation: generation,
           description: description,
+          types: types.join(', '),
         };
       })
     );
