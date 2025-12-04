@@ -1,0 +1,16 @@
+{
+  "titulo": "Pokémon App",
+   "tipo": "Type",
+  "generacion": "Generation",
+  "Iniciar Sesion": "Sign In",
+  "Bienvenido": "Welcome",
+  "Favoritos": "Favorites",
+  "Configuracion": "Settings",
+  "Cambiar modo": "Change mode",
+  "Cerrar sesion": "Log out",
+  "Aceptar": "Accept",
+  "¿Seguro quieres cerrar sesion?": "Are you sure you want to log out?",
+  "Generacion": "Generation",
+  "Tipo": "Type"
+
+}

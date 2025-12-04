@@ -4,17 +4,23 @@ import { useEffect, useState } from 'react';
 import { CerrarSesion } from '../components/botonCerrarSesion';
 import { useTema } from '../context/temaContext';
 import { useAuth } from '../context/AuthContext';
-
+import { useTranslation } from "react-i18next"
 import { IoMenu } from "react-icons/io5";
+import logoPikachu from '../assets/logo-pikachu.png';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2fdd7f2eb416dbfc56b69351922d9d97e4368cd7
 
 // import menuSvg from '../assets/Bullet-List--Streamline-Plump.png';
 
 
 export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
+  const { t,i18n } = useTranslation()
   const navigate = useNavigate();
   const { perfil, setPerfil } = useAuth();
   const { userName } = useAuth();
+  
 
   const { tema, setTema } = useTema();
   const [openMenu, setOpenMenu] = useState(false);
@@ -32,17 +38,24 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
     console.log(tema);
     setTema(tema === 'claro' ? 'oscuro' : 'claro');
   };
+  
   return (
     <header className="relative flex justify-center items-center mb-12 h-[80px]">
+      
       <h1
         onClick={() => {
           navigate('/');
         }}
         className="absolute left-1/2 transform -translate-x-1/2 font-bold text-3xl sm:text-4xl text-white cursor-pointer">
-        LOGO
+<<<<<<< HEAD
+        <img src={logoPikachu} alt="Logo Pikachu" className="h-40" />
+=======
+          <img src={logoPikachu} alt="Logo Pikachu" className="h-40" />
+>>>>>>> 2fdd7f2eb416dbfc56b69351922d9d97e4368cd7
       </h1>
-
-      <select className={`absolute right-12 top-2 border border-white rounded-md px-2 py-1 cursor-pointer ${tema === 'oscuro' ? 'text-white' : 'text-black'}`} defaultValue="es" >
+      
+      <select className={`absolute right-12 top-2 border border-white rounded-md px-2 py-1 cursor-pointer ${tema === 'oscuro' ? 'text-white' : 'text-black'}`} value={i18n.resolvedLanguage || "es"}
+        onChange={(e) => i18n.changeLanguage(e.target.value)}>
         <option value="es" className={`${tema === 'oscuro' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
           ES
         </option>
@@ -57,7 +70,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
             onClick={() => navigate('/login')}
             className='p-1 m-2 bg-sky-200 hover:bg-sky-300 sm:text-xl border-1 border-white  rounded-xl '
           >
-            Sig in
+            {t("Iniciar Sesion")}
           </button>
         </div>
       )}
@@ -85,7 +98,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
 
               {userName && (
                 <h1 className="p-1 sm:text-2xl mb-2 mt-4  text-center">
-                  Bienvenido {userName.toUpperCase()}
+                  {t("Bienvenido")} {userName.toUpperCase()}
                 </h1>
               )}
               <button
@@ -100,14 +113,14 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
                   onClick={alernarTema}
                   className='flex items-center justify-start w-full  px-4 py-2 whitespace-nowrap hover:cursor-pointer '
                 >
-                  Cambiar modo
+                  {t("Cambiar modo")}
                 </button>
                 <button className='flex items-center justify-start w-full max-w-[200px] px-4 py-2 whitespace-nowrap hover:cursor-pointer'>
-                  Configuracion
+                  {t("Configuracion")}
                 </button>
 
                 <button className='flex items-center justify-start w-full max-w-[200px] px-4 py-2 whitespace-nowrap hover:cursor-pointer'>
-                  Favoritos
+                  {t("Favoritos")}
                 </button>
 
                 <CerrarSesion />

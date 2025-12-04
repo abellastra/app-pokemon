@@ -2,6 +2,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+<<<<<<< HEAD
+
+import { useTranslation } from "react-i18next";
+
+
+=======
+>>>>>>> be4813aaa9ae905f711988fe5c5864c1abe80cc5
 import { Navigation, Pagination } from 'swiper/modules';
 
 import vector2 from '../assets/vector2.png';
@@ -44,6 +51,11 @@ function Pokemones() {
   const [modalDescripcion, setModalDescripcion] = useState<Pokemon | null>(
     null
   );
+<<<<<<< HEAD
+  const { i18n } = useTranslation();
+  const language = i18n.language;
+=======
+>>>>>>> be4813aaa9ae905f711988fe5c5864c1abe80cc5
   const [likes, setLike] = useState<number[]>(() => {
     const likesGuardados = localStorage.getItem('likes');
     return likesGuardados ? JSON.parse(likesGuardados) : [];
@@ -109,7 +121,7 @@ function Pokemones() {
       setIsLoading(true);
 
       const response = await fetch(
-        `http://localhost:3000/pokemones?${queryParams.toString()}`,
+        `http://localhost:3000/pokemones?${queryParams.toString()}&lang=${language}`,
 
         {
           method: 'GET',
@@ -133,7 +145,7 @@ function Pokemones() {
         // setSerchParams('1');
       }
     },
-    [serchParams, setSerchParams, setListaPokemones, setRegistros]
+    [serchParams, setSerchParams, setListaPokemones, setRegistros,language]
   );
 
   useEffect(() => {
@@ -155,7 +167,7 @@ function Pokemones() {
   useEffect(() => {
     const offset = (pagina - 1) * limite;
     pedirDatosPokemones(offset, limite, type, generation);
-  }, [pagina, limite, type, generation, pedirDatosPokemones]);
+  }, [pagina, limite, type, generation, pedirDatosPokemones,language]);
 
   const handleChangeFilters = (filters: string) => {
     const reiniciarPagina = filters !== filterPaginaName;

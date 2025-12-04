@@ -32,7 +32,7 @@ export const getPokemones = async (req: Request, res: Response) => {
     fairy: 18,
   };
   const typeNum = typeInt[type];
-
+  const lang = req.query.lang as string || 'en';
   try {
     if (typeNum > 0 && generation <= 0) {
       const response_url = await pokemonesType({
@@ -53,9 +53,11 @@ export const getPokemones = async (req: Request, res: Response) => {
           const descRes = await fetch(pokemon.species.url);
           const descData = await descRes.json();
           const entry = descData.flavor_text_entries.find(
-            (entry: any) => entry.language.name === 'es'
+            (entry: any) => entry.language.name === lang
+          ) || descData.flavor_text_entries.find(
+            (entry: any) => entry.language.name === 'en'
           );
-
+          console.log(entry, 'entry del pokemon en el backend');
           const description =
             entry?.flavor_text || 'No se encontró descripción';
           const generation = descData.generation.name.replace(
@@ -71,7 +73,7 @@ export const getPokemones = async (req: Request, res: Response) => {
             img: img,
             generation: generation,
             description: description,
-            types: types.join(','),
+            types: types,
           };
         })
       );
@@ -103,7 +105,9 @@ export const getPokemones = async (req: Request, res: Response) => {
           const types = pokemon.types.map(t => t.type.name);
           console.log(types, 'tipos en el backend ')
           const entry = descData.flavor_text_entries.find(
-            (entry: any) => entry.language.name === 'es'
+            (entry: any) => entry.language.name === lang
+          ) || descData.flavor_text_entries.find(
+            (entry: any) => entry.language.name === 'en'
           );
 
           const description =
@@ -121,14 +125,14 @@ export const getPokemones = async (req: Request, res: Response) => {
             img: img,
             generation: generation,
             description: description,
-            types: types.join(', '),
+            types: types,
           };
         })
       );
       const filteredByType = type
         ? resultado
-            .filter(p => p.types.includes(type))
-            .slice(offset, offset + limit)
+          .filter(p => p.types.includes(type))
+          .slice(offset, offset + limit)
         : resultado;
       const countPokemonFilters = resultado.filter(p =>
         p.types.includes(type)
@@ -167,11 +171,15 @@ export const getPokemones = async (req: Request, res: Response) => {
         const abilities = pokemon.abilities.map(a => a.ability.name);
         const attacks = pokemon.moves.map(m => m.move.name);
         const img = pokemon.sprites.front_default;
+        const types = pokemon.types.map(t => t.type.name);
+
 
         const descRes = await fetch(pokemon.species.url);
         const descData = await descRes.json();
         const entry = descData.flavor_text_entries.find(
-          (entry: any) => entry.language.name === 'es'
+          (entry: any) => entry.language.name === lang
+        ) || descData.flavor_text_entries.find(
+          (entry: any) => entry.language.name === 'en'
         );
 
         const description = entry?.flavor_text || 'No se encontró descripción';
@@ -185,6 +193,7 @@ export const getPokemones = async (req: Request, res: Response) => {
           img: img,
           generation: generation,
           description: description,
+          types: types.join(', '),
         };
       })
     );
