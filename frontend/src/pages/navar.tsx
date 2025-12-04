@@ -7,10 +7,6 @@ import { useAuth } from '../context/AuthContext';
 import { useTranslation } from "react-i18next"
 import { IoMenu } from "react-icons/io5";
 import logoPikachu from '../assets/logo-pikachu.png';
-<<<<<<< HEAD
-
-=======
->>>>>>> 2fdd7f2eb416dbfc56b69351922d9d97e4368cd7
 
 // import menuSvg from '../assets/Bullet-List--Streamline-Plump.png';
 
@@ -47,11 +43,7 @@ export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
           navigate('/');
         }}
         className="absolute left-1/2 transform -translate-x-1/2 font-bold text-3xl sm:text-4xl text-white cursor-pointer">
-<<<<<<< HEAD
         <img src={logoPikachu} alt="Logo Pikachu" className="h-40" />
-=======
-          <img src={logoPikachu} alt="Logo Pikachu" className="h-40" />
->>>>>>> 2fdd7f2eb416dbfc56b69351922d9d97e4368cd7
       </h1>
       
       <select className={`absolute right-12 top-2 border border-white rounded-md px-2 py-1 cursor-pointer ${tema === 'oscuro' ? 'text-white' : 'text-black'}`} value={i18n.resolvedLanguage || "es"}
