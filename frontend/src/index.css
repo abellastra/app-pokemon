@@ -5,3 +5,28 @@
     @apply h-[68px] ;
   }
 }
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  top: 50%; /* centrado vertical respecto al Swiper */
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.swiper-button-next {
+}
+
+.swiper-button-prev {
+  z-index: 999 !important ;/* fuera del contenedor */
+}
+
+.swiper-pagination {
+  bottom: -20px !important; /* fuera del Swiper */
+}
+.swiper-slide{
+  margin: 100px;
+}
