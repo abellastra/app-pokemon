@@ -2,7 +2,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
 import { Navigation, Pagination } from 'swiper/modules';
 
 import vector2 from '../assets/vector2.png';
@@ -45,7 +44,6 @@ function Pokemones() {
   const [modalDescripcion, setModalDescripcion] = useState<Pokemon | null>(
     null
   );
-
   const [likes, setLike] = useState<number[]>(() => {
     const likesGuardados = localStorage.getItem('likes');
     return likesGuardados ? JSON.parse(likesGuardados) : [];
@@ -67,7 +65,6 @@ function Pokemones() {
   const generation = serchParams.get(filterGenerationName) || '';
 
   const totalPag = Math.ceil(registros / limite);
-
   const { tema } = useTema();
 
   const pedirDatosPokemones = useCallback(
@@ -139,7 +136,6 @@ function Pokemones() {
     [serchParams, setSerchParams, setListaPokemones, setRegistros]
   );
 
-  console.log(listaPokemones);
   useEffect(() => {
     const cargarLikes = async () => {
       if (perfil === null) return;
@@ -201,7 +197,7 @@ function Pokemones() {
 
   return (
     <div className=' flex flex-col items-center justify-center relative w-full h-full '>
-      <div>
+      <div className=''>
         <Paginationp
           totalPaginas={totalPag}
           paginaActual={pagina}
@@ -209,43 +205,14 @@ function Pokemones() {
           cambiar={handleChangeFilters(filterPaginaName)}
           tema={tema}
         />
-
-        <div className='flex items-center   '>
+        <div className='flex flex-col items-center justify-center sm:flex-row items-center gap-4 w-full'>
           <Filters
             type={type}
             generation={generation}
             setSelectedGeneration={handleChangeFilters(filterGenerationName)}
             setSelectedType={handleChangeFilters(filtertype)}
           />
-          <label className='bg-[#4181D5] text-white  w-[127px] h-[48px] rounded-xl flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 '>
-            <select
-              onChange={e =>
-                handleChangeFilters(filterLimiteName)(Number(e.target.value))
-              }
-              className='text-white w-[100px] h-[32px] outline-none bg-[#4181D5]'
-              value={String(limite)}
-            >
-              <option value='3' className='bg-[#0D185B]'>
-                3
-              </option>
-              <option value='10' className='bg-[#0D185B]'>
-                10
-              </option>
-              <option value='15' className='bg-[#0D185B]'>
-                15
-              </option>
-              <option value='20' className='bg-[#0D185B]'>
-                20
-              </option>
-            </select>
-          </label>
         </div>
-
-        {isLoanding == false && limite > listaPokemones.length && (
-          <h1 className='m-4 bg-sky-200 p-2 rounded-xl  '>
-            Solo existen {listaPokemones.length} de {limite} con esos filtros
-          </h1>
-        )}
       </div>
 
       {isLoanding && (
@@ -254,58 +221,107 @@ function Pokemones() {
         </div>
       )}
       {errorfilters && <h1 className='text-red-500'>{errorfilters}</h1>}
-      <div className=' flex overflow-x-auto w-[120vh]'>
-        <Swiper
-          modules={[Navigation, Pagination]}
-          spaceBetween={16} // separación entre tarjetas
-          slidesPerView={3} // cuántas tarjetas visibles a la vez
-          navigation // flechas prev/next
-          pagination={{ clickable: true }} // puntitos abajo
-          style={{ width: '108vh', minHeight: '30vh', maxHeight: '70vh' }}
-        >
-          {listaPokemones.map(pokemon => (
-            <SwiperSlide key={pokemon.name}>
-              <Tarjeta
-                name={pokemon.name}
-                ability={pokemon.ability}
-                img={pokemon.img}
-                description={pokemon.description}
-                generation={pokemon.generation}
-                attacks={pokemon.attacks}
-                types={pokemon.types}
-                idPokemon={pokemon.idPokemon}
-                isLiked={likes.includes(pokemon.idPokemon)}
-                botonVisible={perfil}
-                setModalDescripcion={setModalDescripcion}
+      <div className='w-[50vh]  flex flex-col items-center justify-center '>
+        <div className='w-[60vh]'>
+          <button className='swiper-button-prev-custom absolute z-[10] top-1/2 -translate-y-1/2 left-0 lg:left-10 2xl:left-80 h-[10vh] w-[5vw] hover:bg-white/10 rounded-full z-50 flex justify-center items-center'>
+            {/* SVG flecha izquierda */}
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-16 w-16 text-white'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M15 19l-7-7 7-7'
               />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            </svg>
+          </button>
 
-        {modalDescripcion && (
-          <div className='fixed inset-0 bg-black/60 absolute z-[20] flex items-center justify-center'>
-            <div className='flex flex-col justify-center items-center '>
-              <button
-                onClick={() => {
-                  setModalDescripcion(null);
+          <button className='swiper-button-next-custom absolute  z-[10] top-1/2 -translate-y-1/2 right-0 lg:right-10 2xl:right-80 h-[10vh] w-[5vw] hover:bg-white/10 rounded-full z-50 flex justify-center items-center'>
+            {/* SVG flecha derecha */}
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-16 w-16 text-white'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M9 5l7 7-7 7'
+              />
+            </svg>
+          </button>
+        </div>
+        <div className='relative flex  overflow-x-auto mt-[-5vh] w-[90vh] lg:w-[100vh]'>
+          <Swiper
+            modules={[Navigation]}
+            navigation={{
+              prevEl: '.swiper-button-prev-custom',
+              nextEl: '.swiper-button-next-custom',
+            }}
+            spaceBetween={16}
+            slidesPerView={3}
+            breakpoints={{
+              0: { slidesPerView: 1 }, // móviles (desde 0px hasta 1024px)
+              1024: { slidesPerView: 3 }, // laptops y desktop
+            }}
+            pagination={{ clickable: true }}
+            className='pb-12'
+          >
+            {listaPokemones.map(pokemon => (
+              <SwiperSlide
+                key={pokemon.name}
+                style={{
+                  width: '42%',
+                  marginRight: '0px',
+                  padding: '0px',
+                  margin: '0px',
+                  display: 'flex',
+                  justifyContent: 'center',
                 }}
-                className=' text-[50px] text-white     '
               >
-                x
-              </button>
-              <PokemonDescription
-                dataPokemon={modalDescripcion}
-                generarColor={generarColor}
-              />
-              <img
-                src={vector2}
-                alt=''
-                className='fixed inset-0 w-full h-[50vh] top-[55vh] z-30'
-              />
-              ;
+                <Tarjeta
+                  name={pokemon.name}
+                  ability={pokemon.ability}
+                  img={pokemon.img}
+                  description={pokemon.description}
+                  generation={pokemon.generation}
+                  attacks={pokemon.attacks}
+                  types={pokemon.types}
+                  idPokemon={pokemon.idPokemon}
+                  isLiked={likes.includes(pokemon.idPokemon)}
+                  botonVisible={perfil}
+                  setModalDescripcion={setModalDescripcion}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {modalDescripcion && (
+            <div className='fixed inset-0 bg-black/60 absolute z-[20] flex items-center justify-center'>
+              <div className='flex flex-col justify-center items-center '>
+                <PokemonDescription
+                  dataPokemon={modalDescripcion}
+                  generarColor={generarColor}
+                  setModalDescripcion={setModalDescripcion}
+                />
+                <img
+                  src={vector2}
+                  alt=''
+                  className='fixed inset-0 w-full h-[50vh] top-[55vh] z-30'
+                />
+                ;
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
