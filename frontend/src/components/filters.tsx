@@ -1,4 +1,4 @@
-import { FiltersGeneration, FiltersType } from '../data/filters';
+// import { FiltersGeneration, FiltersType } from '../data/filters';
 type filtersProps = {
   type: string;
   generation: string;
