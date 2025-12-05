@@ -5,6 +5,7 @@ type props = {
   likeInicial: boolean;
   botonVisible: boolean;
 };
+
 const Like = ({ idPokemon, likeInicial, botonVisible }: props) => {
   const [likePhoto, setLike] = useState<boolean>(likeInicial);
 

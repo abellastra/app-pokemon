@@ -6,7 +6,7 @@ import 'swiper/css/pagination';
 import { useTranslation } from "react-i18next";
 
 
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 
 import vector2 from '../assets/vector2.png';
 
@@ -139,7 +139,7 @@ function Pokemones() {
         // setSerchParams('1');
       }
     },
-    [serchParams, setSerchParams, setListaPokemones, setRegistros,language]
+    [serchParams, setSerchParams, setListaPokemones, setRegistros, language]
   );
 
   useEffect(() => {
@@ -161,7 +161,7 @@ function Pokemones() {
   useEffect(() => {
     const offset = (pagina - 1) * limite;
     pedirDatosPokemones(offset, limite, type, generation);
-  }, [pagina, limite, type, generation, pedirDatosPokemones,language]);
+  }, [pagina, limite, type, generation, pedirDatosPokemones, language]);
 
   const handleChangeFilters = (filters: string) => {
     const reiniciarPagina = filters !== filterPaginaName;
@@ -207,7 +207,7 @@ function Pokemones() {
         <Paginationp
           totalPaginas={totalPag}
           paginaActual={pagina}
-          siblings={1}
+          siblings={2}
           cambiar={handleChangeFilters(filterPaginaName)}
           tema={tema}
         />

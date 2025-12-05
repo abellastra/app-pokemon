@@ -12,14 +12,14 @@ function Filters({
   setSelectedGeneration,
   setSelectedType,
 }: filtersProps) {
-  const {t} = useTranslation();
- 
- 
+  const { t } = useTranslation();
+
+
 
   return (
     <div className='md:flex  m-6 gap-8'>
       <label className=' mb-4 md:mb-[0px] w-[20vh] h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl  text-white text-base'>
-                  {t("Tipo")}
+        {t("Tipo")}
 
         <select
           value={type}
@@ -44,7 +44,7 @@ function Filters({
       </label>
 
       <label className='w-[20vh]  h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl text-white text-base'>
-                {t("Generacion")}
+        {t("Generacion")}
 
         <select
           value={generation}
