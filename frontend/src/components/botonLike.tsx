@@ -45,16 +45,19 @@ const Like = ({ idPokemon, likeInicial, botonVisible }: props) => {
   };
 
   return (
-    <>
+    <div className='relative'>
       {botonVisible && (
-        <button className='focus:outline-none right-0 top-0' onClick={() => handleLike()}>
+        <button
+          className='focus:outline-none absolute right-0 top-0'
+          onClick={() => handleLike()}
+        >
           {likePhoto ? (
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              fill='red'
+              fill='white'
               viewBox='0 0 24 24'
               strokeWidth={1.5}
-              stroke='red'
+              stroke='white'
               className='size-8 transition-transform duration-200 ease-in-out transform scale-110 '
             >
               <path
@@ -81,7 +84,7 @@ const Like = ({ idPokemon, likeInicial, botonVisible }: props) => {
           )}
         </button>
       )}
-    </>
+    </div>
   );
 };
 export default Like;

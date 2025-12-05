@@ -78,15 +78,13 @@ function Tarjeta({
         className={`w-[30%] sm:w-[40%] md:w-[40%] lg:w-[80%] h-[80%] rounded-[4vh] p-[1vh] flex flex-col justify-between
          bg-[rgb(255,255,255)]/7 text-white shadow-xl`}
       >
+        <Like
+          idPokemon={idPokemon}
+          likeInicial={isLiked}
+          botonVisible={botonVisible}
+        />
         <div className='flex justify-center items-center  mb-[1vh]'>
-          <h4 className='text-[2vh] font-bold capitalize'>
-            {name}
-          </h4>
-          <Like
-            idPokemon={idPokemon}
-            likeInicial={isLiked}
-            botonVisible={botonVisible}
-          />
+          <h4 className='text-[2vh] font-bold capitalize'>{name}</h4>
         </div>
 
         <div className='bg-[#8a8989ff]/10 w-full h-[25vh] flex justify-center items-center rounded-[2vh] mb-[1vh]'>
@@ -104,9 +102,8 @@ function Tarjeta({
           ))}
         </div>
 
-
         <h5 className='text-[1.8vh] font-medium mb-[0.5vh] text-center'>
-          {t("generacion")} {generation.toUpperCase()}
+          {t('generacion')} {generation.toUpperCase()}
         </h5>
 
         <p className='text-[1.5vh] mb-[1vh] text-center line-clamp-1'>
@@ -117,7 +114,7 @@ function Tarjeta({
           className='bg-blue-800 text-white py-[1vh] m-[1vh] rounded-[1vh] hover:bg-blue-900 text-[1.5vh]'
           onClick={() => setModalDescripcion(dataPokemon)}
         >
-          {t("Ver más")}
+          {t('Ver más')}
         </button>
       </div>
     </>

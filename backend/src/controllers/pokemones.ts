@@ -57,7 +57,6 @@ export const getPokemones = async (req: Request, res: Response) => {
           ) || descData.flavor_text_entries.find(
             (entry: any) => entry.language.name === 'en'
           );
-          console.log(entry, 'entry del pokemon en el backend');
           const description =
             entry?.flavor_text || 'No se encontró descripción';
           const generation = descData.generation.name.replace(

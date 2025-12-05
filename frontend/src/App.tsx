@@ -1,6 +1,5 @@
 import './App.css';
 import Rutas from './routers/routers';
-import fondoClaro from './assets/fondo.png';
 
 import fondoOscuro from './assets/prueba.png'  /**fondoOscuro.png */
 import Fondo2 from './assets/Fondo2.png'

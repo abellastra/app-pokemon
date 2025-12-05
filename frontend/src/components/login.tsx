@@ -65,7 +65,7 @@ const Login: React.FC = () => {
           onClick={() => {
             navigate('/');
           }}
-          className="h-10vh absolute left-1/2 transform -translate-x-1/2 font-bold text-3xl sm:text-4xl text-white cursor-pointer">
+          className="h-10vh absolute z-9999 left-1/2 transform -translate-x-1/2 font-bold text-3xl sm:text-4xl text-white cursor-pointer">
           <img src={logoPikachu} alt="Logo Pikachu" className="h-40" />
         </h1>
         <select className={`absolute right-12 top-2 border border-white rounded-md px-2 py-1 cursor-pointer ${tema === 'oscuro' ? 'text-white' : 'text-black'}`} value={i18n.resolvedLanguage || "es"}

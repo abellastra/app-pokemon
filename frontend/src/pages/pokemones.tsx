@@ -1,10 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
 import { useTranslation } from 'react-i18next';
-
+//@ts-ignore
+import 'swiper/css';
+//@ts-ignore
+import 'swiper/css/navigation';
+//@ts-ignore
+import 'swiper/css/pagination';
 import { Navigation } from 'swiper/modules';
 
 import vector2 from '../assets/vector2.png';
@@ -51,6 +52,7 @@ function Pokemones() {
   const language = i18n.language;
   const [likes, setLike] = useState<number[]>(() => {
     const likesGuardados = localStorage.getItem('likes');
+
     return likesGuardados ? JSON.parse(likesGuardados) : [];
   });
 
@@ -65,7 +67,7 @@ function Pokemones() {
   }, []);
 
   const pagina = Number(serchParams.get(filterPaginaName) || 1);
-  const limite = Number(serchParams.get(filterLimiteName)) || 3;
+  const limite = Number(serchParams.get(filterLimiteName)) || 10;
   const type = serchParams.get(filtertype) || '';
   const generation = serchParams.get(filterGenerationName) || '';
 
@@ -206,11 +208,11 @@ function Pokemones() {
         <Paginationp
           totalPaginas={totalPag}
           paginaActual={pagina}
-          siblings={2}
+          siblings={1}
           cambiar={handleChangeFilters(filterPaginaName)}
           tema={tema}
         />
-        <div className='flex flex-col items-center justify-center sm:flex-row  gap-4 w-full'>
+        <div className='flex flex-col items-center justify-center sm:flex-row items-center gap-4 w-full'>
           <Filters
             type={type}
             generation={generation}
@@ -227,8 +229,8 @@ function Pokemones() {
       )}
       {errorfilters && <h1 className='text-red-500'>{errorfilters}</h1>}
       <div className='w-[50vh]  flex flex-col items-center justify-center '>
-        <div className='w-[60vh]'>
-          <button className='swiper-button-prev-custom absolute  top-1/2 -translate-y-1/2 left-0 lg:left-10 2xl:left-80 h-[10vh] w-[5vw] hover:bg-white/10 rounded-full z-50 flex justify-center items-center'>
+        <div className='w-[60vh] '>
+          <button className='swiper-button-prev-custom absolute z-[20] top-1/2 -translate-y-1/2 left-0 lg:left-10 2xl:left-80 h-[10vh] w-[5vw] hover:bg-white/10 rounded-full flex justify-center items-center'>
             {/* SVG flecha izquierda */}
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -246,7 +248,7 @@ function Pokemones() {
             </svg>
           </button>
 
-          <button className='swiper-button-next-custom absolute  top-1/2 -translate-y-1/2 right-0 lg:right-10 2xl:right-80 h-[10vh] w-[5vw] hover:bg-white/10 rounded-full z-50 flex justify-center items-center'>
+          <button className='swiper-button-next-custom absolute z-[20] top-1/2 -translate-y-1/2 right-0 lg:right-10 2xl:right-80 h-[10vh] w-[5vw] hover:bg-white/10 rounded-full  flex justify-center items-center'>
             {/* SVG flecha derecha */}
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -264,7 +266,7 @@ function Pokemones() {
             </svg>
           </button>
         </div>
-        <div className='relative flex  overflow-x-auto mt-[-5vh] w-[100vh] lg:w-[100vh]'>
+        <div className='relative flex  overflow-x-auto mt-[-5vh] w-[90vh] lg:w-[100vh]'>
           <Swiper
             modules={[Navigation]}
             navigation={{
@@ -308,8 +310,9 @@ function Pokemones() {
               </SwiperSlide>
             ))}
           </Swiper>
+
           {modalDescripcion && (
-            <div className='fixed inset-0 bg-black/60 absolute z-[9999] flex items-center justify-center'>
+            <div className='fixed inset-0 bg-black/60 absolute z-[20] flex items-center justify-center'>
               <div className='flex flex-col justify-center items-center '>
                 <PokemonDescription
                   dataPokemon={modalDescripcion}
