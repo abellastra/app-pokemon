@@ -17,7 +17,7 @@ const Rutas = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/registro' element={<FormularioDeRegistro/>} />
+        <Route path='/registro' element={<FormularioDeRegistro />} />
       </Routes>
     </AuthPrivider>
   );

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import ReturnPaginationRange from '../utils/appUtils';
 
 interface PaginationProps {
@@ -11,10 +10,6 @@ interface PaginationProps {
 
 function Pagination({ totalPaginas, paginaActual, siblings, cambiar, tema }: PaginationProps) {
   const arrayItemsPag = ReturnPaginationRange(totalPaginas, paginaActual, siblings);
-
-  useEffect(() => {
-    cambiar(paginaActual);
-  }, []);
 
   return (
     <div className=' flex justify-center '>

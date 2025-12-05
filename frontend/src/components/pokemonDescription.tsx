@@ -1,6 +1,7 @@
 import { TypeIcons } from '../contains/typeIcons';
 import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
+import { useTranslation } from "react-i18next"
 type PokemonDescriptionProps = {
   dataPokemon: {
     name: string;
@@ -33,23 +34,19 @@ function PokemonDescription({
   const handleShowless = () => {
     setVisibleCount(5); // cada click muestra 5 más
   };
-  console.log(typeof dataPokemon.types);
-
+  const { t } = useTranslation();
   return (
     <div className='text-white '>
       <div className='flex flex-col justify-center items-center'>
-        {/* TARJETA DESPLEGADA                                                */}
         <div
           className='w-[70%] md:w-[500px] max-h-[90vh] bg-[#FFFFFF]/40
  flex flex-col   items-center  relative z-[90] rounded-3xl  '
         >
-          {/* TARJETA POKEMON  */}
           <div className='  flex flex-col m-4 rounded-3xl'>
             <div className='flex items-center justify-between '>
               <h1 className='text-white text-3xl  capitalize'>
                 {dataPokemon.name}
               </h1>
-              {/* Types */}
 
               <button
                 onClick={() => {
@@ -71,12 +68,12 @@ function PokemonDescription({
               </div>
               <div className='flex justify-between items-center mb-4'>
                 <h5 className='text-xl  text-center'>
-                  Generación {dataPokemon.generation.toUpperCase()}
+                  {("generacion")}{dataPokemon.generation.toUpperCase()}
                 </h5>
                 <div className='flex items-center justify-center text-xl gap-2 ml-10'>
                   {dataPokemon.types && (
                     <span>
-                      Type :
+                      {t("Tipo")}:
                       {dataPokemon.types.map((t, i) => (
                         <span key={i}>{TypeIcons[t]} </span>
                       ))}
@@ -86,7 +83,7 @@ function PokemonDescription({
               </div>
 
               <div className='flex flex-col items-center  justify-center gap-2 mb-2'>
-                <h2 className='text-lg'>Ability</h2>
+                <h2 className='text-lg'>{t("habilidades")}</h2>
                 <div className='flex flex-wrap'>
                   {dataPokemon.ability?.map((ab, index) => (
                     <span
@@ -102,14 +99,14 @@ function PokemonDescription({
               </div>
 
               <div className='flex  flex-col items-center  justify-center gap-2'>
-                <h2 className='text-lg'>Descripcion </h2>
+                <h2 className='text-lg'>{t("Descripcion")}</h2>
                 <p className='text-md mb-2  text-center line-clamp-3  ml-4 mr-4'>
                   {dataPokemon.description}
                 </p>
               </div>
 
               <div className='flex flex-col justify-center items-center'>
-                <h2 className='text-lg mt-4'>Attacks</h2>
+                <h2 className='text-lg mt-4'>{t("Ataques")}</h2>
                 <div className='flex flex-wrap justify-center items-center gap-2 mb-2 h-[10vh] overflow-y-auto'>
                   {ataquesArray?.slice(0, visibleCount).map((attack, index) => (
                     <span
@@ -125,14 +122,14 @@ function PokemonDescription({
                       onClick={handleShowMore}
                       className='mt-2 px-3 py-1 text-xs font-semibold text-white rounded'
                     >
-                      Ver más
+                      {t("Ver más")}
                     </button>
                   ) : (
                     <button
                       onClick={handleShowless}
                       className='mt-2 px-3 py-1 text-xs font-semibold text-white rounded'
                     >
-                      Ver menos
+                      {t("Ver menos")}
                     </button>
                   )}
                 </div>

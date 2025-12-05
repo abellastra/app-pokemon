@@ -3,14 +3,12 @@ import Modal from './modal';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from "react-i18next"
-import { useTema } from '../context/temaContext';
-type Props = {
-  setOpenMenu: (valor: boolean) => void;
-};
+
+
 export const CerrarSesion = () => {
   const { perfil, setPerfil } = useAuth();
-  const {t} = useTranslation();
-  const { tema } = useTema();
+  const { t } = useTranslation();
+
   console.log(perfil);
   const navegar = useNavigate();
   const [modalActivo, setModaActivo] = useState<boolean>(false);
@@ -28,7 +26,7 @@ export const CerrarSesion = () => {
     }
     const resultado = await respuesta.json();
     if (resultado.ok) {
-      // setOpenMenu(false);
+      localStorage.removeItem('userName');
       navegar('/login');
       setPerfil(false);
     }
@@ -52,7 +50,7 @@ export const CerrarSesion = () => {
         className={`flex items-center justify-start w-full max-w-[200px] px-4 py-2 whitespace-nowrap hover:cursor-pointer`}
         onClick={() => setModaActivo(true)}
       >
-       {t("Cerrar sesion")}
+        {t("Cerrar sesion")}
       </button>
     </>
   );

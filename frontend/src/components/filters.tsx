@@ -12,44 +12,14 @@ function Filters({
   setSelectedGeneration,
   setSelectedType,
 }: filtersProps) {
+  const { t } = useTranslation();
 
-  const {t} = useTranslation();
-  const FiltersType = [
-
-    { value: 'normal', label: '🌀 Normal' },
-    { value: 'fighting', label: '🥊 Fighting' },
-    { value: 'flying', label: '🦅 Flying' },
-    { value: 'poison', label: '💀 Poison' },
-    { value: 'ground', label: '🌍 Ground' },
-    { value: 'rock', label: '🪨 Rock' },
-    { value: 'bug', label: '🐛 Bug' },
-    { value: 'ghost', label: '👻 Ghost' },
-    { value: 'steel', label: '🛠️ Steel' },
-    { value: 'fire', label: '🔥 Fire' },
-    { value: 'water', label: '💧 Water' },
-    { value: 'grass', label: '🌿 Grass' },
-    { value: 'electric', label: '⚡ Electric' },
-    { value: 'psychic', label: '🔮 Psychic' },
-    { value: 'ice', label: '❄️ Ice' },
-    { value: 'dragon', label: '🐉 Dragon' },
-    { value: 'dark', label: '🌑 Dark' },
-    { value: 'fairy', label: '🧚‍♀️ Fairy' },
-  ];
-
-  const FiltersGeneration = [
-    { value: 1, label: 'I' },
-    { value: 2, label: 'II' },
-    { value: 3, label: 'III' },
-    { value: 4, label: 'IV' },
-    { value: 5, label: 'V' },
-    { value: 6, label: 'VI' },
-  ];
 
 
   return (
     <div className='md:flex  m-6 gap-8'>
       <label className=' mb-4 md:mb-[0px] w-[20vh] h-[48px] bg-[#4181D5] flex justify-between pt-2 pr-4 pb-2 pl-4 sm:p-2 rounded-xl  text-white text-base'>
-         {t("Tipo")}
+        {t("Tipo")}
 
         <select
           value={type}

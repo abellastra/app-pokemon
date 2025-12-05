@@ -6,7 +6,7 @@ import 'swiper/css/pagination';
 import { useTranslation } from "react-i18next";
 
 
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 
 import vector2 from '../assets/vector2.png';
 
@@ -139,7 +139,7 @@ function Pokemones() {
         // setSerchParams('1');
       }
     },
-    [serchParams, setSerchParams, setListaPokemones, setRegistros,language]
+    [serchParams, setSerchParams, setListaPokemones, setRegistros, language]
   );
 
   useEffect(() => {
@@ -161,7 +161,7 @@ function Pokemones() {
   useEffect(() => {
     const offset = (pagina - 1) * limite;
     pedirDatosPokemones(offset, limite, type, generation);
-  }, [pagina, limite, type, generation, pedirDatosPokemones,language]);
+  }, [pagina, limite, type, generation, pedirDatosPokemones, language]);
 
   const handleChangeFilters = (filters: string) => {
     const reiniciarPagina = filters !== filterPaginaName;
@@ -207,11 +207,11 @@ function Pokemones() {
         <Paginationp
           totalPaginas={totalPag}
           paginaActual={pagina}
-          siblings={1}
+          siblings={2}
           cambiar={handleChangeFilters(filterPaginaName)}
           tema={tema}
         />
-        <div className='flex flex-col  justify-center sm:flex-row items-center gap-4 w-full'>
+        <div className='flex flex-col items-center justify-center sm:flex-row  gap-4 w-full'>
           <Filters
             type={type}
             generation={generation}
@@ -229,7 +229,7 @@ function Pokemones() {
       {errorfilters && <h1 className='text-red-500'>{errorfilters}</h1>}
       <div className='w-[50vh]  flex flex-col items-center justify-center '>
         <div className='w-[60vh]'>
-          <button className='swiper-button-prev-custom absolute z-[10] top-1/2 -translate-y-1/2 left-0 lg:left-10 2xl:left-80 h-[10vh] w-[5vw] hover:bg-white/10 rounded-full z-50 flex justify-center items-center'>
+          <button className='swiper-button-prev-custom absolute  top-1/2 -translate-y-1/2 left-0 lg:left-10 2xl:left-80 h-[10vh] w-[5vw] hover:bg-white/10 rounded-full z-50 flex justify-center items-center'>
             {/* SVG flecha izquierda */}
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -247,7 +247,7 @@ function Pokemones() {
             </svg>
           </button>
 
-          <button className='swiper-button-next-custom absolute  z-[10] top-1/2 -translate-y-1/2 right-0 lg:right-10 2xl:right-80 h-[10vh] w-[5vw] hover:bg-white/10 rounded-full z-50 flex justify-center items-center'>
+          <button className='swiper-button-next-custom absolute  top-1/2 -translate-y-1/2 right-0 lg:right-10 2xl:right-80 h-[10vh] w-[5vw] hover:bg-white/10 rounded-full z-50 flex justify-center items-center'>
             {/* SVG flecha derecha */}
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -311,7 +311,7 @@ function Pokemones() {
           </Swiper>
 
           {modalDescripcion && (
-            <div className='fixed inset-0 bg-black/60 absolute z-[20] flex items-center justify-center'>
+            <div className=' inset-0 bg-black/60 absolute z-[20] flex items-center justify-center'>
               <div className='flex flex-col justify-center items-center '>
                 <PokemonDescription
                   dataPokemon={modalDescripcion}
