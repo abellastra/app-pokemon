@@ -3,8 +3,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { useTranslation } from "react-i18next";
-
+import { useTranslation } from 'react-i18next';
 
 import { Navigation } from 'swiper/modules';
 
@@ -265,7 +264,7 @@ function Pokemones() {
             </svg>
           </button>
         </div>
-        <div className='relative flex  overflow-x-auto mt-[-5vh] w-[90vh] lg:w-[100vh]'>
+        <div className='relative flex  overflow-x-auto mt-[-5vh] w-[100vh] lg:w-[100vh]'>
           <Swiper
             modules={[Navigation]}
             navigation={{
@@ -309,9 +308,8 @@ function Pokemones() {
               </SwiperSlide>
             ))}
           </Swiper>
-
           {modalDescripcion && (
-            <div className=' inset-0 bg-black/60 absolute z-[20] flex items-center justify-center'>
+            <div className='fixed inset-0 bg-black/60 absolute z-[9999] flex items-center justify-center'>
               <div className='flex flex-col justify-center items-center '>
                 <PokemonDescription
                   dataPokemon={modalDescripcion}
