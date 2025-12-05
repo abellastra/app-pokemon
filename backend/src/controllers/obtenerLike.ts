@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { db } from '../../db';
-import { usuarios } from '../../db/schema';
-import { acciones } from '../../db/schema';
+import { db } from '../db';
+import { usuarios } from '../db/schema';
+import { acciones } from '../db/schema';
 import { eq } from 'drizzle-orm';
 
 export const obtenerLike = async (req: Request, res: Response) => {

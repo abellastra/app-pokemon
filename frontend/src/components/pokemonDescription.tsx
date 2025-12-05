@@ -1,4 +1,4 @@
-import { TypeIcons } from '../constants/typeIcons';
+import { TypeIcons } from '../contains/typeIcons';
 import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 type PokemonDescriptionProps = {

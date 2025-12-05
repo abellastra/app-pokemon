@@ -1,0 +1,13 @@
+# Compiled output
+dist/
+src/**/*.js
+
+# Node modules
+node_modules/
+
+# Environment files
+.env
+.tsbuildinfo
+
+# System files
+.DS_Store

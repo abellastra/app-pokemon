@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { usuarios } from '../../db/schema';
+import { usuarios } from '../db/schema';
 import { eq } from 'drizzle-orm';
-import { db } from '../../db';
+import { db } from '../db';
 
 export const pf = async (req: Request, res: Response) => {
   const email_usuario = req.usuario?.email;

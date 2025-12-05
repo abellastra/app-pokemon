@@ -12,7 +12,9 @@
     "format:check": "prettier --check \"src/**/*.{js,ts,json}\"",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "fix-all": "npm run format && npm run lint:fix"
+    "fix-all": "npm run format && npm run lint:fix",
+  "build": "tsc",
+  "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",

@@ -103,7 +103,6 @@ export const getPokemones = async (req: Request, res: Response) => {
           const descData = await descRes.json();
 
           const types = pokemon.types.map(t => t.type.name);
-          console.log(types, 'tipos en el backend ')
           const entry = descData.flavor_text_entries.find(
             (entry: any) => entry.language.name === lang
           ) || descData.flavor_text_entries.find(
@@ -193,7 +192,7 @@ export const getPokemones = async (req: Request, res: Response) => {
           img: img,
           generation: generation,
           description: description,
-          types: types.join(', '),
+          types: types,
         };
       })
     );

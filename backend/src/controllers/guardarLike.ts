@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import Pool from '../database/connecionPostgresSQL';
-import { db } from '../../db/index';
-import { usuarios } from '../../db/schema';
-import { acciones } from '../../db/schema';
+import { db } from '../db/index';
+import { usuarios } from '../db/schema';
+import { acciones } from '../db/schema';
 import { and, eq } from 'drizzle-orm';
 
 export const guardarLike = async (req: Request, res: Response) => {

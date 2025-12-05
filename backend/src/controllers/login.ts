@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { db } from '../../db/index';
-import { usuarios } from '../../db/schema';
+import { db } from '../db/index';
+import { usuarios } from '../db/schema';
 import { eq } from 'drizzle-orm';
 dotenv.config({ path: '../../.env' });
 

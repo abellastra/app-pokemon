@@ -1,6 +1,5 @@
-import Pool from '../database/connecionPostgresSQL';
-import { db } from '../../db/index';
-import { usuarios } from '../../db/schema';
+import { db } from '../db/index';
+import { usuarios } from '../db/schema';
 import { eq } from 'drizzle-orm';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
