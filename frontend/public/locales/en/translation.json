@@ -11,6 +11,17 @@
   "Aceptar": "Accept",
   "¿Seguro quieres cerrar sesion?": "Are you sure you want to log out?",
   "Generacion": "Generation",
-  "Tipo": "Type"
+  "Tipo": "Type",
+  "Bienvenido de nuevo": "Welcome back!",
+  "no tenes cuenta?": "Don't have an account?",
+  "Iniciar": "Sign In",
+  "Pokemon": "Pokémon: ",
+  "habilidades": "Abilities",
+  "Descripcion": "Description",
+  "Ataques": "Attacks",
+  "Ver más": "Show more",
+  "Ver menos": "Show less",
+  "Bienvenido a PokéApp Regístrate": "Welcome to PokeApp! Sign up now!",
+  "Crear cuenta": "Create Account"
 
 }

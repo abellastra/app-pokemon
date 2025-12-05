@@ -17,18 +17,18 @@ function devolverRangoDePaginacion(
   if (paginaActual <= 1 + hermanos * 2) {
     // Cerca del inicio
     const rangoIzquierda = generarRango(1, 3 + hermanos * 2);
-    return [...rangoIzquierda, "...", totalPaginas];
+    return [...rangoIzquierda, totalPaginas];
   }
 
   if (paginaActual >= totalPaginas - hermanos * 2) {
     // Cerca del final
     const rangoDerecha = generarRango(totalPaginas - (2 + hermanos * 2), totalPaginas);
-    return [1, "...", ...rangoDerecha];
+    return [1, ...rangoDerecha];
   }
 
   // En el medio
   const rangoMedio = generarRango(paginaActual - hermanos, paginaActual + hermanos);
-  return [1, "...", ...rangoMedio, "...", totalPaginas];
+  return [1, ...rangoMedio,  totalPaginas];
 }
 
 
