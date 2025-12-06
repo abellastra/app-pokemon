@@ -3,8 +3,8 @@ import {
   getPokemons,
   pokemonesGeneration,
   pokemonesType,
-} from '../adapters/pokemonapi';
-import { PokemonApiResponse } from '../adapters/types';
+} from '../adapters/pokemonapi.js';
+import { PokemonApiResponse } from '../adapters/types.js';
 
 export const getPokemones = async (req: Request, res: Response) => {
   const offset = parseInt(req.query.offset as string);

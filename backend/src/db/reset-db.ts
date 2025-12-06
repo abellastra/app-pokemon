@@ -1,5 +1,5 @@
-import { db } from './index';
-import { acciones, usuarios } from './schema';
+import { db } from './index.js';
+import { acciones, usuarios } from './schema.js';
 import { randomUUID } from 'crypto';
 
 async function main() {

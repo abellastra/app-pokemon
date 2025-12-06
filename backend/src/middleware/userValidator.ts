@@ -1,4 +1,4 @@
-import { validarCampos } from "../middleware/validacionDeCampos";
+import { validarCampos } from "../middleware/validacionDeCampos.js";
 import { body} from "express-validator";
 
 export const validarUsuario = [

@@ -1,5 +1,5 @@
-import { db } from '../db/index';
-import { usuarios } from '../db/schema';
+import { db } from '../db/index.js';
+import { usuarios } from '../db/schema.js';
 import { eq } from 'drizzle-orm';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { db } from '../db/index';
-import { usuarios } from '../db/schema';
-import { acciones } from '../db/schema';
+import { db } from '../db/index.js';
+import { usuarios } from '../db/schema.js';
+import { acciones } from '../db/schema.js';
 import { and, eq } from 'drizzle-orm';
 
 export const guardarLike = async (req: Request, res: Response) => {

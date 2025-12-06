@@ -1,17 +1,17 @@
 
 import express from "express";
-import { getPokemones } from '../controllers/pokemones';
-import { Login } from "../controllers/login";
-import { validarUsuario} from "../middleware/userValidator"
-import { crear } from "../controllers/crearUsers";
-import { guardarLike } from "../controllers/guardarLike";
+import { getPokemones } from '../controllers/pokemones.js';
+import { Login } from "../controllers/login.js";
+import { validarUsuario} from "../middleware/userValidator.js"
+import { crear } from "../controllers/crearUsers.js";
+import { guardarLike } from "../controllers/guardarLike.js";
 
-import { filtersDb } from "../controllers/filters";
-import { validarJwt } from "../middleware/validacionJWT";
+import { filtersDb } from "../controllers/filters.js";
+import { validarJwt } from "../middleware/validacionJWT.js";
 import cookieParser from 'cookie-parser';
-import { obtenerLike } from "../controllers/obtenerLike";
-import { pf } from "../controllers/perfil";
-import { logout}  from "../controllers/logout";
+import { obtenerLike } from "../controllers/obtenerLike.js";
+import { pf } from "../controllers/perfil.js";
+import { logout}  from "../controllers/logout.js";
 
 export const blackList:string[] = []
 

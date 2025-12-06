@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { blackList } from '../routers/useRouters';
+import { blackList } from '../routers/useRouters.js';
 dotenv.config({ path: '../../.env' });
 
 

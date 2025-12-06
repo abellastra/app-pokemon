@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { API_POKEMONES_GENERATION } from '../constants';
+import { API_POKEMONES_GENERATION } from '../constants.js';
 interface IPokemon {
   name: string;
   abilities: { ability: { name: string } }[];

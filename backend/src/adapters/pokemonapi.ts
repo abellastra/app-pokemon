@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import { API_POKEMON } from '../constants';
-import { PokemonApiResponse } from './types';
+import { API_POKEMON } from '../constants.js';
+import { PokemonApiResponse } from './types.js';
 type Props = {
   offset?: number;
   limit?: number;
