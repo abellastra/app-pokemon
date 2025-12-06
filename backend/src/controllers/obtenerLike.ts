@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { db } from '../db';
+import { db } from '../db/index.js';
 import { usuarios } from '../db/schema.js';
 import { acciones } from '../db/schema.js';
 import { eq } from 'drizzle-orm';
