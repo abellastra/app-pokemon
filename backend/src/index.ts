@@ -3,21 +3,20 @@ import express from 'express';
 import useRouters from './routers/useRouters';
 
 const app = express();
-const port = 3000;
 
 app.use(express.json());
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  })
+);
 
-app.use("/", useRouters)
+app.use('/', useRouters);
+
 app.get('/', (req, res) => {
-  res.send('Backend funcionando+ ______________');
+  res.send('Backend funcionando ✅');
 });
 
-
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+export default app;
