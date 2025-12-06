@@ -2,11 +2,11 @@
 import cors from 'cors';
 import express from 'express';
 import useRouters from './routers/useRouters.js';
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://app-pokemon.vercel.app', //  frontend en producción
-  'https://app-pokemon-db-1.vercel.app' // backend en producción
-];
+// const allowedOrigins = [
+//   'http://localhost:5173',
+//   'https://app-pokemon.vercel.app', //  frontend en producción
+//   'https://app-pokemon-db-1.vercel.app' // backend en producción
+// ];
 const app = express();
 
 app.use(express.json());
