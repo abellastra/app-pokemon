@@ -13,6 +13,10 @@ app.use(cors({
 }));
 
 app.use("/", useRouters)
+app.get('/', (req, res) => {
+  res.send('Backend funcionando+ ______________');
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
