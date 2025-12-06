@@ -1,53 +1,29 @@
 import express, { Request, Response, NextFunction } from 'express';
+import cors, { CorsOptions } from 'cors';
 import useRouters from './routers/useRouters.js';
 
 const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = new Set<string>([
-  'http://localhost:5173',
-  'https://app-pokemon-x2ha.vercel.app',
-]);
+// ⚠️ DEV ONLY: permite cualquier origin y cookies
+const corsOptions: CorsOptions = {
+  origin: true,          // refleja el Origin que venga en la request
+  credentials: true,     // permite cookies
+};
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const origin = req.headers.origin as string | undefined;
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // preflight para todos
 
-  if (origin && allowedOrigins.has(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-    // Para que el proxy/cache tenga en cuenta el Origin
-    res.header('Vary', 'Origin');
-
-    // Necesario para cookies
-    res.header('Access-Control-Allow-Credentials', 'true');
-
-    res.header(
-      'Access-Control-Allow-Methods',
-      'GET,POST,PUT,PATCH,DELETE,OPTIONS'
-    );
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
-  }
-
-  // Manejar preflight acá mismo
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(204);
-  }
-
-  next();
-});
-
-// (opcional) para ver qué llega realmente
-app.use((req, _res, next) => {
+// (debug opcional)
+app.use((req: Request, _res: Response, next: NextFunction) => {
   console.log('> ', req.method, req.path, 'Origin:', req.headers.origin);
   next();
 });
 
 app.use('/', useRouters);
 
-app.get('/', (_req, res) => {
+app.get('/', (_req: Request, res: Response) => {
   res.send('Backend funcionando ✅');
 });
 
