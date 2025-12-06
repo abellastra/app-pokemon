@@ -1,5 +1,5 @@
 
-import { blackList } from "../routers/useRouters"
+import { blackList } from "../routers/useRouters.js"
 import { Request, Response } from "express";
 
 export const logout = async (req: Request, res: Response) => {
