@@ -7,14 +7,13 @@ import {
   integer,
   primaryKey,
 } from 'drizzle-orm/pg-core';
-import { use } from 'react';
 
 // Tabla de usuarios
 export const usuarios = pgTable('usuarios', {
   id_user: uuid('id_user').defaultRandom().primaryKey().notNull(),
   user_email: varchar('user_email', { length: 255 }).notNull().unique(),
   user_password: varchar('user_password', { length: 255 }).notNull(),
-  user_Name: varchar('user_name', { length: 100 }).notNull(),
+  user_name: varchar('user_name', { length: 100 }).notNull(),
 });
 
 // Tabla de acciones con clave compuesta

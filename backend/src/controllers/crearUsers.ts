@@ -22,7 +22,7 @@ export const crear = async (req: Request, res: Response) => {
       await db.insert(usuarios).values({
         user_email: email,
         user_password: passwordHas,
-        user_Name: userName,
+        user_name: userName,
       });
 
       return res
