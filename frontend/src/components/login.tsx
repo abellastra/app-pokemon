@@ -27,17 +27,20 @@ const Login: React.FC = () => {
 
   async function preguntarSiEsUsuario(data: formData) {
     try {
-      const respuesta = await fetch(`http://localhost:3000/login-user`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
-        credentials: 'include',
-      });
+      const respuesta = await fetch(
+        `${import.meta.env.VITE_API_URL}/login-user`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+          }),
+          credentials: 'include',
+        }
+      );
 
       const resultado = await respuesta.json();
 
@@ -46,7 +49,7 @@ const Login: React.FC = () => {
         return;
       }
       const name = resultado.data.name;
-      localStorage.setItem('userName', name);
+      localStorage.setItem('userName', name); //o username
       setUserName(name);
       setMensajeGeneral('');
       setPerfil(true);

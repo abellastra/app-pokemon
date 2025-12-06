@@ -3,12 +3,14 @@ import { requestConCookie } from "./api";
 type idsPokemonApi = number[]
 export const obtenerLike = async (idsPokemonApi: idsPokemonApi) => {
     try {
-        const respuesta = await requestConCookie('http://localhost:3000/obtener-like', {
+        const respuesta = await requestConCookie(
+          `${import.meta.env.VITE_API_URL}obtener-like`,
+          {
             method: 'POST',
 
             body: JSON.stringify(idsPokemonApi),
-
-        })
+          }
+        );
         if (!respuesta.ok) {
             throw new Error('Ocurrio un problema al obtener los "Me gusta" ');
 

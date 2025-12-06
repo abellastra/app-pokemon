@@ -6,19 +6,20 @@ type user = {
 }
 export async function crearSolicitudUsuario(dataUser: user) {
     try {
-        const respuesta = await fetch(`http://localhost:3000/crear-user`, {
+        const respuesta = await fetch(
+          `${import.meta.env.VITE_API_URL}crear-user`,
+          {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             body: JSON.stringify({
-                email: dataUser.email,
-                userName: dataUser.userName,
-                password: dataUser.password
-
-
-            })
-        })
+              email: dataUser.email,
+              userName: dataUser.userName,
+              password: dataUser.password,
+            }),
+          }
+        );
 
         const resultado = await respuesta.json()
 

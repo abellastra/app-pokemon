@@ -8,8 +8,6 @@ import { useTranslation } from "react-i18next"
 import { IoMenu } from "react-icons/io5";
 import logoPikachu from '../assets/logo-pikachu.png';
 
-// import menuSvg from '../assets/Bullet-List--Streamline-Plump.png';
-
 
 export default function Navar({ ocultarbotones }: { ocultarbotones: boolean }) {
   const { t,i18n } = useTranslation()

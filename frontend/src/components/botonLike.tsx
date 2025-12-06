@@ -16,7 +16,7 @@ const Like = ({ idPokemon, likeInicial, botonVisible }: props) => {
   const updateLike = useCallback(
     async (nuevoValor: boolean) => {
       try {
-        const respuesta = await fetch('http://localhost:3000/like-pokemon', {
+        const respuesta = await fetch(`${import.meta.env.VITE_API_URL}like-pokemon`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

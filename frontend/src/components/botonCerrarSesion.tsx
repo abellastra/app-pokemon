@@ -14,7 +14,7 @@ export const CerrarSesion = () => {
   const [modalActivo, setModaActivo] = useState<boolean>(false);
   const logOut = async () => {
     console.log('logout');
-    const respuesta = await fetch('http://localhost:3000/logout', {
+    const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

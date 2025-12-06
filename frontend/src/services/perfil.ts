@@ -1,7 +1,7 @@
 export const hayPerfil = async () => {
     try {
 
-        const result = await fetch('http://localhost:3000/me',
+        const result = await fetch(`${import.meta.env.VITE_API_URL}me`,
             {
                 method: 'GET',
                 headers: {
