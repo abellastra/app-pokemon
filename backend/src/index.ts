@@ -6,6 +6,8 @@ const app = express();
 
 app.use(express.json());
 
+
+
 // ⚠️ DEV ONLY: permite cualquier origin y cookies
 const corsOptions: CorsOptions = {
   origin: true,          // refleja el Origin que venga en la request
