@@ -1,4 +1,4 @@
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import express from 'express';
 import useRouters from './routers/useRouters.js';
 
@@ -13,15 +13,15 @@ const allowedOrigins = [
 ];
 
 // CORS con credentials
-const corsOptions = {
-  origin: (origin, callback) => {
-    // origin puede ser undefined (por ejemplo Postman)
+const corsOptions: CorsOptions = {
+  origin(origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
     if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
-    return callback(new Error('Not allowed by CORS'));
   },
-  credentials: true, // necesario para cookies
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
